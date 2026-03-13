@@ -1,0 +1,100 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "dynamodb": "https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Table": {
+      "@id": "dynamodb:Table",
+      "@context": {
+        "tableName": "schema:name",
+        "tableArn": "dynamodb:tableArn",
+        "tableId": "dynamodb:tableId",
+        "tableStatus": "dynamodb:tableStatus",
+        "creationDateTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "keySchema": {
+          "@id": "dynamodb:keySchema",
+          "@container": "@list"
+        },
+        "attributeDefinitions": {
+          "@id": "dynamodb:attributeDefinitions",
+          "@container": "@set"
+        },
+        "provisionedThroughput": "dynamodb:provisionedThroughput",
+        "billingMode": "dynamodb:billingMode",
+        "itemCount": "dynamodb:itemCount",
+        "tableSizeBytes": "dynamodb:tableSizeBytes",
+        "globalSecondaryIndexes": {
+          "@id": "dynamodb:globalSecondaryIndexes",
+          "@container": "@set"
+        },
+        "localSecondaryIndexes": {
+          "@id": "dynamodb:localSecondaryIndexes",
+          "@container": "@set"
+        },
+        "tags": {
+          "@id": "dynamodb:tags",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Item": {
+      "@id": "dynamodb:Item",
+      "@context": {
+        "tableName": "dynamodb:tableName",
+        "key": "dynamodb:key",
+        "attributes": {
+          "@id": "dynamodb:attributes",
+          "@container": "@index"
+        }
+      }
+    },
+
+    "Index": {
+      "@id": "dynamodb:Index",
+      "@context": {
+        "indexName": "schema:name",
+        "indexArn": "dynamodb:indexArn",
+        "indexStatus": "dynamodb:indexStatus",
+        "keySchema": {
+          "@id": "dynamodb:keySchema",
+          "@container": "@list"
+        },
+        "projection": "dynamodb:projection",
+        "provisionedThroughput": "dynamodb:provisionedThroughput",
+        "indexSizeBytes": "dynamodb:indexSizeBytes",
+        "itemCount": "dynamodb:itemCount"
+      }
+    },
+
+    "KeySchemaElement": {
+      "@id": "dynamodb:KeySchemaElement",
+      "@context": {
+        "attributeName": "dynamodb:attributeName",
+        "keyType": "dynamodb:keyType"
+      }
+    },
+
+    "AttributeDefinition": {
+      "@id": "dynamodb:AttributeDefinition",
+      "@context": {
+        "attributeName": "dynamodb:attributeName",
+        "attributeType": "dynamodb:attributeType"
+      }
+    },
+
+    "StreamSpecification": {
+      "@id": "dynamodb:StreamSpecification",
+      "@context": {
+        "streamEnabled": "dynamodb:streamEnabled",
+        "streamViewType": "dynamodb:streamViewType"
+      }
+    }
+  }
+}
