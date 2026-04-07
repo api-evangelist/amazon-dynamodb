@@ -39,7 +39,7 @@ paths:
   /:
     post:
       operationId: createTable
-      summary: Create a DynamoDB table
+      summary: Amazon DynamoDB Create a DynamoDB table
       description: >-
         Creates a new table in DynamoDB. The CreateTable operation adds a
         new table to your account. Table names must be unique within each
@@ -92,7 +92,7 @@ paths:
   /#DescribeTable:
     post:
       operationId: describeTable
-      summary: Describe a DynamoDB table
+      summary: Amazon DynamoDB Describe a DynamoDB table
       description: >-
         Returns information about the table, including the current status
         of the table, when it was created, the primary key schema, and any
@@ -129,7 +129,7 @@ paths:
   /#ListTables:
     post:
       operationId: listTables
-      summary: List DynamoDB tables
+      summary: Amazon DynamoDB List DynamoDB tables
       description: >-
         Returns an array of table names associated with the current account
         and endpoint. The output from ListTables is paginated, with each
@@ -174,7 +174,7 @@ paths:
   /#UpdateTable:
     post:
       operationId: updateTable
-      summary: Update a DynamoDB table
+      summary: Amazon DynamoDB Update a DynamoDB table
       description: >-
         Modifies the provisioned throughput settings, global secondary
         indexes, or DynamoDB Streams settings for a given table.
@@ -206,7 +206,7 @@ paths:
   /#DeleteTable:
     post:
       operationId: deleteTable
-      summary: Delete a DynamoDB table
+      summary: Amazon DynamoDB Delete a DynamoDB table
       description: >-
         Deletes a table and all of its items. After a DeleteTable request,
         the specified table is in the DELETING state until DynamoDB
@@ -243,7 +243,7 @@ paths:
   /#PutItem:
     post:
       operationId: putItem
-      summary: Put an item into a table
+      summary: Amazon DynamoDB Put an item into a table
       description: >-
         Creates a new item, or replaces an old item with a new item. If an
         item that has the same primary key as the new item already exists
@@ -277,7 +277,7 @@ paths:
   /#GetItem:
     post:
       operationId: getItem
-      summary: Get an item from a table
+      summary: Amazon DynamoDB Get an item from a table
       description: >-
         Returns a set of attributes for the item with the given primary
         key. If there is no matching item, GetItem does not return any data
@@ -308,7 +308,7 @@ paths:
   /#UpdateItem:
     post:
       operationId: updateItem
-      summary: Update an item in a table
+      summary: Amazon DynamoDB Update an item in a table
       description: >-
         Edits an existing item's attributes, or adds a new item to the
         table if it does not already exist. You can put, delete, or add
@@ -341,7 +341,7 @@ paths:
   /#DeleteItem:
     post:
       operationId: deleteItem
-      summary: Delete an item from a table
+      summary: Amazon DynamoDB Delete an item from a table
       description: >-
         Deletes a single item in a table by primary key. You can perform a
         conditional delete operation that deletes the item if it exists, or
@@ -374,7 +374,7 @@ paths:
   /#Query:
     post:
       operationId: query
-      summary: Query items in a table or index
+      summary: Amazon DynamoDB Query items in a table or index
       description: >-
         Finds items based on primary key values. You can query a table or a
         secondary index. You must provide the name of the partition key
@@ -406,7 +406,7 @@ paths:
   /#Scan:
     post:
       operationId: scan
-      summary: Scan items in a table or index
+      summary: Amazon DynamoDB Scan items in a table or index
       description: >-
         Returns one or more items and item attributes by accessing every
         item in a table or a secondary index. Scan operations proceed
@@ -438,7 +438,7 @@ paths:
   /#BatchGetItem:
     post:
       operationId: batchGetItem
-      summary: Get multiple items from one or more tables
+      summary: Amazon DynamoDB Get multiple items from one or more tables
       description: >-
         Returns the attributes of one or more items from one or more
         tables. You identify requested items by primary key. A single
@@ -468,7 +468,7 @@ paths:
   /#BatchWriteItem:
     post:
       operationId: batchWriteItem
-      summary: Put or delete multiple items in one or more tables
+      summary: Amazon DynamoDB Put or delete multiple items in one or more tables
       description: >-
         Puts or deletes multiple items in one or more tables. A single call
         to BatchWriteItem can transmit up to 16 MB of data over the
@@ -497,7 +497,7 @@ paths:
   /#TransactGetItems:
     post:
       operationId: transactGetItems
-      summary: Get items in a transaction
+      summary: Amazon DynamoDB Get items in a transaction
       description: >-
         A synchronous operation that atomically retrieves multiple items
         from one or more DynamoDB tables. TransactGetItems is a synchronous
@@ -528,7 +528,7 @@ paths:
   /#TransactWriteItems:
     post:
       operationId: transactWriteItems
-      summary: Write items in a transaction
+      summary: Amazon DynamoDB Write items in a transaction
       description: >-
         A synchronous write operation that groups up to 100 action
         requests. These actions can target up to 100 distinct items in one
