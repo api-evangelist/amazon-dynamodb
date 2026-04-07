@@ -23,14 +23,14 @@ servers:
         default: us-east-1
         description: AWS Region
 tags:
-  - name: Tables
-    description: Operations for creating, describing, updating, listing, and deleting DynamoDB tables
+  - name: Batch
+    description: Operations for batch reading and writing multiple items
   - name: Items
     description: Operations for putting, getting, updating, and deleting individual items
   - name: Queries
     description: Operations for querying and scanning table data
-  - name: Batch
-    description: Operations for batch reading and writing multiple items
+  - name: Tables
+    description: Operations for creating, describing, updating, listing, and deleting DynamoDB tables
   - name: Transactions
     description: Operations for transactional reads and writes across multiple items
 security:
