@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-create-table-input-schema.json",
+  "title": "CreateTableInput",
+  "description": "CreateTableInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string",
+      "description": "The name of the table to create",
+      "minLength": 3,
+      "maxLength": 255
+    },
+    "KeySchema": {
+      "type": "array",
+      "description": "Specifies the attributes that make up the primary key for the table. The attributes must also be defined in AttributeDefinitions.",
+      "items": {
+        "$ref": "#/components/schemas/KeySchemaElement"
+      },
+      "minItems": 1,
+      "maxItems": 2
+    },
+    "AttributeDefinitions": {
+      "type": "array",
+      "description": "An array of attributes that describe the key schema for the table and indexes",
+      "items": {
+        "$ref": "#/components/schemas/AttributeDefinition"
+      }
+    },
+    "ProvisionedThroughput": {
+      "$ref": "#/components/schemas/ProvisionedThroughput"
+    },
+    "BillingMode": {
+      "type": "string",
+      "description": "Controls how you are charged for read and write throughput",
+      "enum": [
+        "PROVISIONED",
+        "PAY_PER_REQUEST"
+      ]
+    },
+    "GlobalSecondaryIndexes": {
+      "type": "array",
+      "description": "One or more global secondary indexes to be created on the table",
+      "items": {
+        "$ref": "#/components/schemas/GlobalSecondaryIndex"
+      }
+    },
+    "LocalSecondaryIndexes": {
+      "type": "array",
+      "description": "One or more local secondary indexes to be created on the table",
+      "items": {
+        "$ref": "#/components/schemas/LocalSecondaryIndex"
+      }
+    },
+    "Tags": {
+      "type": "array",
+      "description": "Tags to associate with the table",
+      "items": {
+        "$ref": "#/components/schemas/Tag"
+      }
+    }
+  },
+  "required": [
+    "TableName",
+    "KeySchema",
+    "AttributeDefinitions"
+  ]
+}

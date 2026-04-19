@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-delete-item-output-schema.json",
+  "title": "DeleteItemOutput",
+  "description": "DeleteItemOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "Attributes": {
+      "type": "object",
+      "description": "A map of attribute values as they appeared before the delete operation",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    }
+  }
+}

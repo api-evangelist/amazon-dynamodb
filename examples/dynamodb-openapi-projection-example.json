@@ -1,0 +1,6 @@
+{
+  "ProjectionType": "INCLUDE",
+  "NonKeyAttributes": [
+    "ExampleKey"
+  ]
+}

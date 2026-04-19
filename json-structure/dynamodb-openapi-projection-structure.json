@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-projection-structure.json",
+  "name": "Projection",
+  "description": "Represents attributes that are copied from the table into an index",
+  "type": "object",
+  "properties": {
+    "ProjectionType": {
+      "type": "string",
+      "description": "The set of attributes that are projected into the index",
+      "enum": [
+        "ALL",
+        "KEYS_ONLY",
+        "INCLUDE"
+      ]
+    },
+    "NonKeyAttributes": {
+      "type": "array",
+      "description": "The non-key projected attributes",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20
+    }
+  }
+}

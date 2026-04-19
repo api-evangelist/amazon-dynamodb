@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-put-item-output-schema.json",
+  "title": "PutItemOutput",
+  "description": "PutItemOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "Attributes": {
+      "type": "object",
+      "description": "The attribute values as they appeared before the PutItem operation",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    }
+  }
+}

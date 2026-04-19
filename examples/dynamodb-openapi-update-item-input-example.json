@@ -1,0 +1,5 @@
+{
+  "TableName": "example-resource-name",
+  "Key": {},
+  "UpdateExpression": "example-string-value"
+}

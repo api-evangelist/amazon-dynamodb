@@ -1,0 +1,10 @@
+{
+  "TransactItems": [
+    {
+      "ConditionCheck": {},
+      "Put": {},
+      "Delete": {}
+    }
+  ],
+  "ClientRequestToken": "example-string-value"
+}

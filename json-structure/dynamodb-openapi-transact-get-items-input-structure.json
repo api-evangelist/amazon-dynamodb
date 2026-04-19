@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-transact-get-items-input-structure.json",
+  "name": "TransactGetItemsInput",
+  "description": "TransactGetItemsInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TransactItems": {
+      "type": "array",
+      "description": "An ordered array of up to 100 TransactGetItem objects",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Get": {
+            "type": "object",
+            "required": [
+              "TableName",
+              "Key"
+            ],
+            "properties": {
+              "TableName": {
+                "type": "string"
+              },
+              "Key": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/AttributeValue"
+                }
+              },
+              "ProjectionExpression": {
+                "type": "string"
+              },
+              "ExpressionAttributeNames": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "maxItems": 100
+    }
+  },
+  "required": [
+    "TransactItems"
+  ]
+}

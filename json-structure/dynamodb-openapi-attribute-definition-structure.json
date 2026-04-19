@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-attribute-definition-structure.json",
+  "name": "AttributeDefinition",
+  "description": "Represents an attribute for describing the schema for a table or index",
+  "type": "object",
+  "properties": {
+    "AttributeName": {
+      "type": "string",
+      "description": "A name for the attribute"
+    },
+    "AttributeType": {
+      "type": "string",
+      "description": "The data type for the attribute",
+      "enum": [
+        "S",
+        "N",
+        "B"
+      ]
+    }
+  },
+  "required": [
+    "AttributeName",
+    "AttributeType"
+  ]
+}

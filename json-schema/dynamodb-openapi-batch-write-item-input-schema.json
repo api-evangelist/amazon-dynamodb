@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-batch-write-item-input-schema.json",
+  "title": "BatchWriteItemInput",
+  "description": "BatchWriteItemInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "RequestItems": {
+      "type": "object",
+      "description": "A map of table names to write requests",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "PutRequest": {
+              "type": "object",
+              "properties": {
+                "Item": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/AttributeValue"
+                  }
+                }
+              }
+            },
+            "DeleteRequest": {
+              "type": "object",
+              "properties": {
+                "Key": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/AttributeValue"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "RequestItems"
+  ]
+}

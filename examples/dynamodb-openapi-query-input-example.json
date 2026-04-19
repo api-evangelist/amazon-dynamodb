@@ -1,0 +1,5 @@
+{
+  "TableName": "example-resource-name",
+  "IndexName": "example-resource-name",
+  "KeyConditionExpression": "ExampleKey"
+}

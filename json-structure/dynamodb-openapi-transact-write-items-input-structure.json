@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-transact-write-items-input-structure.json",
+  "name": "TransactWriteItemsInput",
+  "description": "TransactWriteItemsInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TransactItems": {
+      "type": "array",
+      "description": "An ordered array of up to 100 TransactWriteItem objects",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ConditionCheck": {
+            "type": "object",
+            "description": "A request to perform a check item operation"
+          },
+          "Put": {
+            "type": "object",
+            "description": "A request to perform a PutItem operation"
+          },
+          "Delete": {
+            "type": "object",
+            "description": "A request to perform a DeleteItem operation"
+          },
+          "Update": {
+            "type": "object",
+            "description": "A request to perform an UpdateItem operation"
+          }
+        }
+      },
+      "maxItems": 100
+    },
+    "ClientRequestToken": {
+      "type": "string",
+      "description": "A unique identifier for the client request to ensure idempotency",
+      "minLength": 1,
+      "maxLength": 36
+    }
+  },
+  "required": [
+    "TransactItems"
+  ]
+}

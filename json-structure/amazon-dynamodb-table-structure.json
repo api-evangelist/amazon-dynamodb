@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/amazon-dynamodb-table-structure.json",
+  "name": "Amazon DynamoDB Table",
+  "description": "Represents an Amazon DynamoDB table with its associated configuration, key schema, throughput settings, indexes, and metadata.",
+  "type": "object",
+  "properties": {
+    "tableName": {
+      "type": "string",
+      "description": "The name of the table",
+      "minLength": 3,
+      "maxLength": 255,
+      "pattern": "^[a-zA-Z0-9._-]+$"
+    },
+    "tableArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) that uniquely identifies the table",
+      "pattern": "^arn:aws:dynamodb:.+:\\d{12}:table/.+$"
+    },
+    "tableId": {
+      "type": "string",
+      "description": "Unique identifier for the table",
+      "pattern": "^[a-f0-9-]{36}$"
+    },
+    "tableStatus": {
+      "type": "string",
+      "description": "The current state of the table",
+      "enum": [
+        "CREATING",
+        "UPDATING",
+        "DELETING",
+        "ACTIVE",
+        "INACCESSIBLE_ENCRYPTION_CREDENTIALS",
+        "ARCHIVING",
+        "ARCHIVED"
+      ]
+    },
+    "creationDateTime": {
+      "type": "datetime",
+      "description": "The date and time when the table was created"
+    },
+    "keySchema": {
+      "type": "array",
+      "description": "The primary key structure for the table, consisting of one or two key elements",
+      "items": {
+        "$ref": "#/$defs/KeySchemaElement"
+      },
+      "minItems": 1,
+      "maxItems": 2
+    },
+    "attributeDefinitions": {
+      "type": "array",
+      "description": "An array of attributes that describe the key schema for the table and indexes",
+      "items": {
+        "$ref": "#/$defs/AttributeDefinition"
+      }
+    },
+    "provisionedThroughput": {
+      "$ref": "#/$defs/ProvisionedThroughput"
+    },
+    "billingMode": {
+      "type": "string",
+      "description": "Controls how you are charged for read and write throughput",
+      "enum": [
+        "PROVISIONED",
+        "PAY_PER_REQUEST"
+      ]
+    },
+    "itemCount": {
+      "type": "int32",
+      "description": "The number of items in the table (updated approximately every six hours)",
+      "minimum": 0
+    },
+    "tableSizeBytes": {
+      "type": "int32",
+      "description": "The total size of the table in bytes (updated approximately every six hours)",
+      "minimum": 0
+    },
+    "globalSecondaryIndexes": {
+      "type": "array",
+      "description": "The global secondary indexes, if any, on the table",
+      "items": {
+        "$ref": "#/$defs/GlobalSecondaryIndex"
+      }
+    },
+    "localSecondaryIndexes": {
+      "type": "array",
+      "description": "The local secondary indexes, if any, on the table",
+      "items": {
+        "$ref": "#/$defs/LocalSecondaryIndex"
+      }
+    },
+    "streamSpecification": {
+      "$ref": "#/$defs/StreamSpecification"
+    },
+    "sseDescription": {
+      "$ref": "#/$defs/SSEDescription"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags assigned to the table",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      }
+    }
+  },
+  "required": [
+    "tableName",
+    "keySchema",
+    "attributeDefinitions"
+  ],
+  "definitions": {
+    "KeySchemaElement": {
+      "type": "object",
+      "description": "Represents a single element of a key schema, specifying the attribute name and its role",
+      "required": [
+        "attributeName",
+        "keyType"
+      ],
+      "properties": {
+        "attributeName": {
+          "type": "string",
+          "description": "The name of a key attribute"
+        },
+        "keyType": {
+          "type": "string",
+          "description": "The role that this key attribute will assume (HASH for partition key, RANGE for sort key)",
+          "enum": [
+            "HASH",
+            "RANGE"
+          ]
+        }
+      },
+      "name": "KeySchemaElement"
+    },
+    "AttributeDefinition": {
+      "type": "object",
+      "description": "Represents an attribute for describing the key schema for the table and indexes",
+      "required": [
+        "attributeName",
+        "attributeType"
+      ],
+      "properties": {
+        "attributeName": {
+          "type": "string",
+          "description": "A name for the attribute"
+        },
+        "attributeType": {
+          "type": "string",
+          "description": "The data type for the attribute (S=String, N=Number, B=Binary)",
+          "enum": [
+            "S",
+            "N",
+            "B"
+          ]
+        }
+      },
+      "name": "AttributeDefinition"
+    },
+    "ProvisionedThroughput": {
+      "type": "object",
+      "description": "Represents the provisioned throughput settings for the table",
+      "properties": {
+        "readCapacityUnits": {
+          "type": "int32",
+          "description": "The maximum number of strongly consistent reads consumed per second",
+          "minimum": 1
+        },
+        "writeCapacityUnits": {
+          "type": "int32",
+          "description": "The maximum number of writes consumed per second",
+          "minimum": 1
+        },
+        "lastIncreaseDateTime": {
+          "type": "datetime",
+          "description": "The date and time of the last provisioned throughput increase"
+        },
+        "lastDecreaseDateTime": {
+          "type": "datetime",
+          "description": "The date and time of the last provisioned throughput decrease"
+        },
+        "numberOfDecreasesToday": {
+          "type": "int32",
+          "description": "The number of provisioned throughput decreases for this table during this UTC calendar day",
+          "minimum": 0
+        }
+      },
+      "name": "ProvisionedThroughput"
+    },
+    "GlobalSecondaryIndex": {
+      "type": "object",
+      "description": "Represents the properties of a global secondary index",
+      "required": [
+        "indexName",
+        "keySchema",
+        "projection"
+      ],
+      "properties": {
+        "indexName": {
+          "type": "string",
+          "description": "The name of the global secondary index",
+          "minLength": 3,
+          "maxLength": 255
+        },
+        "keySchema": {
+          "type": "array",
+          "description": "The complete key schema for the global secondary index",
+          "items": {
+            "$ref": "#/$defs/KeySchemaElement"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "projection": {
+          "$ref": "#/$defs/Projection"
+        },
+        "indexStatus": {
+          "type": "string",
+          "description": "The current state of the global secondary index",
+          "enum": [
+            "CREATING",
+            "UPDATING",
+            "DELETING",
+            "ACTIVE"
+          ]
+        },
+        "provisionedThroughput": {
+          "$ref": "#/$defs/ProvisionedThroughput"
+        },
+        "indexSizeBytes": {
+          "type": "int32",
+          "description": "The total size of the index in bytes",
+          "minimum": 0
+        },
+        "itemCount": {
+          "type": "int32",
+          "description": "The number of items in the index",
+          "minimum": 0
+        },
+        "indexArn": {
+          "type": "string",
+          "description": "The Amazon Resource Name (ARN) of the index"
+        }
+      },
+      "name": "GlobalSecondaryIndex"
+    },
+    "LocalSecondaryIndex": {
+      "type": "object",
+      "description": "Represents the properties of a local secondary index",
+      "required": [
+        "indexName",
+        "keySchema",
+        "projection"
+      ],
+      "properties": {
+        "indexName": {
+          "type": "string",
+          "description": "The name of the local secondary index",
+          "minLength": 3,
+          "maxLength": 255
+        },
+        "keySchema": {
+          "type": "array",
+          "description": "The complete key schema for the local secondary index",
+          "items": {
+            "$ref": "#/$defs/KeySchemaElement"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "projection": {
+          "$ref": "#/$defs/Projection"
+        },
+        "indexSizeBytes": {
+          "type": "int32",
+          "description": "The total size of the index in bytes",
+          "minimum": 0
+        },
+        "itemCount": {
+          "type": "int32",
+          "description": "The number of items in the index",
+          "minimum": 0
+        },
+        "indexArn": {
+          "type": "string",
+          "description": "The Amazon Resource Name (ARN) of the index"
+        }
+      },
+      "name": "LocalSecondaryIndex"
+    },
+    "Projection": {
+      "type": "object",
+      "description": "Represents attributes that are copied from the table into an index",
+      "properties": {
+        "projectionType": {
+          "type": "string",
+          "description": "The set of attributes that are projected into the index",
+          "enum": [
+            "ALL",
+            "KEYS_ONLY",
+            "INCLUDE"
+          ]
+        },
+        "nonKeyAttributes": {
+          "type": "array",
+          "description": "The non-key attributes that are projected into the index",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20
+        }
+      },
+      "name": "Projection"
+    },
+    "StreamSpecification": {
+      "type": "object",
+      "description": "Represents the DynamoDB Streams configuration for the table",
+      "properties": {
+        "streamEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether DynamoDB Streams is enabled on the table"
+        },
+        "streamViewType": {
+          "type": "string",
+          "description": "Determines the information that is written to the stream",
+          "enum": [
+            "KEYS_ONLY",
+            "NEW_IMAGE",
+            "OLD_IMAGE",
+            "NEW_AND_OLD_IMAGES"
+          ]
+        }
+      },
+      "name": "StreamSpecification"
+    },
+    "SSEDescription": {
+      "type": "object",
+      "description": "The description of the server-side encryption status on the table",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "The current state of server-side encryption",
+          "enum": [
+            "ENABLING",
+            "ENABLED",
+            "DISABLING",
+            "DISABLED",
+            "UPDATING"
+          ]
+        },
+        "sseType": {
+          "type": "string",
+          "description": "Server-side encryption type",
+          "enum": [
+            "AES256",
+            "KMS"
+          ]
+        },
+        "kmsMasterKeyArn": {
+          "type": "string",
+          "description": "The ARN of the KMS key used for SSE-KMS encryption"
+        }
+      },
+      "name": "SSEDescription"
+    },
+    "Tag": {
+      "type": "object",
+      "description": "Describes a resource tag",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the tag",
+          "maxLength": 128
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the tag",
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "name": "Tag"
+    }
+  }
+}

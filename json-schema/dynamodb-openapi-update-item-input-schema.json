@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-update-item-input-schema.json",
+  "title": "UpdateItemInput",
+  "description": "UpdateItemInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string",
+      "description": "The name of the table containing the item to update"
+    },
+    "Key": {
+      "type": "object",
+      "description": "The primary key of the item to be updated",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "UpdateExpression": {
+      "type": "string",
+      "description": "An expression that defines attributes to be updated"
+    },
+    "ConditionExpression": {
+      "type": "string",
+      "description": "A condition that must be satisfied for the update to succeed"
+    },
+    "ExpressionAttributeNames": {
+      "type": "object",
+      "description": "Substitution tokens for attribute names in an expression",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ExpressionAttributeValues": {
+      "type": "object",
+      "description": "Values that can be substituted in an expression",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "ReturnValues": {
+      "type": "string",
+      "description": "Determines the return values after the operation",
+      "enum": [
+        "NONE",
+        "UPDATED_OLD",
+        "ALL_OLD",
+        "UPDATED_NEW",
+        "ALL_NEW"
+      ]
+    }
+  },
+  "required": [
+    "TableName",
+    "Key"
+  ]
+}

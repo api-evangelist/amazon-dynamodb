@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-query-input-schema.json",
+  "title": "QueryInput",
+  "description": "QueryInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string",
+      "description": "The name of the table to query"
+    },
+    "IndexName": {
+      "type": "string",
+      "description": "The name of a secondary index to query"
+    },
+    "KeyConditionExpression": {
+      "type": "string",
+      "description": "The condition that specifies the key values for items to be retrieved"
+    },
+    "FilterExpression": {
+      "type": "string",
+      "description": "A string that contains conditions for filtering the query results"
+    },
+    "ProjectionExpression": {
+      "type": "string",
+      "description": "A string that identifies attributes to retrieve"
+    },
+    "ExpressionAttributeNames": {
+      "type": "object",
+      "description": "Substitution tokens for attribute names in an expression",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ExpressionAttributeValues": {
+      "type": "object",
+      "description": "Values that can be substituted in an expression",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "ScanIndexForward": {
+      "type": "boolean",
+      "description": "Specifies the order for index traversal (true=ascending, false=descending)",
+      "default": true
+    },
+    "Limit": {
+      "type": "integer",
+      "description": "The maximum number of items to evaluate",
+      "minimum": 1
+    },
+    "ConsistentRead": {
+      "type": "boolean",
+      "description": "Determines the read consistency model"
+    },
+    "ExclusiveStartKey": {
+      "type": "object",
+      "description": "The primary key of the first item that this operation evaluates",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "Select": {
+      "type": "string",
+      "description": "The attributes to be returned in the result",
+      "enum": [
+        "ALL_ATTRIBUTES",
+        "ALL_PROJECTED_ATTRIBUTES",
+        "COUNT",
+        "SPECIFIC_ATTRIBUTES"
+      ]
+    }
+  },
+  "required": [
+    "TableName"
+  ]
+}

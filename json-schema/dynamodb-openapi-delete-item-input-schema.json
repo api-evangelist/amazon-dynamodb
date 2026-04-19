@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-delete-item-input-schema.json",
+  "title": "DeleteItemInput",
+  "description": "DeleteItemInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string",
+      "description": "The name of the table from which to delete the item"
+    },
+    "Key": {
+      "type": "object",
+      "description": "A map of attribute names to AttributeValue objects for the primary key",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "ConditionExpression": {
+      "type": "string",
+      "description": "A condition that must be satisfied for the delete to succeed"
+    },
+    "ExpressionAttributeNames": {
+      "type": "object",
+      "description": "Substitution tokens for attribute names in an expression",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ExpressionAttributeValues": {
+      "type": "object",
+      "description": "Values that can be substituted in an expression",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "ReturnValues": {
+      "type": "string",
+      "description": "Determines the return values after the operation",
+      "enum": [
+        "NONE",
+        "ALL_OLD"
+      ]
+    }
+  },
+  "required": [
+    "TableName",
+    "Key"
+  ]
+}

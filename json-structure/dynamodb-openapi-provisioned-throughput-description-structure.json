@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-provisioned-throughput-description-structure.json",
+  "name": "ProvisionedThroughputDescription",
+  "description": "Describes the provisioned throughput settings for a table or index",
+  "type": "object",
+  "properties": {
+    "LastIncreaseDateTime": {
+      "type": "double",
+      "description": "The date and time of the last provisioned throughput increase"
+    },
+    "LastDecreaseDateTime": {
+      "type": "double",
+      "description": "The date and time of the last provisioned throughput decrease"
+    },
+    "NumberOfDecreasesToday": {
+      "type": "int32",
+      "description": "The number of provisioned throughput decreases for this table during this UTC calendar day"
+    },
+    "ReadCapacityUnits": {
+      "type": "int32",
+      "description": "The maximum number of strongly consistent reads per second"
+    },
+    "WriteCapacityUnits": {
+      "type": "int32",
+      "description": "The maximum number of writes per second"
+    }
+  }
+}

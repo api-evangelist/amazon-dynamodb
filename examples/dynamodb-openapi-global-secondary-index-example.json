@@ -1,0 +1,7 @@
+{
+  "IndexName": "example-resource-name",
+  "KeySchema": [
+    "example"
+  ],
+  "Projection": "example"
+}

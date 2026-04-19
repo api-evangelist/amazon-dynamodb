@@ -1,100 +1,428 @@
 {
   "@context": {
     "@version": 1.1,
-    "dynamodb": "https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/",
+    "aws": "https://aws.amazon.com/schema/",
     "schema": "https://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
-
-    "Table": {
-      "@id": "dynamodb:Table",
-      "@context": {
-        "tableName": "schema:name",
-        "tableArn": "dynamodb:tableArn",
-        "tableId": "dynamodb:tableId",
-        "tableStatus": "dynamodb:tableStatus",
-        "creationDateTime": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "keySchema": {
-          "@id": "dynamodb:keySchema",
-          "@container": "@list"
-        },
-        "attributeDefinitions": {
-          "@id": "dynamodb:attributeDefinitions",
-          "@container": "@set"
-        },
-        "provisionedThroughput": "dynamodb:provisionedThroughput",
-        "billingMode": "dynamodb:billingMode",
-        "itemCount": "dynamodb:itemCount",
-        "tableSizeBytes": "dynamodb:tableSizeBytes",
-        "globalSecondaryIndexes": {
-          "@id": "dynamodb:globalSecondaryIndexes",
-          "@container": "@set"
-        },
-        "localSecondaryIndexes": {
-          "@id": "dynamodb:localSecondaryIndexes",
-          "@container": "@set"
-        },
-        "tags": {
-          "@id": "dynamodb:tags",
-          "@container": "@set"
-        }
-      }
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "pan": "https://aws.amazon.com/schema/",
+    "Amazon DynamoDB Table": "aws:Amazon DynamoDB Table",
+    "AttributeDefinition": "aws:AttributeDefinition",
+    "AttributeValue": "aws:AttributeValue",
+    "BatchGetItemInput": "aws:BatchGetItemInput",
+    "BatchGetItemOutput": "aws:BatchGetItemOutput",
+    "BatchWriteItemInput": "aws:BatchWriteItemInput",
+    "BatchWriteItemOutput": "aws:BatchWriteItemOutput",
+    "CreateTableInput": "aws:CreateTableInput",
+    "CreateTableOutput": "aws:CreateTableOutput",
+    "DeleteItemInput": "aws:DeleteItemInput",
+    "DeleteItemOutput": "aws:DeleteItemOutput",
+    "DescribeTableOutput": "aws:DescribeTableOutput",
+    "GetItemInput": "aws:GetItemInput",
+    "GetItemOutput": "aws:GetItemOutput",
+    "GlobalSecondaryIndex": "aws:GlobalSecondaryIndex",
+    "KeySchemaElement": "aws:KeySchemaElement",
+    "LocalSecondaryIndex": "aws:LocalSecondaryIndex",
+    "Projection": {
+      "@id": "pan:Projection",
+      "@type": "xsd:string"
     },
-
+    "ProvisionedThroughput": {
+      "@id": "pan:ProvisionedThroughput",
+      "@type": "xsd:string"
+    },
+    "ProvisionedThroughputDescription": "aws:ProvisionedThroughputDescription",
+    "PutItemInput": "aws:PutItemInput",
+    "PutItemOutput": "aws:PutItemOutput",
+    "QueryInput": "aws:QueryInput",
+    "QueryOutput": "aws:QueryOutput",
+    "ScanInput": "aws:ScanInput",
+    "ScanOutput": "aws:ScanOutput",
+    "TableDescription": {
+      "@id": "pan:TableDescription",
+      "@type": "xsd:string"
+    },
+    "Tag": "aws:Tag",
+    "TransactGetItemsInput": "aws:TransactGetItemsInput",
+    "TransactGetItemsOutput": "aws:TransactGetItemsOutput",
+    "TransactWriteItemsInput": "aws:TransactWriteItemsInput",
+    "TransactWriteItemsOutput": "aws:TransactWriteItemsOutput",
+    "UpdateItemInput": "aws:UpdateItemInput",
+    "UpdateItemOutput": "aws:UpdateItemOutput",
+    "UpdateTableInput": "aws:UpdateTableInput",
+    "TableName": {
+      "@id": "pan:TableName",
+      "@type": "xsd:string"
+    },
+    "Key": {
+      "@id": "pan:Key",
+      "@type": "@id"
+    },
+    "ProjectionExpression": {
+      "@id": "pan:ProjectionExpression",
+      "@type": "xsd:string"
+    },
+    "ConsistentRead": {
+      "@id": "pan:ConsistentRead",
+      "@type": "xsd:boolean"
+    },
+    "ExpressionAttributeNames": {
+      "@id": "pan:ExpressionAttributeNames",
+      "@type": "@id"
+    },
+    "Responses": {
+      "@id": "pan:Responses",
+      "@type": "@id"
+    },
+    "UnprocessedKeys": {
+      "@id": "pan:UnprocessedKeys",
+      "@type": "@id"
+    },
+    "UnprocessedItems": {
+      "@id": "pan:UnprocessedItems",
+      "@type": "@id"
+    },
+    "UpdateExpression": {
+      "@id": "pan:UpdateExpression",
+      "@type": "xsd:string"
+    },
+    "ConditionExpression": {
+      "@id": "pan:ConditionExpression",
+      "@type": "xsd:string"
+    },
+    "ExpressionAttributeValues": {
+      "@id": "pan:ExpressionAttributeValues",
+      "@type": "@id"
+    },
+    "ReturnValues": {
+      "@id": "pan:ReturnValues",
+      "@type": "xsd:string"
+    },
+    "TransactItems": {
+      "@id": "pan:TransactItems",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "ClientRequestToken": {
+      "@id": "pan:ClientRequestToken",
+      "@type": "xsd:string"
+    },
+    "ConditionCheck": {
+      "@id": "pan:ConditionCheck",
+      "@type": "@id"
+    },
+    "Put": {
+      "@id": "pan:Put",
+      "@type": "@id"
+    },
+    "Delete": {
+      "@id": "pan:Delete",
+      "@type": "@id"
+    },
+    "Update": {
+      "@id": "pan:Update",
+      "@type": "@id"
+    },
+    "IndexName": {
+      "@id": "pan:IndexName",
+      "@type": "xsd:string"
+    },
+    "KeySchema": {
+      "@id": "pan:KeySchema",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "AttributeName": {
+      "@id": "pan:AttributeName",
+      "@type": "xsd:string"
+    },
+    "KeyType": {
+      "@id": "pan:KeyType",
+      "@type": "xsd:string"
+    },
     "Item": {
-      "@id": "dynamodb:Item",
-      "@context": {
-        "tableName": "dynamodb:tableName",
-        "key": "dynamodb:key",
-        "attributes": {
-          "@id": "dynamodb:attributes",
-          "@container": "@index"
-        }
-      }
+      "@id": "pan:Item",
+      "@type": "@id"
     },
-
-    "Index": {
-      "@id": "dynamodb:Index",
-      "@context": {
-        "indexName": "schema:name",
-        "indexArn": "dynamodb:indexArn",
-        "indexStatus": "dynamodb:indexStatus",
-        "keySchema": {
-          "@id": "dynamodb:keySchema",
-          "@container": "@list"
-        },
-        "projection": "dynamodb:projection",
-        "provisionedThroughput": "dynamodb:provisionedThroughput",
-        "indexSizeBytes": "dynamodb:indexSizeBytes",
-        "itemCount": "dynamodb:itemCount"
-      }
+    "S": {
+      "@id": "pan:S",
+      "@type": "xsd:string"
     },
-
-    "KeySchemaElement": {
-      "@id": "dynamodb:KeySchemaElement",
-      "@context": {
-        "attributeName": "dynamodb:attributeName",
-        "keyType": "dynamodb:keyType"
-      }
+    "N": {
+      "@id": "pan:N",
+      "@type": "xsd:string"
     },
-
-    "AttributeDefinition": {
-      "@id": "dynamodb:AttributeDefinition",
-      "@context": {
-        "attributeName": "dynamodb:attributeName",
-        "attributeType": "dynamodb:attributeType"
-      }
+    "B": {
+      "@id": "pan:B",
+      "@type": "xsd:string"
     },
-
-    "StreamSpecification": {
-      "@id": "dynamodb:StreamSpecification",
-      "@context": {
-        "streamEnabled": "dynamodb:streamEnabled",
-        "streamViewType": "dynamodb:streamViewType"
-      }
+    "SS": {
+      "@id": "pan:SS",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "NS": {
+      "@id": "pan:NS",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "BS": {
+      "@id": "pan:BS",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "M": {
+      "@id": "pan:M",
+      "@type": "@id"
+    },
+    "L": {
+      "@id": "pan:L",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "NULL": {
+      "@id": "pan:NULL",
+      "@type": "xsd:boolean"
+    },
+    "BOOL": {
+      "@id": "pan:BOOL",
+      "@type": "xsd:boolean"
+    },
+    "Table": {
+      "@id": "pan:Table",
+      "@type": "xsd:string"
+    },
+    "ReadCapacityUnits": {
+      "@id": "pan:ReadCapacityUnits",
+      "@type": "xsd:integer"
+    },
+    "WriteCapacityUnits": {
+      "@id": "pan:WriteCapacityUnits",
+      "@type": "xsd:integer"
+    },
+    "Get": {
+      "@id": "pan:Get",
+      "@type": "@id"
+    },
+    "Attributes": {
+      "@id": "pan:Attributes",
+      "@type": "@id"
+    },
+    "tableName": {
+      "@id": "pan:tableName",
+      "@type": "xsd:string"
+    },
+    "tableArn": {
+      "@id": "pan:tableArn",
+      "@type": "xsd:string"
+    },
+    "tableId": {
+      "@id": "pan:tableId",
+      "@type": "xsd:string"
+    },
+    "tableStatus": {
+      "@id": "pan:tableStatus",
+      "@type": "xsd:string"
+    },
+    "creationDateTime": {
+      "@id": "pan:creationDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "keySchema": {
+      "@id": "pan:keySchema",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "attributeDefinitions": {
+      "@id": "pan:attributeDefinitions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "provisionedThroughput": {
+      "@id": "pan:provisionedThroughput",
+      "@type": "xsd:string"
+    },
+    "billingMode": {
+      "@id": "pan:billingMode",
+      "@type": "xsd:string"
+    },
+    "itemCount": {
+      "@id": "pan:itemCount",
+      "@type": "xsd:integer"
+    },
+    "tableSizeBytes": {
+      "@id": "pan:tableSizeBytes",
+      "@type": "xsd:integer"
+    },
+    "globalSecondaryIndexes": {
+      "@id": "pan:globalSecondaryIndexes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "localSecondaryIndexes": {
+      "@id": "pan:localSecondaryIndexes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "streamSpecification": {
+      "@id": "pan:streamSpecification",
+      "@type": "xsd:string"
+    },
+    "sseDescription": {
+      "@id": "pan:sseDescription",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "pan:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "Items": {
+      "@id": "pan:Items",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "Count": {
+      "@id": "pan:Count",
+      "@type": "xsd:integer"
+    },
+    "ScannedCount": {
+      "@id": "pan:ScannedCount",
+      "@type": "xsd:integer"
+    },
+    "LastEvaluatedKey": {
+      "@id": "pan:LastEvaluatedKey",
+      "@type": "@id"
+    },
+    "ProjectionType": {
+      "@id": "pan:ProjectionType",
+      "@type": "xsd:string"
+    },
+    "NonKeyAttributes": {
+      "@id": "pan:NonKeyAttributes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "BillingMode": {
+      "@id": "pan:BillingMode",
+      "@type": "xsd:string"
+    },
+    "GlobalSecondaryIndexUpdates": {
+      "@id": "pan:GlobalSecondaryIndexUpdates",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "FilterExpression": {
+      "@id": "pan:FilterExpression",
+      "@type": "xsd:string"
+    },
+    "Limit": {
+      "@id": "pan:Limit",
+      "@type": "xsd:integer"
+    },
+    "ExclusiveStartKey": {
+      "@id": "pan:ExclusiveStartKey",
+      "@type": "@id"
+    },
+    "Segment": {
+      "@id": "pan:Segment",
+      "@type": "xsd:integer"
+    },
+    "TotalSegments": {
+      "@id": "pan:TotalSegments",
+      "@type": "xsd:integer"
+    },
+    "Select": {
+      "@id": "pan:Select",
+      "@type": "xsd:string"
+    },
+    "AttributeType": {
+      "@id": "pan:AttributeType",
+      "@type": "xsd:string"
+    },
+    "ItemCollectionMetrics": {
+      "@id": "pan:ItemCollectionMetrics",
+      "@type": "@id"
+    },
+    "RequestItems": {
+      "@id": "pan:RequestItems",
+      "@type": "@id"
+    },
+    "Value": {
+      "@id": "pan:Value",
+      "@type": "xsd:string"
+    },
+    "LastIncreaseDateTime": {
+      "@id": "pan:LastIncreaseDateTime",
+      "@type": "xsd:decimal"
+    },
+    "LastDecreaseDateTime": {
+      "@id": "pan:LastDecreaseDateTime",
+      "@type": "xsd:decimal"
+    },
+    "NumberOfDecreasesToday": {
+      "@id": "pan:NumberOfDecreasesToday",
+      "@type": "xsd:integer"
+    },
+    "AttributeDefinitions": {
+      "@id": "pan:AttributeDefinitions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "GlobalSecondaryIndexes": {
+      "@id": "pan:GlobalSecondaryIndexes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "LocalSecondaryIndexes": {
+      "@id": "pan:LocalSecondaryIndexes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "Tags": {
+      "@id": "pan:Tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "KeyConditionExpression": {
+      "@id": "pan:KeyConditionExpression",
+      "@type": "xsd:string"
+    },
+    "ScanIndexForward": {
+      "@id": "pan:ScanIndexForward",
+      "@type": "xsd:boolean"
+    },
+    "TableStatus": {
+      "@id": "pan:TableStatus",
+      "@type": "xsd:string"
+    },
+    "TableArn": {
+      "@id": "pan:TableArn",
+      "@type": "xsd:string"
+    },
+    "TableId": {
+      "@id": "pan:TableId",
+      "@type": "xsd:string"
+    },
+    "CreationDateTime": {
+      "@id": "pan:CreationDateTime",
+      "@type": "xsd:decimal"
+    },
+    "TableSizeBytes": {
+      "@id": "pan:TableSizeBytes",
+      "@type": "xsd:integer"
+    },
+    "ItemCount": {
+      "@id": "pan:ItemCount",
+      "@type": "xsd:integer"
+    },
+    "BillingModeSummary": {
+      "@id": "pan:BillingModeSummary",
+      "@type": "@id"
+    },
+    "LastUpdateToPayPerRequestDateTime": {
+      "@id": "pan:LastUpdateToPayPerRequestDateTime",
+      "@type": "xsd:decimal"
     }
   }
 }

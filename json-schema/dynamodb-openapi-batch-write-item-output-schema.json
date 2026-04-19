@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-batch-write-item-output-schema.json",
+  "title": "BatchWriteItemOutput",
+  "description": "BatchWriteItemOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "UnprocessedItems": {
+      "type": "object",
+      "description": "A map of tables and requests against those tables that were not processed"
+    }
+  }
+}

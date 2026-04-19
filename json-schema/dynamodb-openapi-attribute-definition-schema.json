@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-attribute-definition-schema.json",
+  "title": "AttributeDefinition",
+  "description": "Represents an attribute for describing the schema for a table or index",
+  "type": "object",
+  "properties": {
+    "AttributeName": {
+      "type": "string",
+      "description": "A name for the attribute"
+    },
+    "AttributeType": {
+      "type": "string",
+      "description": "The data type for the attribute",
+      "enum": [
+        "S",
+        "N",
+        "B"
+      ]
+    }
+  },
+  "required": [
+    "AttributeName",
+    "AttributeType"
+  ]
+}

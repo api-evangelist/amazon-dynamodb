@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-put-item-input-structure.json",
+  "name": "PutItemInput",
+  "description": "PutItemInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string",
+      "description": "The name of the table to contain the item"
+    },
+    "Item": {
+      "type": "object",
+      "description": "A map of attribute name to attribute values, representing the item",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "ConditionExpression": {
+      "type": "string",
+      "description": "A condition that must be satisfied for a put to succeed"
+    },
+    "ExpressionAttributeNames": {
+      "type": "object",
+      "description": "Substitution tokens for attribute names in an expression",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ExpressionAttributeValues": {
+      "type": "object",
+      "description": "Values that can be substituted in an expression",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "ReturnValues": {
+      "type": "string",
+      "description": "Determines the return values after the operation",
+      "enum": [
+        "NONE",
+        "ALL_OLD"
+      ]
+    }
+  },
+  "required": [
+    "TableName",
+    "Item"
+  ]
+}

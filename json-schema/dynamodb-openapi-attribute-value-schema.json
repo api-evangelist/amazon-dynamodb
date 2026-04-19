@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-attribute-value-schema.json",
+  "title": "AttributeValue",
+  "description": "Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.",
+  "type": "object",
+  "properties": {
+    "S": {
+      "type": "string",
+      "description": "String attribute value"
+    },
+    "N": {
+      "type": "string",
+      "description": "Number attribute value (sent as string)"
+    },
+    "B": {
+      "type": "string",
+      "format": "byte",
+      "description": "Binary attribute value (Base64-encoded)"
+    },
+    "SS": {
+      "type": "array",
+      "description": "String set attribute value",
+      "items": {
+        "type": "string"
+      }
+    },
+    "NS": {
+      "type": "array",
+      "description": "Number set attribute value",
+      "items": {
+        "type": "string"
+      }
+    },
+    "BS": {
+      "type": "array",
+      "description": "Binary set attribute value",
+      "items": {
+        "type": "string",
+        "format": "byte"
+      }
+    },
+    "M": {
+      "type": "object",
+      "description": "Map attribute value",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "L": {
+      "type": "array",
+      "description": "List attribute value",
+      "items": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "NULL": {
+      "type": "boolean",
+      "description": "Null attribute value"
+    },
+    "BOOL": {
+      "type": "boolean",
+      "description": "Boolean attribute value"
+    }
+  }
+}

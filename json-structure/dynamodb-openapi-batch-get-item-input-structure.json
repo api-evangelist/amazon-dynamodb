@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-batch-get-item-input-structure.json",
+  "name": "BatchGetItemInput",
+  "description": "BatchGetItemInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "RequestItems": {
+      "type": "object",
+      "description": "A map of table names to keys and attributes to retrieve",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "Keys": {
+            "type": "array",
+            "description": "The primary keys for items to retrieve",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/AttributeValue"
+              }
+            }
+          },
+          "ProjectionExpression": {
+            "type": "string"
+          },
+          "ConsistentRead": {
+            "type": "boolean"
+          },
+          "ExpressionAttributeNames": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "RequestItems"
+  ]
+}

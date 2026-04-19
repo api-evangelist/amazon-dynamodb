@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-key-schema-element-schema.json",
+  "title": "KeySchemaElement",
+  "description": "Represents a single element of a key schema",
+  "type": "object",
+  "properties": {
+    "AttributeName": {
+      "type": "string",
+      "description": "The name of a key attribute"
+    },
+    "KeyType": {
+      "type": "string",
+      "description": "The role that this key attribute will assume",
+      "enum": [
+        "HASH",
+        "RANGE"
+      ]
+    }
+  },
+  "required": [
+    "AttributeName",
+    "KeyType"
+  ]
+}

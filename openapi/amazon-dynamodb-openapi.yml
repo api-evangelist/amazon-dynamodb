@@ -16,39 +16,39 @@ externalDocs:
   description: Amazon DynamoDB API Reference
   url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
 servers:
-  - url: https://dynamodb.{region}.amazonaws.com
-    description: Amazon DynamoDB Regional Endpoint
-    variables:
-      region:
-        default: us-east-1
-        description: AWS Region
+- url: https://dynamodb.{region}.amazonaws.com
+  description: Amazon DynamoDB Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
 tags:
-  - name: Batch
-    description: Operations for batch reading and writing multiple items
-  - name: Items
-    description: Operations for putting, getting, updating, and deleting individual items
-  - name: Queries
-    description: Operations for querying and scanning table data
-  - name: Tables
-    description: Operations for creating, describing, updating, listing, and deleting DynamoDB tables
-  - name: Transactions
-    description: Operations for transactional reads and writes across multiple items
+- name: Batch
+  description: Operations for batch reading and writing multiple items
+- name: Items
+  description: Operations for putting, getting, updating, and deleting individual items
+- name: Queries
+  description: Operations for querying and scanning table data
+- name: Tables
+  description: Operations for creating, describing, updating, listing, and deleting DynamoDB tables
+- name: Transactions
+  description: Operations for transactional reads and writes across multiple items
 security:
-  - sigv4Auth: []
+- sigv4Auth: []
 paths:
   /:
     post:
       operationId: createTable
-      summary: Amazon DynamoDB Create a DynamoDB table
+      summary: Amazon DynamoDB Create a DynamoDB Table
       description: >-
         Creates a new table in DynamoDB. The CreateTable operation adds a
         new table to your account. Table names must be unique within each
         Region. You must specify the table name, primary key schema, and
         provisioned throughput settings.
       tags:
-        - Tables
+      - Tables
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -58,15 +58,15 @@ paths:
             example:
               TableName: Movies
               KeySchema:
-                - AttributeName: year
-                  KeyType: HASH
-                - AttributeName: title
-                  KeyType: RANGE
+              - AttributeName: year
+                KeyType: HASH
+              - AttributeName: title
+                KeyType: RANGE
               AttributeDefinitions:
-                - AttributeName: year
-                  AttributeType: "N"
-                - AttributeName: title
-                  AttributeType: S
+              - AttributeName: year
+                AttributeType: "N"
+              - AttributeName: title
+                AttributeType: S
               ProvisionedThroughput:
                 ReadCapacityUnits: 5
                 WriteCapacityUnits: 5
@@ -77,30 +77,46 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/CreateTableOutput'
+              examples:
+                createTable200Example:
+                  summary: Default createTable 200 response
+                  x-microcks-default: true
+                  value:
+                    TableDescription: example-string
         '400':
           description: Invalid request parameters
           content:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                createTable400Example:
+                  summary: Default createTable 400 response
+                  x-microcks-default: true
+                  value:
+                    __type: standard
+                    message: example-string
         '409':
           description: Resource already exists
         '429':
           description: Too many requests - throughput exceeds the current limit
       x-amz-target: DynamoDB_20120810.CreateTable
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#DescribeTable:
     post:
       operationId: describeTable
-      summary: Amazon DynamoDB Describe a DynamoDB table
+      summary: Amazon DynamoDB Describe a DynamoDB Table
       description: >-
         Returns information about the table, including the current status
         of the table, when it was created, the primary key schema, and any
         indexes on the table.
       tags:
-        - Tables
+      - Tables
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -108,11 +124,16 @@ paths:
             schema:
               type: object
               required:
-                - TableName
+              - TableName
               properties:
                 TableName:
                   type: string
                   description: The name of the table to describe
+            examples:
+              describeTableRequestExample:
+                summary: Default describeTable request
+                x-microcks-default: true
+                value: {}
       responses:
         '200':
           description: Successfully described table
@@ -120,24 +141,33 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/DescribeTableOutput'
+              examples:
+                describeTable200Example:
+                  summary: Default describeTable 200 response
+                  x-microcks-default: true
+                  value:
+                    Table: example-string
         '400':
           description: Invalid request parameters
         '404':
           description: Table not found
       x-amz-target: DynamoDB_20120810.DescribeTable
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#ListTables:
     post:
       operationId: listTables
-      summary: Amazon DynamoDB List DynamoDB tables
+      summary: Amazon DynamoDB List DynamoDB Tables
       description: >-
         Returns an array of table names associated with the current account
         and endpoint. The output from ListTables is paginated, with each
         page returning a maximum number of table names.
       tags:
-        - Tables
+      - Tables
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: false
         content:
@@ -153,6 +183,11 @@ paths:
                   description: Maximum number of table names to return
                   minimum: 1
                   maximum: 100
+            examples:
+              listTablesRequestExample:
+                summary: Default listTables request
+                x-microcks-default: true
+                value: {}
       responses:
         '200':
           description: Successfully listed tables
@@ -167,27 +202,48 @@ paths:
                       type: string
                   LastEvaluatedTableName:
                     type: string
+              examples:
+                listTables200Example:
+                  summary: Default listTables 200 response
+                  x-microcks-default: true
+                  value:
+                    TableNames:
+                    - example-resource-name
+                    LastEvaluatedTableName: example-resource-name
         '400':
           description: Invalid request parameters
       x-amz-target: DynamoDB_20120810.ListTables
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#UpdateTable:
     post:
       operationId: updateTable
-      summary: Amazon DynamoDB Update a DynamoDB table
+      summary: Amazon DynamoDB Update a DynamoDB Table
       description: >-
         Modifies the provisioned throughput settings, global secondary
         indexes, or DynamoDB Streams settings for a given table.
       tags:
-        - Tables
+      - Tables
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/UpdateTableInput'
+            examples:
+              updateTableRequestExample:
+                summary: Default updateTable request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  ProvisionedThroughput: example-string
+                  BillingMode: PROVISIONED
+                  GlobalSecondaryIndexUpdates:
+                  - {}
       responses:
         '200':
           description: Successfully updated table
@@ -195,6 +251,12 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/DescribeTableOutput'
+              examples:
+                updateTable200Example:
+                  summary: Default updateTable 200 response
+                  x-microcks-default: true
+                  value:
+                    Table: example-string
         '400':
           description: Invalid request parameters
         '404':
@@ -203,18 +265,21 @@ paths:
           description: Too many requests - throughput exceeds the current limit
       x-amz-target: DynamoDB_20120810.UpdateTable
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#DeleteTable:
     post:
       operationId: deleteTable
-      summary: Amazon DynamoDB Delete a DynamoDB table
+      summary: Amazon DynamoDB Delete a DynamoDB Table
       description: >-
         Deletes a table and all of its items. After a DeleteTable request,
         the specified table is in the DELETING state until DynamoDB
         completes the deletion.
       tags:
-        - Tables
+      - Tables
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -222,11 +287,16 @@ paths:
             schema:
               type: object
               required:
-                - TableName
+              - TableName
               properties:
                 TableName:
                   type: string
                   description: The name of the table to delete
+            examples:
+              deleteTableRequestExample:
+                summary: Default deleteTable request
+                x-microcks-default: true
+                value: {}
       responses:
         '200':
           description: Successfully deleted table
@@ -234,31 +304,50 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/DescribeTableOutput'
+              examples:
+                deleteTable200Example:
+                  summary: Default deleteTable 200 response
+                  x-microcks-default: true
+                  value:
+                    Table: example-string
         '400':
           description: Invalid request parameters
         '404':
           description: Table not found
       x-amz-target: DynamoDB_20120810.DeleteTable
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#PutItem:
     post:
       operationId: putItem
-      summary: Amazon DynamoDB Put an item into a table
+      summary: Amazon DynamoDB Put an Item Into a Table
       description: >-
         Creates a new item, or replaces an old item with a new item. If an
         item that has the same primary key as the new item already exists
         in the specified table, the new item completely replaces the
         existing item.
       tags:
-        - Items
+      - Items
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/PutItemInput'
+            examples:
+              putItemRequestExample:
+                summary: Default putItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Item: {}
+                  ConditionExpression: example-string
+                  ExpressionAttributeNames: {}
+                  ExpressionAttributeValues: {}
       responses:
         '200':
           description: Successfully put item
@@ -266,6 +355,12 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/PutItemOutput'
+              examples:
+                putItem200Example:
+                  summary: Default putItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Attributes: {}
         '400':
           description: Invalid request parameters
         '404':
@@ -274,24 +369,37 @@ paths:
           description: Conditional check failed
       x-amz-target: DynamoDB_20120810.PutItem
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#GetItem:
     post:
       operationId: getItem
-      summary: Amazon DynamoDB Get an item from a table
+      summary: Amazon DynamoDB Get an Item from a Table
       description: >-
         Returns a set of attributes for the item with the given primary
         key. If there is no matching item, GetItem does not return any data
         and there will be no Item element in the response.
       tags:
-        - Items
+      - Items
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/GetItemInput'
+            examples:
+              getItemRequestExample:
+                summary: Default getItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Key: {}
+                  ProjectionExpression: example-string
+                  ConsistentRead: true
+                  ExpressionAttributeNames: {}
       responses:
         '200':
           description: Successfully retrieved item
@@ -299,30 +407,49 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/GetItemOutput'
+              examples:
+                getItem200Example:
+                  summary: Default getItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Item: {}
         '400':
           description: Invalid request parameters
         '404':
           description: Table not found
       x-amz-target: DynamoDB_20120810.GetItem
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#UpdateItem:
     post:
       operationId: updateItem
-      summary: Amazon DynamoDB Update an item in a table
+      summary: Amazon DynamoDB Update an Item in a Table
       description: >-
         Edits an existing item's attributes, or adds a new item to the
         table if it does not already exist. You can put, delete, or add
         attribute values using update expressions.
       tags:
-        - Items
+      - Items
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/UpdateItemInput'
+            examples:
+              updateItemRequestExample:
+                summary: Default updateItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Key: {}
+                  UpdateExpression: example-string
+                  ConditionExpression: example-string
+                  ExpressionAttributeNames: {}
       responses:
         '200':
           description: Successfully updated item
@@ -330,6 +457,12 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/UpdateItemOutput'
+              examples:
+                updateItem200Example:
+                  summary: Default updateItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Attributes: {}
         '400':
           description: Invalid request parameters
         '404':
@@ -338,24 +471,37 @@ paths:
           description: Conditional check failed
       x-amz-target: DynamoDB_20120810.UpdateItem
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#DeleteItem:
     post:
       operationId: deleteItem
-      summary: Amazon DynamoDB Delete an item from a table
+      summary: Amazon DynamoDB Delete an Item from a Table
       description: >-
         Deletes a single item in a table by primary key. You can perform a
         conditional delete operation that deletes the item if it exists, or
         if it has an expected attribute value.
       tags:
-        - Items
+      - Items
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/DeleteItemInput'
+            examples:
+              deleteItemRequestExample:
+                summary: Default deleteItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Key: {}
+                  ConditionExpression: example-string
+                  ExpressionAttributeNames: {}
+                  ExpressionAttributeValues: {}
       responses:
         '200':
           description: Successfully deleted item
@@ -363,6 +509,12 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/DeleteItemOutput'
+              examples:
+                deleteItem200Example:
+                  summary: Default deleteItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Attributes: {}
         '400':
           description: Invalid request parameters
         '404':
@@ -371,25 +523,38 @@ paths:
           description: Conditional check failed
       x-amz-target: DynamoDB_20120810.DeleteItem
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#Query:
     post:
       operationId: query
-      summary: Amazon DynamoDB Query items in a table or index
+      summary: Amazon DynamoDB Query Items in a Table or Index
       description: >-
         Finds items based on primary key values. You can query a table or a
         secondary index. You must provide the name of the partition key
         attribute and a single value for that attribute. Query returns all
         items with that partition key value.
       tags:
-        - Queries
+      - Queries
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/QueryInput'
+            examples:
+              queryRequestExample:
+                summary: Default query request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  IndexName: example-resource-name
+                  KeyConditionExpression: example-string
+                  FilterExpression: example-string
+                  ProjectionExpression: example-string
       responses:
         '200':
           description: Successfully queried items
@@ -397,31 +562,54 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/QueryOutput'
+              examples:
+                query200Example:
+                  summary: Default query 200 response
+                  x-microcks-default: true
+                  value:
+                    Items:
+                    - {}
+                    Count: 1
+                    ScannedCount: 1
+                    LastEvaluatedKey: {}
         '400':
           description: Invalid request parameters
         '404':
           description: Table not found
       x-amz-target: DynamoDB_20120810.Query
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#Scan:
     post:
       operationId: scan
-      summary: Amazon DynamoDB Scan items in a table or index
+      summary: Amazon DynamoDB Scan Items in a Table or Index
       description: >-
         Returns one or more items and item attributes by accessing every
         item in a table or a secondary index. Scan operations proceed
         sequentially; however, for faster performance on a large table or
         secondary index, applications can use parallel scan.
       tags:
-        - Queries
+      - Queries
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/ScanInput'
+            examples:
+              scanRequestExample:
+                summary: Default scan request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  IndexName: example-resource-name
+                  FilterExpression: example-string
+                  ProjectionExpression: example-string
+                  ExpressionAttributeNames: {}
       responses:
         '200':
           description: Successfully scanned items
@@ -429,31 +617,50 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/ScanOutput'
+              examples:
+                scan200Example:
+                  summary: Default scan 200 response
+                  x-microcks-default: true
+                  value:
+                    Items:
+                    - {}
+                    Count: 1
+                    ScannedCount: 1
+                    LastEvaluatedKey: {}
         '400':
           description: Invalid request parameters
         '404':
           description: Table not found
       x-amz-target: DynamoDB_20120810.Scan
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#BatchGetItem:
     post:
       operationId: batchGetItem
-      summary: Amazon DynamoDB Get multiple items from one or more tables
+      summary: Amazon DynamoDB Get Multiple Items from One or More Tables
       description: >-
         Returns the attributes of one or more items from one or more
         tables. You identify requested items by primary key. A single
         operation can retrieve up to 16 MB of data, which can contain as
         many as 100 items.
       tags:
-        - Batch
+      - Batch
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/BatchGetItemInput'
+            examples:
+              batchGetItemRequestExample:
+                summary: Default batchGetItem request
+                x-microcks-default: true
+                value:
+                  RequestItems: {}
       responses:
         '200':
           description: Successfully retrieved items
@@ -461,28 +668,44 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/BatchGetItemOutput'
+              examples:
+                batchGetItem200Example:
+                  summary: Default batchGetItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Responses: {}
+                    UnprocessedKeys: {}
         '400':
           description: Invalid request parameters
       x-amz-target: DynamoDB_20120810.BatchGetItem
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#BatchWriteItem:
     post:
       operationId: batchWriteItem
-      summary: Amazon DynamoDB Put or delete multiple items in one or more tables
+      summary: Amazon DynamoDB Put or Delete Multiple Items in One or More Tables
       description: >-
         Puts or deletes multiple items in one or more tables. A single call
         to BatchWriteItem can transmit up to 16 MB of data over the
         network, consisting of up to 25 put or delete requests.
       tags:
-        - Batch
+      - Batch
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/BatchWriteItemInput'
+            examples:
+              batchWriteItemRequestExample:
+                summary: Default batchWriteItem request
+                x-microcks-default: true
+                value:
+                  RequestItems: {}
       responses:
         '200':
           description: Successfully wrote items
@@ -490,28 +713,47 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/BatchWriteItemOutput'
+              examples:
+                batchWriteItem200Example:
+                  summary: Default batchWriteItem 200 response
+                  x-microcks-default: true
+                  value:
+                    UnprocessedItems: {}
         '400':
           description: Invalid request parameters
       x-amz-target: DynamoDB_20120810.BatchWriteItem
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#TransactGetItems:
     post:
       operationId: transactGetItems
-      summary: Amazon DynamoDB Get items in a transaction
+      summary: Amazon DynamoDB Get Items in a Transaction
       description: >-
         A synchronous operation that atomically retrieves multiple items
         from one or more DynamoDB tables. TransactGetItems is a synchronous
         read operation that groups up to 100 Get actions together.
       tags:
-        - Transactions
+      - Transactions
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/TransactGetItemsInput'
+            examples:
+              transactGetItemsRequestExample:
+                summary: Default transactGetItems request
+                x-microcks-default: true
+                value:
+                  TransactItems:
+                  - Get:
+                      TableName: example
+                      Key: example
+                      ProjectionExpression: example
       responses:
         '200':
           description: Successfully retrieved items in transaction
@@ -519,31 +761,51 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/TransactGetItemsOutput'
+              examples:
+                transactGetItems200Example:
+                  summary: Default transactGetItems 200 response
+                  x-microcks-default: true
+                  value:
+                    Responses:
+                    - Item: {}
         '400':
           description: Invalid request parameters
         '409':
           description: Transaction conflict
       x-amz-target: DynamoDB_20120810.TransactGetItems
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#TransactWriteItems:
     post:
       operationId: transactWriteItems
-      summary: Amazon DynamoDB Write items in a transaction
+      summary: Amazon DynamoDB Write Items in a Transaction
       description: >-
         A synchronous write operation that groups up to 100 action
         requests. These actions can target up to 100 distinct items in one
         or more DynamoDB tables within the same AWS account and Region.
         The actions are completed atomically.
       tags:
-        - Transactions
+      - Transactions
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
           application/x-amz-json-1.0:
             schema:
               $ref: '#/components/schemas/TransactWriteItemsInput'
+            examples:
+              transactWriteItemsRequestExample:
+                summary: Default transactWriteItems request
+                x-microcks-default: true
+                value:
+                  TransactItems:
+                  - ConditionCheck: {}
+                    Put: {}
+                    Delete: {}
+                  ClientRequestToken: example-string
       responses:
         '200':
           description: Successfully wrote items in transaction
@@ -551,12 +813,21 @@ paths:
             application/x-amz-json-1.0:
               schema:
                 $ref: '#/components/schemas/TransactWriteItemsOutput'
+              examples:
+                transactWriteItems200Example:
+                  summary: Default transactWriteItems 200 response
+                  x-microcks-default: true
+                  value:
+                    ItemCollectionMetrics: {}
         '400':
           description: Invalid request parameters
         '409':
           description: Transaction conflict or conditional check failed
       x-amz-target: DynamoDB_20120810.TransactWriteItems
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     sigv4Auth:
@@ -586,97 +857,117 @@ components:
         S:
           type: string
           description: String attribute value
+          example: example-string
         N:
           type: string
           description: Number attribute value (sent as string)
+          example: example-string
         B:
           type: string
           format: byte
           description: Binary attribute value (Base64-encoded)
+          example: example-string
         SS:
           type: array
           description: String set attribute value
           items:
             type: string
+          example:
+          - example-string
         NS:
           type: array
           description: Number set attribute value
           items:
             type: string
+          example:
+          - example-string
         BS:
           type: array
           description: Binary set attribute value
           items:
             type: string
             format: byte
+          example:
+          - example-string
         M:
           type: object
           description: Map attribute value
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         L:
           type: array
           description: List attribute value
           items:
             $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
         "NULL":
           type: boolean
           description: Null attribute value
+          example: true
         BOOL:
           type: boolean
           description: Boolean attribute value
 
+          example: true
     KeySchemaElement:
       type: object
       description: Represents a single element of a key schema
       required:
-        - AttributeName
-        - KeyType
+      - AttributeName
+      - KeyType
       properties:
         AttributeName:
           type: string
           description: The name of a key attribute
+          example: example-resource-name
         KeyType:
           type: string
           description: The role that this key attribute will assume
           enum:
-            - HASH
-            - RANGE
+          - HASH
+          - RANGE
 
+          example: HASH
     AttributeDefinition:
       type: object
       description: Represents an attribute for describing the schema for a table or index
       required:
-        - AttributeName
-        - AttributeType
+      - AttributeName
+      - AttributeType
       properties:
         AttributeName:
           type: string
           description: A name for the attribute
+          example: example-resource-name
         AttributeType:
           type: string
           description: The data type for the attribute
           enum:
-            - S
-            - "N"
-            - B
+          - S
+          - "N"
+          - B
 
+          example: S
     ProvisionedThroughput:
       type: object
       description: Represents the provisioned throughput settings for a table or index
       required:
-        - ReadCapacityUnits
-        - WriteCapacityUnits
+      - ReadCapacityUnits
+      - WriteCapacityUnits
       properties:
         ReadCapacityUnits:
           type: integer
           description: The maximum number of strongly consistent reads per second
           minimum: 1
+          example: 1
         WriteCapacityUnits:
           type: integer
           description: The maximum number of writes per second
           minimum: 1
 
+          example: 1
     ProvisionedThroughputDescription:
       type: object
       description: Describes the provisioned throughput settings for a table or index
@@ -684,30 +975,36 @@ components:
         LastIncreaseDateTime:
           type: number
           description: The date and time of the last provisioned throughput increase
+          example: 1.0
         LastDecreaseDateTime:
           type: number
           description: The date and time of the last provisioned throughput decrease
+          example: 1.0
         NumberOfDecreasesToday:
           type: integer
           description: The number of provisioned throughput decreases for this table during this UTC calendar day
+          example: 1
         ReadCapacityUnits:
           type: integer
           description: The maximum number of strongly consistent reads per second
+          example: 1
         WriteCapacityUnits:
           type: integer
           description: The maximum number of writes per second
 
+          example: 1
     GlobalSecondaryIndex:
       type: object
       description: Represents the properties of a global secondary index
       required:
-        - IndexName
-        - KeySchema
-        - Projection
+      - IndexName
+      - KeySchema
+      - Projection
       properties:
         IndexName:
           type: string
           description: The name of the global secondary index
+          example: example-resource-name
         KeySchema:
           type: array
           description: The complete key schema for the index
@@ -715,6 +1012,8 @@ components:
             $ref: '#/components/schemas/KeySchemaElement'
           minItems: 1
           maxItems: 2
+          example:
+          - example-string
         Projection:
           $ref: '#/components/schemas/Projection'
         ProvisionedThroughput:
@@ -724,13 +1023,14 @@ components:
       type: object
       description: Represents the properties of a local secondary index
       required:
-        - IndexName
-        - KeySchema
-        - Projection
+      - IndexName
+      - KeySchema
+      - Projection
       properties:
         IndexName:
           type: string
           description: The name of the local secondary index
+          example: example-resource-name
         KeySchema:
           type: array
           description: The complete key schema for the index
@@ -738,6 +1038,8 @@ components:
             $ref: '#/components/schemas/KeySchemaElement'
           minItems: 2
           maxItems: 2
+          example:
+          - example-string
         Projection:
           $ref: '#/components/schemas/Projection'
 
@@ -749,9 +1051,10 @@ components:
           type: string
           description: The set of attributes that are projected into the index
           enum:
-            - ALL
-            - KEYS_ONLY
-            - INCLUDE
+          - ALL
+          - KEYS_ONLY
+          - INCLUDE
+          example: ALL
         NonKeyAttributes:
           type: array
           description: The non-key projected attributes
@@ -759,6 +1062,8 @@ components:
             type: string
           maxItems: 20
 
+          example:
+          - example-string
     TableDescription:
       type: object
       description: Represents the properties of a DynamoDB table
@@ -766,54 +1071,69 @@ components:
         TableName:
           type: string
           description: The name of the table
+          example: example-resource-name
         TableStatus:
           type: string
           description: The current state of the table
           enum:
-            - CREATING
-            - UPDATING
-            - DELETING
-            - ACTIVE
-            - INACCESSIBLE_ENCRYPTION_CREDENTIALS
-            - ARCHIVING
-            - ARCHIVED
+          - CREATING
+          - UPDATING
+          - DELETING
+          - ACTIVE
+          - INACCESSIBLE_ENCRYPTION_CREDENTIALS
+          - ARCHIVING
+          - ARCHIVED
+          example: CREATING
         TableArn:
           type: string
           description: The Amazon Resource Name (ARN) of the table
+          example: arn:aws:service:us-east-1:123456789012:resource/example
         TableId:
           type: string
           description: Unique identifier for the table
+          example: example-id-1234
         CreationDateTime:
           type: number
           description: The date and time when the table was created
+          example: 1.0
         KeySchema:
           type: array
           description: The primary key structure for the table
           items:
             $ref: '#/components/schemas/KeySchemaElement'
+          example:
+          - example-string
         AttributeDefinitions:
           type: array
           description: An array of attribute definitions for the table
           items:
             $ref: '#/components/schemas/AttributeDefinition'
+          example:
+          - example-string
         ProvisionedThroughput:
           $ref: '#/components/schemas/ProvisionedThroughputDescription'
         TableSizeBytes:
           type: integer
           description: The total size of the table in bytes
+          example: 1
         ItemCount:
           type: integer
           description: The number of items in the table
+          example: 1
         GlobalSecondaryIndexes:
           type: array
           description: The global secondary indexes on the table
           items:
             type: object
+          example:
+          - {}
         LocalSecondaryIndexes:
           type: array
           description: The local secondary indexes on the table
           items:
             type: object
+          example:
+          - {}
         BillingModeSummary:
           type: object
           description: Contains details about the billing mode for the table
@@ -821,23 +1141,27 @@ components:
             BillingMode:
               type: string
               enum:
-                - PROVISIONED
-                - PAY_PER_REQUEST
+              - PROVISIONED
+              - PAY_PER_REQUEST
             LastUpdateToPayPerRequestDateTime:
               type: number
 
+          example:
+            BillingMode: PROVISIONED
+            LastUpdateToPayPerRequestDateTime: 1.0
     CreateTableInput:
       type: object
       required:
-        - TableName
-        - KeySchema
-        - AttributeDefinitions
+      - TableName
+      - KeySchema
+      - AttributeDefinitions
       properties:
         TableName:
           type: string
           description: The name of the table to create
           minLength: 3
           maxLength: 255
+          example: example-resource-name
         KeySchema:
           type: array
           description: >-
@@ -848,35 +1172,46 @@ components:
             $ref: '#/components/schemas/KeySchemaElement'
           minItems: 1
           maxItems: 2
+          example:
+          - example-string
         AttributeDefinitions:
           type: array
           description: An array of attributes that describe the key schema for the table and indexes
           items:
             $ref: '#/components/schemas/AttributeDefinition'
+          example:
+          - example-string
         ProvisionedThroughput:
           $ref: '#/components/schemas/ProvisionedThroughput'
         BillingMode:
           type: string
           description: Controls how you are charged for read and write throughput
           enum:
-            - PROVISIONED
-            - PAY_PER_REQUEST
+          - PROVISIONED
+          - PAY_PER_REQUEST
+          example: PROVISIONED
         GlobalSecondaryIndexes:
           type: array
           description: One or more global secondary indexes to be created on the table
           items:
             $ref: '#/components/schemas/GlobalSecondaryIndex'
+          example:
+          - example-string
         LocalSecondaryIndexes:
           type: array
           description: One or more local secondary indexes to be created on the table
           items:
             $ref: '#/components/schemas/LocalSecondaryIndex'
+          example:
+          - example-string
         Tags:
           type: array
           description: Tags to associate with the table
           items:
             $ref: '#/components/schemas/Tag'
 
+          example:
+          - example-string
     CreateTableOutput:
       type: object
       properties:
@@ -892,58 +1227,68 @@ components:
     UpdateTableInput:
       type: object
       required:
-        - TableName
+      - TableName
       properties:
         TableName:
           type: string
           description: The name of the table to update
+          example: example-resource-name
         ProvisionedThroughput:
           $ref: '#/components/schemas/ProvisionedThroughput'
         BillingMode:
           type: string
           enum:
-            - PROVISIONED
-            - PAY_PER_REQUEST
+          - PROVISIONED
+          - PAY_PER_REQUEST
+          example: PROVISIONED
         GlobalSecondaryIndexUpdates:
           type: array
           description: An array of global secondary index operations
           items:
             type: object
 
+          example:
+          - {}
     PutItemInput:
       type: object
       required:
-        - TableName
-        - Item
+      - TableName
+      - Item
       properties:
         TableName:
           type: string
           description: The name of the table to contain the item
+          example: example-resource-name
         Item:
           type: object
           description: A map of attribute name to attribute values, representing the item
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         ConditionExpression:
           type: string
           description: A condition that must be satisfied for a put to succeed
+          example: example-string
         ExpressionAttributeNames:
           type: object
           description: Substitution tokens for attribute names in an expression
           additionalProperties:
             type: string
+          example: {}
         ExpressionAttributeValues:
           type: object
           description: Values that can be substituted in an expression
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         ReturnValues:
           type: string
           description: Determines the return values after the operation
           enum:
-            - NONE
-            - ALL_OLD
+          - NONE
+          - ALL_OLD
 
+          example: NONE
     PutItemOutput:
       type: object
       properties:
@@ -953,32 +1298,38 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
 
+          example: {}
     GetItemInput:
       type: object
       required:
-        - TableName
-        - Key
+      - TableName
+      - Key
       properties:
         TableName:
           type: string
           description: The name of the table containing the requested item
+          example: example-resource-name
         Key:
           type: object
           description: A map of attribute names to AttributeValue objects for the primary key
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         ProjectionExpression:
           type: string
           description: A string that identifies attributes to retrieve
+          example: example-string
         ConsistentRead:
           type: boolean
           description: Determines the read consistency model
+          example: true
         ExpressionAttributeNames:
           type: object
           description: Substitution tokens for attribute names in an expression
           additionalProperties:
             type: string
 
+          example: {}
     GetItemOutput:
       type: object
       properties:
@@ -988,46 +1339,54 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
 
+          example: {}
     UpdateItemInput:
       type: object
       required:
-        - TableName
-        - Key
+      - TableName
+      - Key
       properties:
         TableName:
           type: string
           description: The name of the table containing the item to update
+          example: example-resource-name
         Key:
           type: object
           description: The primary key of the item to be updated
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         UpdateExpression:
           type: string
           description: An expression that defines attributes to be updated
+          example: example-string
         ConditionExpression:
           type: string
           description: A condition that must be satisfied for the update to succeed
+          example: example-string
         ExpressionAttributeNames:
           type: object
           description: Substitution tokens for attribute names in an expression
           additionalProperties:
             type: string
+          example: {}
         ExpressionAttributeValues:
           type: object
           description: Values that can be substituted in an expression
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         ReturnValues:
           type: string
           description: Determines the return values after the operation
           enum:
-            - NONE
-            - UPDATED_OLD
-            - ALL_OLD
-            - UPDATED_NEW
-            - ALL_NEW
+          - NONE
+          - UPDATED_OLD
+          - ALL_OLD
+          - UPDATED_NEW
+          - ALL_NEW
 
+          example: NONE
     UpdateItemOutput:
       type: object
       properties:
@@ -1037,40 +1396,47 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
 
+          example: {}
     DeleteItemInput:
       type: object
       required:
-        - TableName
-        - Key
+      - TableName
+      - Key
       properties:
         TableName:
           type: string
           description: The name of the table from which to delete the item
+          example: example-resource-name
         Key:
           type: object
           description: A map of attribute names to AttributeValue objects for the primary key
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         ConditionExpression:
           type: string
           description: A condition that must be satisfied for the delete to succeed
+          example: example-string
         ExpressionAttributeNames:
           type: object
           description: Substitution tokens for attribute names in an expression
           additionalProperties:
             type: string
+          example: {}
         ExpressionAttributeValues:
           type: object
           description: Values that can be substituted in an expression
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         ReturnValues:
           type: string
           description: Determines the return values after the operation
           enum:
-            - NONE
-            - ALL_OLD
+          - NONE
+          - ALL_OLD
 
+          example: NONE
     DeleteItemOutput:
       type: object
       properties:
@@ -1080,61 +1446,74 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
 
+          example: {}
     QueryInput:
       type: object
       required:
-        - TableName
+      - TableName
       properties:
         TableName:
           type: string
           description: The name of the table to query
+          example: example-resource-name
         IndexName:
           type: string
           description: The name of a secondary index to query
+          example: example-resource-name
         KeyConditionExpression:
           type: string
           description: The condition that specifies the key values for items to be retrieved
+          example: example-string
         FilterExpression:
           type: string
           description: A string that contains conditions for filtering the query results
+          example: example-string
         ProjectionExpression:
           type: string
           description: A string that identifies attributes to retrieve
+          example: example-string
         ExpressionAttributeNames:
           type: object
           description: Substitution tokens for attribute names in an expression
           additionalProperties:
             type: string
+          example: {}
         ExpressionAttributeValues:
           type: object
           description: Values that can be substituted in an expression
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         ScanIndexForward:
           type: boolean
           description: Specifies the order for index traversal (true=ascending, false=descending)
           default: true
+          example: true
         Limit:
           type: integer
           description: The maximum number of items to evaluate
           minimum: 1
+          example: 1
         ConsistentRead:
           type: boolean
           description: Determines the read consistency model
+          example: true
         ExclusiveStartKey:
           type: object
           description: The primary key of the first item that this operation evaluates
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         Select:
           type: string
           description: The attributes to be returned in the result
           enum:
-            - ALL_ATTRIBUTES
-            - ALL_PROJECTED_ATTRIBUTES
-            - COUNT
-            - SPECIFIC_ATTRIBUTES
+          - ALL_ATTRIBUTES
+          - ALL_PROJECTED_ATTRIBUTES
+          - COUNT
+          - SPECIFIC_ATTRIBUTES
 
+          example: ALL_ATTRIBUTES
     QueryOutput:
       type: object
       properties:
@@ -1145,75 +1524,92 @@ components:
             type: object
             additionalProperties:
               $ref: '#/components/schemas/AttributeValue'
+          example:
+          - {}
         Count:
           type: integer
           description: The number of items in the response
+          example: 1
         ScannedCount:
           type: integer
           description: The number of items evaluated before any filter is applied
+          example: 1
         LastEvaluatedKey:
           type: object
           description: The primary key of the item where the operation stopped
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
 
+          example: {}
     ScanInput:
       type: object
       required:
-        - TableName
+      - TableName
       properties:
         TableName:
           type: string
           description: The name of the table to scan
+          example: example-resource-name
         IndexName:
           type: string
           description: The name of a secondary index to scan
+          example: example-resource-name
         FilterExpression:
           type: string
           description: A string that contains conditions for filtering the scan results
+          example: example-string
         ProjectionExpression:
           type: string
           description: A string that identifies attributes to retrieve
+          example: example-string
         ExpressionAttributeNames:
           type: object
           description: Substitution tokens for attribute names in an expression
           additionalProperties:
             type: string
+          example: {}
         ExpressionAttributeValues:
           type: object
           description: Values that can be substituted in an expression
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         Limit:
           type: integer
           description: The maximum number of items to evaluate
           minimum: 1
+          example: 1
         ConsistentRead:
           type: boolean
           description: Determines the read consistency model
+          example: true
         ExclusiveStartKey:
           type: object
           description: The primary key of the first item that this operation evaluates
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
+          example: {}
         Segment:
           type: integer
           description: For parallel scan, identifies the segment to be scanned
           minimum: 0
+          example: 1
         TotalSegments:
           type: integer
           description: For parallel scan, the total number of segments
           minimum: 1
           maximum: 1000000
+          example: 1
         Select:
           type: string
           description: The attributes to be returned in the result
           enum:
-            - ALL_ATTRIBUTES
-            - ALL_PROJECTED_ATTRIBUTES
-            - COUNT
-            - SPECIFIC_ATTRIBUTES
+          - ALL_ATTRIBUTES
+          - ALL_PROJECTED_ATTRIBUTES
+          - COUNT
+          - SPECIFIC_ATTRIBUTES
 
+          example: ALL_ATTRIBUTES
     ScanOutput:
       type: object
       properties:
@@ -1224,22 +1620,27 @@ components:
             type: object
             additionalProperties:
               $ref: '#/components/schemas/AttributeValue'
+          example:
+          - {}
         Count:
           type: integer
           description: The number of items in the response
+          example: 1
         ScannedCount:
           type: integer
           description: The number of items evaluated before any filter is applied
+          example: 1
         LastEvaluatedKey:
           type: object
           description: The primary key of the item where the operation stopped
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
 
+          example: {}
     BatchGetItemInput:
       type: object
       required:
-        - RequestItems
+      - RequestItems
       properties:
         RequestItems:
           type: object
@@ -1263,6 +1664,7 @@ components:
                 additionalProperties:
                   type: string
 
+          example: {}
     BatchGetItemOutput:
       type: object
       properties:
@@ -1275,14 +1677,16 @@ components:
               type: object
               additionalProperties:
                 $ref: '#/components/schemas/AttributeValue'
+          example: {}
         UnprocessedKeys:
           type: object
           description: A map of unprocessed keys, to be retried
 
+          example: {}
     BatchWriteItemInput:
       type: object
       required:
-        - RequestItems
+      - RequestItems
       properties:
         RequestItems:
           type: object
@@ -1307,6 +1711,7 @@ components:
                       additionalProperties:
                         $ref: '#/components/schemas/AttributeValue'
 
+          example: {}
     BatchWriteItemOutput:
       type: object
       properties:
@@ -1314,10 +1719,11 @@ components:
           type: object
           description: A map of tables and requests against those tables that were not processed
 
+          example: {}
     TransactGetItemsInput:
       type: object
       required:
-        - TransactItems
+      - TransactItems
       properties:
         TransactItems:
           type: array
@@ -1328,8 +1734,8 @@ components:
               Get:
                 type: object
                 required:
-                  - TableName
-                  - Key
+                - TableName
+                - Key
                 properties:
                   TableName:
                     type: string
@@ -1345,6 +1751,11 @@ components:
                       type: string
           maxItems: 100
 
+          example:
+          - Get:
+              TableName: example
+              Key: example
+              ProjectionExpression: example
     TransactGetItemsOutput:
       type: object
       properties:
@@ -1359,10 +1770,12 @@ components:
                 additionalProperties:
                   $ref: '#/components/schemas/AttributeValue'
 
+          example:
+          - Item: {}
     TransactWriteItemsInput:
       type: object
       required:
-        - TransactItems
+      - TransactItems
       properties:
         TransactItems:
           type: array
@@ -1383,12 +1796,17 @@ components:
                 type: object
                 description: A request to perform an UpdateItem operation
           maxItems: 100
+          example:
+          - ConditionCheck: {}
+            Put: {}
+            Delete: {}
         ClientRequestToken:
           type: string
           description: A unique identifier for the client request to ensure idempotency
           minLength: 1
           maxLength: 36
 
+          example: example-string
     TransactWriteItemsOutput:
       type: object
       properties:
@@ -1396,29 +1814,34 @@ components:
           type: object
           description: A list of tables affected by the TransactWriteItems call
 
+          example: {}
     Tag:
       type: object
       required:
-        - Key
-        - Value
+      - Key
+      - Value
       properties:
         Key:
           type: string
           description: The key of the tag
           minLength: 1
           maxLength: 128
+          example: example-string
         Value:
           type: string
           description: The value of the tag
           minLength: 0
           maxLength: 256
 
+          example: example-string
     ErrorResponse:
       type: object
       properties:
         __type:
           type: string
           description: The error type
+          example: standard
         message:
           type: string
           description: The error message
+          example: example-string

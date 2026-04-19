@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-tag-structure.json",
+  "name": "Tag",
+  "description": "Tag schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "Key": {
+      "type": "string",
+      "description": "The key of the tag",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "Value": {
+      "type": "string",
+      "description": "The value of the tag",
+      "minLength": 0,
+      "maxLength": 256
+    }
+  },
+  "required": [
+    "Key",
+    "Value"
+  ]
+}

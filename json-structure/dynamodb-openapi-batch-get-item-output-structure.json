@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-batch-get-item-output-structure.json",
+  "name": "BatchGetItemOutput",
+  "description": "BatchGetItemOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "Responses": {
+      "type": "object",
+      "description": "A map of table names to lists of items retrieved",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/AttributeValue"
+          }
+        }
+      }
+    },
+    "UnprocessedKeys": {
+      "type": "object",
+      "description": "A map of unprocessed keys, to be retried"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-update-item-output-structure.json",
+  "name": "UpdateItemOutput",
+  "description": "UpdateItemOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "Attributes": {
+      "type": "object",
+      "description": "A map of attribute values as they appear after the UpdateItem operation",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    }
+  }
+}

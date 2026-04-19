@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-get-item-input-structure.json",
+  "name": "GetItemInput",
+  "description": "GetItemInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string",
+      "description": "The name of the table containing the requested item"
+    },
+    "Key": {
+      "type": "object",
+      "description": "A map of attribute names to AttributeValue objects for the primary key",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    },
+    "ProjectionExpression": {
+      "type": "string",
+      "description": "A string that identifies attributes to retrieve"
+    },
+    "ConsistentRead": {
+      "type": "boolean",
+      "description": "Determines the read consistency model"
+    },
+    "ExpressionAttributeNames": {
+      "type": "object",
+      "description": "Substitution tokens for attribute names in an expression",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "TableName",
+    "Key"
+  ]
+}

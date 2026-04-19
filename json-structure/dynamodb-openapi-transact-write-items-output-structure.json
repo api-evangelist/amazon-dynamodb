@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-transact-write-items-output-structure.json",
+  "name": "TransactWriteItemsOutput",
+  "description": "TransactWriteItemsOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "ItemCollectionMetrics": {
+      "type": "object",
+      "description": "A list of tables affected by the TransactWriteItems call"
+    }
+  }
+}

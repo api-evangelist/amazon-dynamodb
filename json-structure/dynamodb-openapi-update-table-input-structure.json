@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-update-table-input-structure.json",
+  "name": "UpdateTableInput",
+  "description": "UpdateTableInput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableName": {
+      "type": "string",
+      "description": "The name of the table to update"
+    },
+    "ProvisionedThroughput": {
+      "$ref": "#/components/schemas/ProvisionedThroughput"
+    },
+    "BillingMode": {
+      "type": "string",
+      "enum": [
+        "PROVISIONED",
+        "PAY_PER_REQUEST"
+      ]
+    },
+    "GlobalSecondaryIndexUpdates": {
+      "type": "array",
+      "description": "An array of global secondary index operations",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "TableName"
+  ]
+}

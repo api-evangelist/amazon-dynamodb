@@ -1,0 +1,9 @@
+{
+  "tableName": "example-resource-name",
+  "keySchema": [
+    "example"
+  ],
+  "attributeDefinitions": [
+    "example"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-scan-output-schema.json",
+  "title": "ScanOutput",
+  "description": "ScanOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "Items": {
+      "type": "array",
+      "description": "An array of item attributes that match the scan criteria",
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/AttributeValue"
+        }
+      }
+    },
+    "Count": {
+      "type": "integer",
+      "description": "The number of items in the response"
+    },
+    "ScannedCount": {
+      "type": "integer",
+      "description": "The number of items evaluated before any filter is applied"
+    },
+    "LastEvaluatedKey": {
+      "type": "object",
+      "description": "The primary key of the item where the operation stopped",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AttributeValue"
+      }
+    }
+  }
+}

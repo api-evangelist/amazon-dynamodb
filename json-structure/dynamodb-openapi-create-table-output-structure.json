@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-create-table-output-structure.json",
+  "name": "CreateTableOutput",
+  "description": "CreateTableOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "TableDescription": {
+      "$ref": "#/components/schemas/TableDescription"
+    }
+  }
+}

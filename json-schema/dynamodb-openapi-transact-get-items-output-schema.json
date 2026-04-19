@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-schema/dynamodb-openapi-transact-get-items-output-schema.json",
+  "title": "TransactGetItemsOutput",
+  "description": "TransactGetItemsOutput schema from Amazon DynamoDB API",
+  "type": "object",
+  "properties": {
+    "Responses": {
+      "type": "array",
+      "description": "An ordered array of up to 100 ItemResponse objects",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Item": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AttributeValue"
+            }
+          }
+        }
+      }
+    }
+  }
+}

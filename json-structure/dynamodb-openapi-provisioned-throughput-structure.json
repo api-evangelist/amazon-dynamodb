@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-dynamodb/refs/heads/main/json-structure/dynamodb-openapi-provisioned-throughput-structure.json",
+  "name": "ProvisionedThroughput",
+  "description": "Represents the provisioned throughput settings for a table or index",
+  "type": "object",
+  "properties": {
+    "ReadCapacityUnits": {
+      "type": "int32",
+      "description": "The maximum number of strongly consistent reads per second",
+      "minimum": 1
+    },
+    "WriteCapacityUnits": {
+      "type": "int32",
+      "description": "The maximum number of writes per second",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "ReadCapacityUnits",
+    "WriteCapacityUnits"
+  ]
+}

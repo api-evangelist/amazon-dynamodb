@@ -1,0 +1,197 @@
+vocabulary: 1.0.0
+info:
+  provider: Amazon DynamoDB
+  description: Unified vocabulary and taxonomy for Amazon DynamoDB APIs covering operational and capability dimensions.
+  created: '2026-04-19'
+  modified: '2026-04-19'
+operational:
+  apis:
+  - name: Amazon DynamoDB API
+    namespace: dynamodb
+    version: '2024'
+    status: active
+  resources:
+  - name: '#BatchGetItem'
+    description: '#BatchGetItem resources'
+  - name: '#UpdateTable'
+    description: '#UpdateTable resources'
+  - name: '#DeleteTable'
+    description: '#DeleteTable resources'
+  - name: '#Query'
+    description: '#Query resources'
+  - name: '#PutItem'
+    description: '#PutItem resources'
+  - name: '#ListTables'
+    description: '#ListTables resources'
+  - name: '#DescribeTable'
+    description: '#DescribeTable resources'
+  - name: '#GetItem'
+    description: '#GetItem resources'
+  - name: '#TransactGetItems'
+    description: '#TransactGetItems resources'
+  - name: '#BatchWriteItem'
+    description: '#BatchWriteItem resources'
+  - name: '#DeleteItem'
+    description: '#DeleteItem resources'
+  - name: '#Scan'
+    description: '#Scan resources'
+  - name: '#UpdateItem'
+    description: '#UpdateItem resources'
+  - name: '#TransactWriteItems'
+    description: '#TransactWriteItems resources'
+  actions:
+  - name: create
+    pattern: write
+  - name: put
+    pattern: write
+  - name: describe
+    pattern: read
+  - name: scan
+    pattern: write
+  - name: transact
+    pattern: write
+  - name: query
+    pattern: write
+  - name: batch
+    pattern: write
+  - name: delete
+    pattern: write
+  - name: list
+    pattern: read
+  - name: get
+    pattern: read
+  - name: update
+    pattern: write
+  schemas:
+    core:
+    - name: AttributeValue
+      description: >-
+        Represents the data for an attribute. Each attribute value is
+        described as a name-value pair with the data type as the name.
+    - name: KeySchemaElement
+      description: Represents a single element of a key schema
+    - name: AttributeDefinition
+      description: Represents an attribute for describing the schema for a table or index
+    - name: ProvisionedThroughput
+      description: Represents the provisioned throughput settings for a table or index
+    - name: ProvisionedThroughputDescription
+      description: Describes the provisioned throughput settings for a table or index
+    - name: GlobalSecondaryIndex
+      description: Represents the properties of a global secondary index
+    - name: LocalSecondaryIndex
+      description: Represents the properties of a local secondary index
+    - name: Projection
+      description: Represents attributes that are copied from the table into an index
+    - name: TableDescription
+      description: Represents the properties of a DynamoDB table
+    - name: CreateTableInput
+      description: CreateTableInput schema
+    - name: CreateTableOutput
+      description: CreateTableOutput schema
+    - name: DescribeTableOutput
+      description: DescribeTableOutput schema
+    - name: UpdateTableInput
+      description: UpdateTableInput schema
+    - name: PutItemInput
+      description: PutItemInput schema
+    - name: PutItemOutput
+      description: PutItemOutput schema
+    - name: GetItemInput
+      description: GetItemInput schema
+    - name: GetItemOutput
+      description: GetItemOutput schema
+    - name: UpdateItemInput
+      description: UpdateItemInput schema
+    - name: UpdateItemOutput
+      description: UpdateItemOutput schema
+    - name: DeleteItemInput
+      description: DeleteItemInput schema
+  authentication:
+    schemes:
+    - AWS Signature Version 4
+    description: All API requests use AWS Signature Version 4 for authentication.
+capability:
+  workflows:
+  - name: NoSQL Database Operations
+    file: capabilities/dynamodb-management.yaml
+    description: Workflow capability for NoSQL Database Operations.
+  personas:
+  - id: cloud-engineer
+    name: Cloud Engineer
+    description: Engineers managing Amazon DynamoDB resources on AWS.
+    workflows:
+    - NoSQL Database Operations
+  domains:
+  - name: NoSQL Database Operations
+    description: NoSQL Database Operations business domain for Amazon DynamoDB.
+crossReference:
+- resource: '#BatchGetItem'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#UpdateTable'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#DeleteTable'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#Query'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#PutItem'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#ListTables'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#DescribeTable'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#GetItem'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#TransactGetItems'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#BatchWriteItem'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#DeleteItem'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#Scan'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#UpdateItem'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer
+- resource: '#TransactWriteItems'
+  workflows:
+  - NoSQL Database Operations
+  personas:
+  - Cloud Engineer

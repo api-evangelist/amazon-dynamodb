@@ -1,0 +1,11 @@
+{
+  "TransactItems": [
+    {
+      "Get": {
+        "TableName": "example-resource-name",
+        "Key": {},
+        "ProjectionExpression": "example-string-value"
+      }
+    }
+  ]
+}
