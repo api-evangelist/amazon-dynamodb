@@ -1,237 +1,421 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Amazon DynamoDB NoSQL Database Operations"
-  description: "Unified capability for managing DynamoDB tables, items, queries, and transactions for application developers and data engineers."
+  label: Amazon DynamoDB NoSQL Database Operations
+  description: Unified capability for managing DynamoDB tables, items, queries, and transactions for application developers
+    and data engineers.
   tags:
-    - Amazon DynamoDB
-    - AWS
-    - Database
-    - NoSQL
-  created: "2026-04-19"
-  modified: "2026-04-19"
-
+  - Amazon DynamoDB
+  - AWS
+  - Database
+  - NoSQL
+  created: '2026-04-19'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
-      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
-
+- namespace: env
+  keys:
+    AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
 capability:
   consumes:
-    - import: dynamodb
-      location: ./shared/dynamodb.yaml
-
+  - type: http
+    namespace: dynamodb
+    baseUri: https://dynamodb.amazonaws.com
+    description: Amazon DynamoDB serverless NoSQL database service.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: AWS4-HMAC-SHA256 Credential={{env.AWS_ACCESS_KEY_ID}}
+      placement: header
+    resources:
+    - name: root
+      path: /
+      description: Operations for root resources.
+      operations:
+      - name: createTable
+        method: POST
+        description: Amazon DynamoDB Create a DynamoDB Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#DescribeTable
+      description: 'Operations for #DescribeTable resources.'
+      operations:
+      - name: describeTable
+        method: POST
+        description: Amazon DynamoDB Describe a DynamoDB Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#ListTables
+      description: 'Operations for #ListTables resources.'
+      operations:
+      - name: listTables
+        method: POST
+        description: Amazon DynamoDB List DynamoDB Tables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#UpdateTable
+      description: 'Operations for #UpdateTable resources.'
+      operations:
+      - name: updateTable
+        method: POST
+        description: Amazon DynamoDB Update a DynamoDB Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#DeleteTable
+      description: 'Operations for #DeleteTable resources.'
+      operations:
+      - name: deleteTable
+        method: POST
+        description: Amazon DynamoDB Delete a DynamoDB Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#PutItem
+      description: 'Operations for #PutItem resources.'
+      operations:
+      - name: putItem
+        method: POST
+        description: Amazon DynamoDB Put an Item Into a Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#GetItem
+      description: 'Operations for #GetItem resources.'
+      operations:
+      - name: getItem
+        method: POST
+        description: Amazon DynamoDB Get an Item from a Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#UpdateItem
+      description: 'Operations for #UpdateItem resources.'
+      operations:
+      - name: updateItem
+        method: POST
+        description: Amazon DynamoDB Update an Item in a Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#DeleteItem
+      description: 'Operations for #DeleteItem resources.'
+      operations:
+      - name: deleteItem
+        method: POST
+        description: Amazon DynamoDB Delete an Item from a Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#Query
+      description: 'Operations for #Query resources.'
+      operations:
+      - name: query
+        method: POST
+        description: Amazon DynamoDB Query Items in a Table or Index
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#Scan
+      description: 'Operations for #Scan resources.'
+      operations:
+      - name: scan
+        method: POST
+        description: Amazon DynamoDB Scan Items in a Table or Index
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#BatchGetItem
+      description: 'Operations for #BatchGetItem resources.'
+      operations:
+      - name: batchGetItem
+        method: POST
+        description: Amazon DynamoDB Get Multiple Items from One or More Tables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#BatchWriteItem
+      description: 'Operations for #BatchWriteItem resources.'
+      operations:
+      - name: batchWriteItem
+        method: POST
+        description: Amazon DynamoDB Put or Delete Multiple Items in One or More Tables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#TransactGetItems
+      description: 'Operations for #TransactGetItems resources.'
+      operations:
+      - name: transactGetItems
+        method: POST
+        description: Amazon DynamoDB Get Items in a Transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: null
+      path: /#TransactWriteItems
+      description: 'Operations for #TransactWriteItems resources.'
+      operations:
+      - name: transactWriteItems
+        method: POST
+        description: Amazon DynamoDB Write Items in a Transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8081
-      namespace: dynamodb-api
-      description: "Unified REST API for NoSQL Database Operations."
-      resources:
-        - path: /v1/resource
-          name: createTable
-          description: "Amazon DynamoDB Create a DynamoDB Table"
-          operations:
-            - method: POST
-              name: createTable
-              description: "Amazon DynamoDB Create a DynamoDB Table"
-              call: "dynamodb.createTable"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#DescribeTable
-          name: describeTable
-          description: "Amazon DynamoDB Describe a DynamoDB Table"
-          operations:
-            - method: POST
-              name: describeTable
-              description: "Amazon DynamoDB Describe a DynamoDB Table"
-              call: "dynamodb.describeTable"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#ListTables
-          name: listTables
-          description: "Amazon DynamoDB List DynamoDB Tables"
-          operations:
-            - method: POST
-              name: listTables
-              description: "Amazon DynamoDB List DynamoDB Tables"
-              call: "dynamodb.listTables"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#UpdateTable
-          name: updateTable
-          description: "Amazon DynamoDB Update a DynamoDB Table"
-          operations:
-            - method: POST
-              name: updateTable
-              description: "Amazon DynamoDB Update a DynamoDB Table"
-              call: "dynamodb.updateTable"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#DeleteTable
-          name: deleteTable
-          description: "Amazon DynamoDB Delete a DynamoDB Table"
-          operations:
-            - method: POST
-              name: deleteTable
-              description: "Amazon DynamoDB Delete a DynamoDB Table"
-              call: "dynamodb.deleteTable"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#PutItem
-          name: putItem
-          description: "Amazon DynamoDB Put an Item Into a Table"
-          operations:
-            - method: POST
-              name: putItem
-              description: "Amazon DynamoDB Put an Item Into a Table"
-              call: "dynamodb.putItem"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#GetItem
-          name: getItem
-          description: "Amazon DynamoDB Get an Item from a Table"
-          operations:
-            - method: POST
-              name: getItem
-              description: "Amazon DynamoDB Get an Item from a Table"
-              call: "dynamodb.getItem"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#UpdateItem
-          name: updateItem
-          description: "Amazon DynamoDB Update an Item in a Table"
-          operations:
-            - method: POST
-              name: updateItem
-              description: "Amazon DynamoDB Update an Item in a Table"
-              call: "dynamodb.updateItem"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#DeleteItem
-          name: deleteItem
-          description: "Amazon DynamoDB Delete an Item from a Table"
-          operations:
-            - method: POST
-              name: deleteItem
-              description: "Amazon DynamoDB Delete an Item from a Table"
-              call: "dynamodb.deleteItem"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/#Query
-          name: query
-          description: "Amazon DynamoDB Query Items in a Table or Index"
-          operations:
-            - method: POST
-              name: query
-              description: "Amazon DynamoDB Query Items in a Table or Index"
-              call: "dynamodb.query"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9091
-      namespace: dynamodb-mcp
-      transport: http
-      description: "MCP server for AI-assisted NoSQL Database Operations."
-      tools:
-        - name: create-table
-          description: "Amazon DynamoDB Create a DynamoDB Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.createTable"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: describe-table
-          description: "Amazon DynamoDB Describe a DynamoDB Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.describeTable"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-tables
-          description: "Amazon DynamoDB List DynamoDB Tables"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.listTables"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: update-table
-          description: "Amazon DynamoDB Update a DynamoDB Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.updateTable"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-table
-          description: "Amazon DynamoDB Delete a DynamoDB Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.deleteTable"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: put-item
-          description: "Amazon DynamoDB Put an Item Into a Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.putItem"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-item
-          description: "Amazon DynamoDB Get an Item from a Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.getItem"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: update-item
-          description: "Amazon DynamoDB Update an Item in a Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.updateItem"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-item
-          description: "Amazon DynamoDB Delete an Item from a Table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.deleteItem"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: query
-          description: "Amazon DynamoDB Query Items in a Table or Index"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "dynamodb.query"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8081
+    namespace: dynamodb-api
+    description: Unified REST API for NoSQL Database Operations.
+    resources:
+    - path: /v1/resource
+      name: createTable
+      description: Amazon DynamoDB Create a DynamoDB Table
+      operations:
+      - method: POST
+        name: createTable
+        description: Amazon DynamoDB Create a DynamoDB Table
+        call: dynamodb.createTable
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#DescribeTable
+      name: describeTable
+      description: Amazon DynamoDB Describe a DynamoDB Table
+      operations:
+      - method: POST
+        name: describeTable
+        description: Amazon DynamoDB Describe a DynamoDB Table
+        call: dynamodb.describeTable
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#ListTables
+      name: listTables
+      description: Amazon DynamoDB List DynamoDB Tables
+      operations:
+      - method: POST
+        name: listTables
+        description: Amazon DynamoDB List DynamoDB Tables
+        call: dynamodb.listTables
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#UpdateTable
+      name: updateTable
+      description: Amazon DynamoDB Update a DynamoDB Table
+      operations:
+      - method: POST
+        name: updateTable
+        description: Amazon DynamoDB Update a DynamoDB Table
+        call: dynamodb.updateTable
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#DeleteTable
+      name: deleteTable
+      description: Amazon DynamoDB Delete a DynamoDB Table
+      operations:
+      - method: POST
+        name: deleteTable
+        description: Amazon DynamoDB Delete a DynamoDB Table
+        call: dynamodb.deleteTable
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#PutItem
+      name: putItem
+      description: Amazon DynamoDB Put an Item Into a Table
+      operations:
+      - method: POST
+        name: putItem
+        description: Amazon DynamoDB Put an Item Into a Table
+        call: dynamodb.putItem
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#GetItem
+      name: getItem
+      description: Amazon DynamoDB Get an Item from a Table
+      operations:
+      - method: POST
+        name: getItem
+        description: Amazon DynamoDB Get an Item from a Table
+        call: dynamodb.getItem
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#UpdateItem
+      name: updateItem
+      description: Amazon DynamoDB Update an Item in a Table
+      operations:
+      - method: POST
+        name: updateItem
+        description: Amazon DynamoDB Update an Item in a Table
+        call: dynamodb.updateItem
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#DeleteItem
+      name: deleteItem
+      description: Amazon DynamoDB Delete an Item from a Table
+      operations:
+      - method: POST
+        name: deleteItem
+        description: Amazon DynamoDB Delete an Item from a Table
+        call: dynamodb.deleteItem
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/#Query
+      name: query
+      description: Amazon DynamoDB Query Items in a Table or Index
+      operations:
+      - method: POST
+        name: query
+        description: Amazon DynamoDB Query Items in a Table or Index
+        call: dynamodb.query
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9091
+    namespace: dynamodb-mcp
+    transport: http
+    description: MCP server for AI-assisted NoSQL Database Operations.
+    tools:
+    - name: create-table
+      description: Amazon DynamoDB Create a DynamoDB Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.createTable
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: describe-table
+      description: Amazon DynamoDB Describe a DynamoDB Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.describeTable
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tables
+      description: Amazon DynamoDB List DynamoDB Tables
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.listTables
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-table
+      description: Amazon DynamoDB Update a DynamoDB Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.updateTable
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-table
+      description: Amazon DynamoDB Delete a DynamoDB Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.deleteTable
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-item
+      description: Amazon DynamoDB Put an Item Into a Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.putItem
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-item
+      description: Amazon DynamoDB Get an Item from a Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.getItem
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-item
+      description: Amazon DynamoDB Update an Item in a Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.updateItem
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-item
+      description: Amazon DynamoDB Delete an Item from a Table
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.deleteItem
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query
+      description: Amazon DynamoDB Query Items in a Table or Index
+      hints:
+        readOnly: false
+        destructive: false
+      call: dynamodb.query
+      outputParameters:
+      - type: object
+        mapping: $.
