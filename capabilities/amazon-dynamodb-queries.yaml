@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon DynamoDB API — Queries
+  description: 'Amazon DynamoDB API — Queries. 2 operations. Lead operation: Amazon DynamoDB Query Items in a Table or Index.
+    Self-contained Naftiko capability covering one Amazon Dynamodb business surface.'
+  tags:
+  - Amazon Dynamodb
+  - Queries
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_DYNAMODB_API_KEY: AMAZON_DYNAMODB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-dynamodb-queries
+    baseUri: https://dynamodb.{region}.amazonaws.com
+    description: Amazon DynamoDB API — Queries business capability. Self-contained, no shared references.
+    resources:
+    - name: '#Query'
+      path: /#Query
+      operations:
+      - name: query
+        method: POST
+        description: Amazon DynamoDB Query Items in a Table or Index
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: '#Scan'
+      path: /#Scan
+      operations:
+      - name: scan
+        method: POST
+        description: Amazon DynamoDB Scan Items in a Table or Index
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_DYNAMODB_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-dynamodb-queries-rest
+    port: 8080
+    description: REST adapter for Amazon DynamoDB API — Queries. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/query
+      name: query
+      description: 'REST surface for #Query.'
+      operations:
+      - method: POST
+        name: query
+        description: Amazon DynamoDB Query Items in a Table or Index
+        call: amazon-dynamodb-queries.query
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scan
+      name: scan
+      description: 'REST surface for #Scan.'
+      operations:
+      - method: POST
+        name: scan
+        description: Amazon DynamoDB Scan Items in a Table or Index
+        call: amazon-dynamodb-queries.scan
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-dynamodb-queries-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon DynamoDB API — Queries. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: amazon-dynamodb-query-items-table
+      description: Amazon DynamoDB Query Items in a Table or Index
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: amazon-dynamodb-queries.query
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-dynamodb-scan-items-table
+      description: Amazon DynamoDB Scan Items in a Table or Index
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-dynamodb-queries.scan
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
