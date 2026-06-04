@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Provision a Table
+  summary: Create a DynamoDB table and poll until it becomes ACTIVE.
+  description: >-
+    Provisions a new DynamoDB table and waits for it to finish creating.
+    The workflow submits a CreateTable request with a primary key schema
+    and throughput settings, then repeatedly describes the table until its
+    TableStatus transitions out of CREATING and reaches ACTIVE. Every step
+    spells out its request inline, including the AWS JSON protocol
+    X-Amz-Target header, so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-table
+  summary: Create a table and wait for it to become ACTIVE.
+  description: >-
+    Submits a CreateTable request and then polls DescribeTable until the
+    reported TableStatus is ACTIVE, branching back to the describe step
+    while the table is still being created.
+  inputs:
+    type: object
+    required:
+    - tableName
+    - keySchema
+    - attributeDefinitions
+    properties:
+      tableName:
+        type: string
+        description: The name of the table to create.
+      keySchema:
+        type: array
+        description: The primary key schema (HASH and optional RANGE elements).
+        items:
+          type: object
+      attributeDefinitions:
+        type: array
+        description: The attribute definitions backing the key schema.
+        items:
+          type: object
+      provisionedThroughput:
+        type: object
+        description: Read and write capacity units for PROVISIONED billing mode.
+      billingMode:
+        type: string
+        description: PROVISIONED or PAY_PER_REQUEST.
+  steps:
+  - stepId: createTable
+    description: >-
+      Create the table with the supplied key schema, attribute definitions,
+      and throughput settings.
+    operationId: createTable
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.CreateTable
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        KeySchema: $inputs.keySchema
+        AttributeDefinitions: $inputs.attributeDefinitions
+        ProvisionedThroughput: $inputs.provisionedThroughput
+        BillingMode: $inputs.billingMode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableStatus: $response.body#/TableDescription/TableStatus
+      tableArn: $response.body#/TableDescription/TableArn
+  - stepId: waitForActive
+    description: >-
+      Describe the table and check whether it has become ACTIVE. While the
+      table is still CREATING, loop back and describe it again.
+    operationId: describeTable
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.DescribeTable
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableStatus: $response.body#/Table/TableStatus
+    onSuccess:
+    - name: stillCreating
+      type: goto
+      stepId: waitForActive
+      criteria:
+      - context: $response.body
+        condition: $.Table.TableStatus != 'ACTIVE'
+        type: jsonpath
+    - name: nowActive
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Table.TableStatus == 'ACTIVE'
+        type: jsonpath
+  outputs:
+    tableArn: $steps.createTable.outputs.tableArn
+    tableStatus: $steps.waitForActive.outputs.tableStatus

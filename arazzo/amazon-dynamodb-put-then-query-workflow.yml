@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Put Item Then Query
+  summary: Write an item and immediately query the partition it belongs to.
+  description: >-
+    Writes a single item with PutItem and then runs a Query against the
+    same table to return every item sharing the new item's partition key.
+    This is the common write-then-read-back-by-partition pattern used to
+    confirm a write landed and to fetch sibling items. Every step spells
+    out its request inline, including the AWS JSON protocol X-Amz-Target
+    header, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: put-then-query
+  summary: Put a single item and query its partition.
+  description: >-
+    Submits a PutItem request, then issues a Query using a key condition
+    expression to retrieve the items in the same partition.
+  inputs:
+    type: object
+    required:
+    - tableName
+    - item
+    - keyConditionExpression
+    - expressionAttributeValues
+    properties:
+      tableName:
+        type: string
+        description: The name of the table to write to and query.
+      item:
+        type: object
+        description: The item to write, as a map of attribute name to AttributeValue.
+      keyConditionExpression:
+        type: string
+        description: The Query key condition expression (e.g. "pk = :pk").
+      expressionAttributeNames:
+        type: object
+        description: Optional substitution tokens for attribute names.
+      expressionAttributeValues:
+        type: object
+        description: Values substituted into the key condition expression.
+      limit:
+        type: integer
+        description: Maximum number of items to evaluate in the query.
+  steps:
+  - stepId: putItem
+    description: Write the item into the table.
+    operationId: putItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.PutItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        Item: $inputs.item
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      attributes: $response.body#/Attributes
+  - stepId: queryPartition
+    description: >-
+      Query the table for all items matching the supplied key condition
+      expression, returning the new item alongside any siblings.
+    operationId: query
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.Query
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        KeyConditionExpression: $inputs.keyConditionExpression
+        ExpressionAttributeNames: $inputs.expressionAttributeNames
+        ExpressionAttributeValues: $inputs.expressionAttributeValues
+        Limit: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      items: $response.body#/Items
+      count: $response.body#/Count
+      lastEvaluatedKey: $response.body#/LastEvaluatedKey
+  outputs:
+    items: $steps.queryPartition.outputs.items
+    count: $steps.queryPartition.outputs.count

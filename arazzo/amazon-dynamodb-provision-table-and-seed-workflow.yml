@@ -1,0 +1,141 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Provision Table and Seed First Item
+  summary: Create a table, wait until ACTIVE, write a seed item, then read it back.
+  description: >-
+    End-to-end bootstrap of a new DynamoDB table. The workflow creates the
+    table, polls DescribeTable until its TableStatus reaches ACTIVE, writes
+    a first seed item with PutItem, and finally reads that same item back
+    with GetItem to confirm the table is usable. Every step spells out its
+    request inline, including the AWS JSON protocol X-Amz-Target header, so
+    the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-table-and-seed
+  summary: Create a table, wait for ACTIVE, seed an item, and read it back.
+  description: >-
+    Chains CreateTable, a DescribeTable poll loop, PutItem, and GetItem so a
+    brand new table is provisioned and confirmed writable and readable in a
+    single flow.
+  inputs:
+    type: object
+    required:
+    - tableName
+    - keySchema
+    - attributeDefinitions
+    - item
+    - key
+    properties:
+      tableName:
+        type: string
+        description: The name of the table to create and seed.
+      keySchema:
+        type: array
+        description: The primary key schema for the table.
+        items:
+          type: object
+      attributeDefinitions:
+        type: array
+        description: The attribute definitions backing the key schema.
+        items:
+          type: object
+      provisionedThroughput:
+        type: object
+        description: Read and write capacity units for PROVISIONED billing mode.
+      item:
+        type: object
+        description: The seed item as a map of attribute name to AttributeValue.
+      key:
+        type: object
+        description: The primary key of the seed item, used for the read-back.
+  steps:
+  - stepId: createTable
+    description: Create the table with the supplied schema and throughput.
+    operationId: createTable
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.CreateTable
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        KeySchema: $inputs.keySchema
+        AttributeDefinitions: $inputs.attributeDefinitions
+        ProvisionedThroughput: $inputs.provisionedThroughput
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableStatus: $response.body#/TableDescription/TableStatus
+  - stepId: waitForActive
+    description: >-
+      Poll DescribeTable until the table reports ACTIVE, looping back while
+      it is still being created.
+    operationId: describeTable
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.DescribeTable
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableStatus: $response.body#/Table/TableStatus
+    onSuccess:
+    - name: stillCreating
+      type: goto
+      stepId: waitForActive
+      criteria:
+      - context: $response.body
+        condition: $.Table.TableStatus != 'ACTIVE'
+        type: jsonpath
+    - name: nowActive
+      type: goto
+      stepId: seedItem
+      criteria:
+      - context: $response.body
+        condition: $.Table.TableStatus == 'ACTIVE'
+        type: jsonpath
+  - stepId: seedItem
+    description: Write the seed item into the freshly provisioned table.
+    operationId: putItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.PutItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        Item: $inputs.item
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      attributes: $response.body#/Attributes
+  - stepId: readBack
+    description: Read the seed item back by its primary key to confirm it was written.
+    operationId: getItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.GetItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        Key: $inputs.key
+        ConsistentRead: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      item: $response.body#/Item
+  outputs:
+    item: $steps.readBack.outputs.item

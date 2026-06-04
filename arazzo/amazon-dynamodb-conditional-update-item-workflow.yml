@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Conditional Update of an Existing Item
+  summary: Read an item, then update it only when it already exists.
+  description: >-
+    A read-modify-write pattern that guards against creating phantom items.
+    The workflow first reads the target item with GetItem; when the item
+    exists it applies an UpdateItem with an update expression, and when the
+    item is absent it stops without writing. Every step spells out its
+    request inline, including the AWS JSON protocol X-Amz-Target header, so
+    the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: conditional-update-item
+  summary: Update an item only when a prior read confirms it exists.
+  description: >-
+    Reads an item by primary key and branches: when the item is present it
+    runs UpdateItem, otherwise it ends without modifying anything.
+  inputs:
+    type: object
+    required:
+    - tableName
+    - key
+    - updateExpression
+    properties:
+      tableName:
+        type: string
+        description: The name of the table containing the item.
+      key:
+        type: object
+        description: The primary key of the item, as a map of attribute name to AttributeValue.
+      updateExpression:
+        type: string
+        description: The update expression to apply (e.g. "SET #s = :s").
+      expressionAttributeNames:
+        type: object
+        description: Optional substitution tokens for attribute names.
+      expressionAttributeValues:
+        type: object
+        description: Values substituted into the update expression.
+  steps:
+  - stepId: readItem
+    description: Read the target item by its primary key to confirm it exists.
+    operationId: getItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.GetItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        Key: $inputs.key
+        ConsistentRead: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      item: $response.body#/Item
+    onSuccess:
+    - name: itemExists
+      type: goto
+      stepId: updateItem
+      criteria:
+      - context: $response.body
+        condition: $.Item != null
+        type: jsonpath
+    - name: itemMissing
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Item == null
+        type: jsonpath
+  - stepId: updateItem
+    description: >-
+      Apply the update expression to the item that the prior read confirmed
+      exists, returning the new attribute values.
+    operationId: updateItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.UpdateItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        Key: $inputs.key
+        UpdateExpression: $inputs.updateExpression
+        ExpressionAttributeNames: $inputs.expressionAttributeNames
+        ExpressionAttributeValues: $inputs.expressionAttributeValues
+        ReturnValues: ALL_NEW
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      attributes: $response.body#/Attributes
+  outputs:
+    updatedAttributes: $steps.updateItem.outputs.attributes

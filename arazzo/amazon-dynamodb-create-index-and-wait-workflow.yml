@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Add a Global Secondary Index and Wait
+  summary: Add a global secondary index to a table and poll until ACTIVE.
+  description: >-
+    Adds a new global secondary index to an existing table with UpdateTable
+    and then polls DescribeTable until the overall table status returns to
+    ACTIVE, indicating the index has finished backfilling. Every step spells
+    out its request inline, including the AWS JSON protocol X-Amz-Target
+    header, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-index-and-wait
+  summary: Add a global secondary index and wait for the table to return to ACTIVE.
+  description: >-
+    Submits an UpdateTable request carrying a GlobalSecondaryIndexUpdates
+    create action plus the new attribute definitions, then polls
+    DescribeTable until TableStatus is ACTIVE again.
+  inputs:
+    type: object
+    required:
+    - tableName
+    - attributeDefinitions
+    - globalSecondaryIndexUpdates
+    properties:
+      tableName:
+        type: string
+        description: The name of the table to add the index to.
+      attributeDefinitions:
+        type: array
+        description: Attribute definitions for the new index key attributes.
+        items:
+          type: object
+      globalSecondaryIndexUpdates:
+        type: array
+        description: An array of GSI update actions (each with a Create block).
+        items:
+          type: object
+  steps:
+  - stepId: addIndex
+    description: >-
+      Submit the UpdateTable request that creates the new global secondary
+      index and declares its key attributes.
+    operationId: updateTable
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.UpdateTable
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        AttributeDefinitions: $inputs.attributeDefinitions
+        GlobalSecondaryIndexUpdates: $inputs.globalSecondaryIndexUpdates
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableStatus: $response.body#/Table/TableStatus
+  - stepId: waitForActive
+    description: >-
+      Poll DescribeTable until the table status returns to ACTIVE, looping
+      while the index is still backfilling.
+    operationId: describeTable
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.DescribeTable
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableStatus: $response.body#/Table/TableStatus
+      globalSecondaryIndexes: $response.body#/Table/GlobalSecondaryIndexes
+    onSuccess:
+    - name: stillUpdating
+      type: goto
+      stepId: waitForActive
+      criteria:
+      - context: $response.body
+        condition: $.Table.TableStatus != 'ACTIVE'
+        type: jsonpath
+    - name: nowActive
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Table.TableStatus == 'ACTIVE'
+        type: jsonpath
+  outputs:
+    tableStatus: $steps.waitForActive.outputs.tableStatus
+    globalSecondaryIndexes: $steps.waitForActive.outputs.globalSecondaryIndexes

@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Scan With Pagination
+  summary: Scan a table and page through results until the table is exhausted.
+  description: >-
+    Reads every matching item from a table by issuing an initial Scan and
+    then repeatedly continuing the scan from the returned LastEvaluatedKey
+    until DynamoDB stops returning one, signalling the end of the table.
+    This is the canonical full-table-scan pagination loop. Every step
+    spells out its request inline, including the AWS JSON protocol
+    X-Amz-Target header, so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: scan-paginate
+  summary: Scan a table and follow LastEvaluatedKey until the scan is complete.
+  description: >-
+    Runs an initial Scan, then branches: while a LastEvaluatedKey is
+    returned it continues the scan from that key, and when none is returned
+    it ends.
+  inputs:
+    type: object
+    required:
+    - tableName
+    properties:
+      tableName:
+        type: string
+        description: The name of the table to scan.
+      filterExpression:
+        type: string
+        description: Optional filter expression to apply to scanned items.
+      expressionAttributeNames:
+        type: object
+        description: Optional substitution tokens for attribute names.
+      expressionAttributeValues:
+        type: object
+        description: Optional values substituted into the filter expression.
+      limit:
+        type: integer
+        description: Maximum number of items to evaluate per page.
+  steps:
+  - stepId: scanFirstPage
+    description: Run the initial scan over the table.
+    operationId: scan
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.Scan
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        FilterExpression: $inputs.filterExpression
+        ExpressionAttributeNames: $inputs.expressionAttributeNames
+        ExpressionAttributeValues: $inputs.expressionAttributeValues
+        Limit: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      items: $response.body#/Items
+      lastEvaluatedKey: $response.body#/LastEvaluatedKey
+    onSuccess:
+    - name: morePages
+      type: goto
+      stepId: scanNextPage
+      criteria:
+      - context: $response.body
+        condition: $.LastEvaluatedKey != null
+        type: jsonpath
+    - name: scanComplete
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.LastEvaluatedKey == null
+        type: jsonpath
+  - stepId: scanNextPage
+    description: >-
+      Continue the scan from the previous page's LastEvaluatedKey, looping
+      until DynamoDB returns no further LastEvaluatedKey.
+    operationId: scan
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.Scan
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        FilterExpression: $inputs.filterExpression
+        ExpressionAttributeNames: $inputs.expressionAttributeNames
+        ExpressionAttributeValues: $inputs.expressionAttributeValues
+        Limit: $inputs.limit
+        ExclusiveStartKey: $steps.scanFirstPage.outputs.lastEvaluatedKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      items: $response.body#/Items
+      lastEvaluatedKey: $response.body#/LastEvaluatedKey
+    onSuccess:
+    - name: stillMorePages
+      type: goto
+      stepId: scanNextPage
+      criteria:
+      - context: $response.body
+        condition: $.LastEvaluatedKey != null
+        type: jsonpath
+    - name: done
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.LastEvaluatedKey == null
+        type: jsonpath
+  outputs:
+    lastPageItems: $steps.scanNextPage.outputs.items

@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Drain and Delete a Table
+  summary: Scan a table, batch-delete its items, then drop the table.
+  description: >-
+    Tears down a table cleanly. The workflow scans the table to gather the
+    keys of the items it holds, issues a BatchWriteItem with delete requests
+    to empty it, and then calls DeleteTable to remove the table itself. The
+    DeleteTable response reports the DELETING status. Every step spells out
+    its request inline, including the AWS JSON protocol X-Amz-Target header,
+    so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: drain-and-delete-table
+  summary: Scan, batch-delete items, and then delete the table.
+  description: >-
+    Scans the table for the keys to remove, deletes them with
+    BatchWriteItem, and finishes by calling DeleteTable.
+  inputs:
+    type: object
+    required:
+    - tableName
+    - deleteRequestItems
+    properties:
+      tableName:
+        type: string
+        description: The name of the table to drain and delete.
+      projectionExpression:
+        type: string
+        description: Projection expression limiting the scan to key attributes.
+      deleteRequestItems:
+        type: object
+        description: >-
+          The BatchWriteItem RequestItems map of table name to an array of
+          DeleteRequest objects keyed by primary key.
+  steps:
+  - stepId: scanKeys
+    description: >-
+      Scan the table to collect the keys of the items that need to be
+      removed before the table can be deleted.
+    operationId: scan
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.Scan
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+        ProjectionExpression: $inputs.projectionExpression
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      items: $response.body#/Items
+      count: $response.body#/Count
+  - stepId: deleteItems
+    description: Batch-delete the scanned items to empty the table.
+    operationId: batchWriteItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.BatchWriteItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        RequestItems: $inputs.deleteRequestItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      unprocessedItems: $response.body#/UnprocessedItems
+  - stepId: deleteTable
+    description: Delete the now-empty table; the response reports DELETING status.
+    operationId: deleteTable
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.DeleteTable
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TableName: $inputs.tableName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableStatus: $response.body#/Table/TableStatus
+  outputs:
+    tableStatus: $steps.deleteTable.outputs.tableStatus

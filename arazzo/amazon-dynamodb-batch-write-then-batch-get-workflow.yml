@@ -1,0 +1,122 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Batch Write Then Batch Get
+  summary: Bulk-write a set of items and read them back in a single batch.
+  description: >-
+    Loads multiple items across one or more tables with BatchWriteItem, then
+    retrieves the same items with BatchGetItem to confirm the load. This is
+    the standard bulk-ingest-and-verify pattern. If the write returns
+    UnprocessedItems the workflow loops back and resubmits before reading.
+    Every step spells out its request inline, including the AWS JSON
+    protocol X-Amz-Target header, so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: batch-write-then-batch-get
+  summary: Bulk write items, retry unprocessed, then batch read them back.
+  description: >-
+    Submits a BatchWriteItem request, loops while UnprocessedItems remain,
+    and finally issues a BatchGetItem request to retrieve the written items.
+  inputs:
+    type: object
+    required:
+    - writeRequestItems
+    - getRequestItems
+    properties:
+      writeRequestItems:
+        type: object
+        description: >-
+          The RequestItems map for BatchWriteItem (table name to an array of
+          PutRequest/DeleteRequest objects).
+      getRequestItems:
+        type: object
+        description: >-
+          The RequestItems map for BatchGetItem (table name to Keys and
+          attributes to retrieve).
+  steps:
+  - stepId: batchWrite
+    description: >-
+      Write the batch of items. DynamoDB may return UnprocessedItems if any
+      requests were throttled or not completed.
+    operationId: batchWriteItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.BatchWriteItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        RequestItems: $inputs.writeRequestItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      unprocessedItems: $response.body#/UnprocessedItems
+    onSuccess:
+    - name: retryUnprocessed
+      type: goto
+      stepId: retryWrite
+      criteria:
+      - context: $response.body
+        condition: $.UnprocessedItems != {}
+        type: jsonpath
+    - name: allWritten
+      type: goto
+      stepId: batchGet
+      criteria:
+      - context: $response.body
+        condition: $.UnprocessedItems == {}
+        type: jsonpath
+  - stepId: retryWrite
+    description: >-
+      Resubmit the items DynamoDB did not process on the first attempt,
+      looping until none remain.
+    operationId: batchWriteItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.BatchWriteItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        RequestItems: $steps.batchWrite.outputs.unprocessedItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      unprocessedItems: $response.body#/UnprocessedItems
+    onSuccess:
+    - name: stillUnprocessed
+      type: goto
+      stepId: retryWrite
+      criteria:
+      - context: $response.body
+        condition: $.UnprocessedItems != {}
+        type: jsonpath
+    - name: nowComplete
+      type: goto
+      stepId: batchGet
+      criteria:
+      - context: $response.body
+        condition: $.UnprocessedItems == {}
+        type: jsonpath
+  - stepId: batchGet
+    description: Read the written items back in a single batch request.
+    operationId: batchGetItem
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.BatchGetItem
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        RequestItems: $inputs.getRequestItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responses: $response.body#/Responses
+      unprocessedKeys: $response.body#/UnprocessedKeys
+  outputs:
+    responses: $steps.batchGet.outputs.responses

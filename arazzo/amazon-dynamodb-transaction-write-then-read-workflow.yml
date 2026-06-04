@@ -1,0 +1,82 @@
+arazzo: 1.0.1
+info:
+  title: Amazon DynamoDB Transactional Write Then Transactional Read
+  summary: Atomically write a group of items, then atomically read them back.
+  description: >-
+    Commits a set of changes atomically with TransactWriteItems and then
+    reads the affected items back atomically with TransactGetItems to verify
+    the committed state. A client request token makes the write idempotent.
+    Every step spells out its request inline, including the AWS JSON
+    protocol X-Amz-Target header, so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dynamodbApi
+  url: ../openapi/amazon-dynamodb-openapi.yml
+  type: openapi
+workflows:
+- workflowId: transaction-write-then-read
+  summary: Run a write transaction, then confirm it with a read transaction.
+  description: >-
+    Submits a TransactWriteItems request with the supplied actions and an
+    idempotency token, then issues a TransactGetItems request to read the
+    affected items in a single atomic operation.
+  inputs:
+    type: object
+    required:
+    - writeTransactItems
+    - getTransactItems
+    properties:
+      writeTransactItems:
+        type: array
+        description: >-
+          The ordered TransactItems for the write (ConditionCheck, Put,
+          Delete, and Update actions).
+        items:
+          type: object
+      clientRequestToken:
+        type: string
+        description: A unique token making the write transaction idempotent.
+      getTransactItems:
+        type: array
+        description: The ordered TransactItems for the read (Get actions).
+        items:
+          type: object
+  steps:
+  - stepId: writeTransaction
+    description: >-
+      Atomically apply the write transaction. All actions succeed together
+      or the entire transaction is rolled back.
+    operationId: transactWriteItems
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.TransactWriteItems
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TransactItems: $inputs.writeTransactItems
+        ClientRequestToken: $inputs.clientRequestToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemCollectionMetrics: $response.body#/ItemCollectionMetrics
+  - stepId: readTransaction
+    description: >-
+      Atomically read the affected items back to confirm the transaction's
+      committed state.
+    operationId: transactGetItems
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: DynamoDB_20120810.TransactGetItems
+    requestBody:
+      contentType: application/x-amz-json-1.0
+      payload:
+        TransactItems: $inputs.getTransactItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responses: $response.body#/Responses
+  outputs:
+    responses: $steps.readTransaction.outputs.responses
