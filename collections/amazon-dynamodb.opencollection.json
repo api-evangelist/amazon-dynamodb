@@ -1,0 +1,371 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon DynamoDB API",
+    "version": "2012-08-10"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon DynamoDB Create a DynamoDB Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new table in DynamoDB. The CreateTable operation adds a new table to your account. Table names must be unique within each Region. You must specify the table name, primary key schema, and provisioned throughput settings."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Describe a DynamoDB Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#DescribeTable",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB List DynamoDB Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#ListTables",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns an array of table names associated with the current account and endpoint. The output from ListTables is paginated, with each page returning a maximum number of table names."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Update a DynamoDB Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#UpdateTable",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Delete a DynamoDB Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#DeleteTable",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a table and all of its items. After a DeleteTable request, the specified table is in the DELETING state until DynamoDB completes the deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon DynamoDB Put an Item Into a Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#PutItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Get an Item from a Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#GetItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a set of attributes for the item with the given primary key. If there is no matching item, GetItem does not return any data and there will be no Item element in the response."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Update an Item in a Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#UpdateItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edits an existing item's attributes, or adds a new item to the table if it does not already exist. You can put, delete, or add attribute values using update expressions."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Delete an Item from a Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#DeleteItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a single item in a table by primary key. You can perform a conditional delete operation that deletes the item if it exists, or if it has an expected attribute value."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Queries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon DynamoDB Query Items in a Table or Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#Query",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finds items based on primary key values. You can query a table or a secondary index. You must provide the name of the partition key attribute and a single value for that attribute. Query returns all items with that partition key value."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Scan Items in a Table or Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#Scan",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns one or more items and item attributes by accessing every item in a table or a secondary index. Scan operations proceed sequentially; however, for faster performance on a large table or secondary index, applications can use parallel scan."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon DynamoDB Get Multiple Items from One or More Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#BatchGetItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the attributes of one or more items from one or more tables. You identify requested items by primary key. A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Put or Delete Multiple Items in One or More Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#BatchWriteItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Puts or deletes multiple items in one or more tables. A single call to BatchWriteItem can transmit up to 16 MB of data over the network, consisting of up to 25 put or delete requests."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon DynamoDB Get Items in a Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#TransactGetItems",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A synchronous operation that atomically retrieves multiple items from one or more DynamoDB tables. TransactGetItems is a synchronous read operation that groups up to 100 Get actions together."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Write Items in a Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#TransactWriteItems",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A synchronous write operation that groups up to 100 action requests. These actions can target up to 100 distinct items in one or more DynamoDB tables within the same AWS account and Region. The actions are completed atomically."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
