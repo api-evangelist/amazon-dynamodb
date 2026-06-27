@@ -50,41 +50,38 @@ apis:
         url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/security.html
       - type: JSONStructure
         url: json-structure/amazon-dynamodb-table-structure.json
-      - type: Example
+      - type: Examples
         url: examples/amazon-dynamodb-table-example.json
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/amazon-dynamodb/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/amazon-dynamodb-batch-write-then-batch-get-workflow.yml
-        name: Amazon DynamoDB Batch Write Then Batch Get
-        summary: Bulk-write a set of items and read them back in a single batch.
-      - url: arazzo/amazon-dynamodb-conditional-update-item-workflow.yml
-        name: Amazon DynamoDB Conditional Update of an Existing Item
-        summary: Read an item, then update it only when it already exists.
-      - url: arazzo/amazon-dynamodb-create-index-and-wait-workflow.yml
-        name: Amazon DynamoDB Add a Global Secondary Index and Wait
-        summary: Add a global secondary index to a table and poll until ACTIVE.
-      - url: arazzo/amazon-dynamodb-drain-and-delete-table-workflow.yml
-        name: Amazon DynamoDB Drain and Delete a Table
-        summary: Scan a table, batch-delete its items, then drop the table.
-      - url: arazzo/amazon-dynamodb-provision-table-and-seed-workflow.yml
-        name: Amazon DynamoDB Provision Table and Seed First Item
-        summary: Create a table, wait until ACTIVE, write a seed item, then read it back.
-      - url: arazzo/amazon-dynamodb-provision-table-workflow.yml
-        name: Amazon DynamoDB Provision a Table
-        summary: Create a DynamoDB table and poll until it becomes ACTIVE.
-      - url: arazzo/amazon-dynamodb-put-then-query-workflow.yml
-        name: Amazon DynamoDB Put Item Then Query
-        summary: Write an item and immediately query the partition it belongs to.
-      - url: arazzo/amazon-dynamodb-scan-paginate-workflow.yml
-        name: Amazon DynamoDB Scan With Pagination
-        summary: Scan a table and page through results until the table is exhausted.
-      - url: arazzo/amazon-dynamodb-transaction-write-then-read-workflow.yml
-        name: Amazon DynamoDB Transactional Write Then Transactional Read
-        summary: Atomically write a group of items, then atomically read them back.
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-batch-write-then-batch-get-workflow.yml
+    name: Amazon DynamoDB Batch Write Then Batch Get
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-conditional-update-item-workflow.yml
+    name: Amazon DynamoDB Conditional Update of an Existing Item
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-create-index-and-wait-workflow.yml
+    name: Amazon DynamoDB Add a Global Secondary Index and Wait
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-drain-and-delete-table-workflow.yml
+    name: Amazon DynamoDB Drain and Delete a Table
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-provision-table-and-seed-workflow.yml
+    name: Amazon DynamoDB Provision Table and Seed First Item
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-provision-table-workflow.yml
+    name: Amazon DynamoDB Provision a Table
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-put-then-query-workflow.yml
+    name: Amazon DynamoDB Put Item Then Query
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-scan-paginate-workflow.yml
+    name: Amazon DynamoDB Scan With Pagination
+  - type: Arazzo
+    url: arazzo/amazon-dynamodb-transaction-write-then-read-workflow.yml
+    name: Amazon DynamoDB Transactional Write Then Transactional Read
   - type: Portal
     url: https://aws.amazon.com/
   - type: DeveloperPortal
@@ -103,7 +100,7 @@ common:
     url: https://github.com/aws
   - type: Console
     url: https://console.aws.amazon.com/dynamodbv2/
-  - type: SignUp
+  - type: Signup
     url: https://signin.aws.amazon.com/signup?request_type=register
   - type: Login
     url: https://aws.amazon.com/console/
