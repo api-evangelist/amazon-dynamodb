@@ -53,6 +53,14 @@ apis:
       - type: Examples
         url: examples/amazon-dynamodb-table-example.json
 common:
+  - type: TrustCenter
+    url: security/amazon-dynamodb-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/amazon-dynamodb-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/amazon-dynamodb-domain-security.yml
+  - type: Authentication
+    url: authentication/amazon-dynamodb-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/amazon-dynamodb/overview
   - type: Arazzo
