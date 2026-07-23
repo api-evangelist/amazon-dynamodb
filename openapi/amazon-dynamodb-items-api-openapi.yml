@@ -1,0 +1,481 @@
+openapi: 3.1.0
+info:
+  title: Amazon DynamoDB Batch Items API
+  description: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.
+  version: '2012-08-10'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://dynamodb.{region}.amazonaws.com
+  description: Amazon DynamoDB Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Items
+  description: Operations for putting, getting, updating, and deleting individual items
+paths:
+  /#PutItem:
+    post:
+      operationId: putItem
+      summary: Amazon DynamoDB Put an Item Into a Table
+      description: Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/PutItemInput'
+            examples:
+              putItemRequestExample:
+                summary: Default putItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Item: {}
+                  ConditionExpression: example-string
+                  ExpressionAttributeNames: {}
+                  ExpressionAttributeValues: {}
+      responses:
+        '200':
+          description: Successfully put item
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/PutItemOutput'
+              examples:
+                putItem200Example:
+                  summary: Default putItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Attributes: {}
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: Table not found
+        '409':
+          description: Conditional check failed
+      x-amz-target: DynamoDB_20120810.PutItem
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#GetItem:
+    post:
+      operationId: getItem
+      summary: Amazon DynamoDB Get an Item from a Table
+      description: Returns a set of attributes for the item with the given primary key. If there is no matching item, GetItem does not return any data and there will be no Item element in the response.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/GetItemInput'
+            examples:
+              getItemRequestExample:
+                summary: Default getItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Key: {}
+                  ProjectionExpression: example-string
+                  ConsistentRead: true
+                  ExpressionAttributeNames: {}
+      responses:
+        '200':
+          description: Successfully retrieved item
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/GetItemOutput'
+              examples:
+                getItem200Example:
+                  summary: Default getItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Item: {}
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: Table not found
+      x-amz-target: DynamoDB_20120810.GetItem
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#UpdateItem:
+    post:
+      operationId: updateItem
+      summary: Amazon DynamoDB Update an Item in a Table
+      description: Edits an existing item's attributes, or adds a new item to the table if it does not already exist. You can put, delete, or add attribute values using update expressions.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateItemInput'
+            examples:
+              updateItemRequestExample:
+                summary: Default updateItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Key: {}
+                  UpdateExpression: example-string
+                  ConditionExpression: example-string
+                  ExpressionAttributeNames: {}
+      responses:
+        '200':
+          description: Successfully updated item
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/UpdateItemOutput'
+              examples:
+                updateItem200Example:
+                  summary: Default updateItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Attributes: {}
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: Table not found
+        '409':
+          description: Conditional check failed
+      x-amz-target: DynamoDB_20120810.UpdateItem
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#DeleteItem:
+    post:
+      operationId: deleteItem
+      summary: Amazon DynamoDB Delete an Item from a Table
+      description: Deletes a single item in a table by primary key. You can perform a conditional delete operation that deletes the item if it exists, or if it has an expected attribute value.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/DeleteItemInput'
+            examples:
+              deleteItemRequestExample:
+                summary: Default deleteItem request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  Key: {}
+                  ConditionExpression: example-string
+                  ExpressionAttributeNames: {}
+                  ExpressionAttributeValues: {}
+      responses:
+        '200':
+          description: Successfully deleted item
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/DeleteItemOutput'
+              examples:
+                deleteItem200Example:
+                  summary: Default deleteItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Attributes: {}
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: Table not found
+        '409':
+          description: Conditional check failed
+      x-amz-target: DynamoDB_20120810.DeleteItem
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    PutItemOutput:
+      type: object
+      properties:
+        Attributes:
+          type: object
+          description: The attribute values as they appeared before the PutItem operation
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    GetItemInput:
+      type: object
+      required:
+      - TableName
+      - Key
+      properties:
+        TableName:
+          type: string
+          description: The name of the table containing the requested item
+          example: example-resource-name
+        Key:
+          type: object
+          description: A map of attribute names to AttributeValue objects for the primary key
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ProjectionExpression:
+          type: string
+          description: A string that identifies attributes to retrieve
+          example: example-string
+        ConsistentRead:
+          type: boolean
+          description: Determines the read consistency model
+          example: true
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+    UpdateItemInput:
+      type: object
+      required:
+      - TableName
+      - Key
+      properties:
+        TableName:
+          type: string
+          description: The name of the table containing the item to update
+          example: example-resource-name
+        Key:
+          type: object
+          description: The primary key of the item to be updated
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        UpdateExpression:
+          type: string
+          description: An expression that defines attributes to be updated
+          example: example-string
+        ConditionExpression:
+          type: string
+          description: A condition that must be satisfied for the update to succeed
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ReturnValues:
+          type: string
+          description: Determines the return values after the operation
+          enum:
+          - NONE
+          - UPDATED_OLD
+          - ALL_OLD
+          - UPDATED_NEW
+          - ALL_NEW
+          example: NONE
+    DeleteItemInput:
+      type: object
+      required:
+      - TableName
+      - Key
+      properties:
+        TableName:
+          type: string
+          description: The name of the table from which to delete the item
+          example: example-resource-name
+        Key:
+          type: object
+          description: A map of attribute names to AttributeValue objects for the primary key
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ConditionExpression:
+          type: string
+          description: A condition that must be satisfied for the delete to succeed
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ReturnValues:
+          type: string
+          description: Determines the return values after the operation
+          enum:
+          - NONE
+          - ALL_OLD
+          example: NONE
+    UpdateItemOutput:
+      type: object
+      properties:
+        Attributes:
+          type: object
+          description: A map of attribute values as they appear after the UpdateItem operation
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    GetItemOutput:
+      type: object
+      properties:
+        Item:
+          type: object
+          description: A map of attribute names to AttributeValue objects
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
+    PutItemInput:
+      type: object
+      required:
+      - TableName
+      - Item
+      properties:
+        TableName:
+          type: string
+          description: The name of the table to contain the item
+          example: example-resource-name
+        Item:
+          type: object
+          description: A map of attribute name to attribute values, representing the item
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ConditionExpression:
+          type: string
+          description: A condition that must be satisfied for a put to succeed
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ReturnValues:
+          type: string
+          description: Determines the return values after the operation
+          enum:
+          - NONE
+          - ALL_OLD
+          example: NONE
+    DeleteItemOutput:
+      type: object
+      properties:
+        Attributes:
+          type: object
+          description: A map of attribute values as they appeared before the delete operation
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
+  securitySchemes:
+    sigv4Auth:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon DynamoDB API Reference
+  url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/

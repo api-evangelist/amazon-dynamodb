@@ -1,0 +1,387 @@
+openapi: 3.1.0
+info:
+  title: Amazon DynamoDB Batch Queries API
+  description: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.
+  version: '2012-08-10'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://dynamodb.{region}.amazonaws.com
+  description: Amazon DynamoDB Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Queries
+  description: Operations for querying and scanning table data
+paths:
+  /#Query:
+    post:
+      operationId: query
+      summary: Amazon DynamoDB Query Items in a Table or Index
+      description: Finds items based on primary key values. You can query a table or a secondary index. You must provide the name of the partition key attribute and a single value for that attribute. Query returns all items with that partition key value.
+      tags:
+      - Queries
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/QueryInput'
+            examples:
+              queryRequestExample:
+                summary: Default query request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  IndexName: example-resource-name
+                  KeyConditionExpression: example-string
+                  FilterExpression: example-string
+                  ProjectionExpression: example-string
+      responses:
+        '200':
+          description: Successfully queried items
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/QueryOutput'
+              examples:
+                query200Example:
+                  summary: Default query 200 response
+                  x-microcks-default: true
+                  value:
+                    Items:
+                    - {}
+                    Count: 1
+                    ScannedCount: 1
+                    LastEvaluatedKey: {}
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: Table not found
+      x-amz-target: DynamoDB_20120810.Query
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#Scan:
+    post:
+      operationId: scan
+      summary: Amazon DynamoDB Scan Items in a Table or Index
+      description: Returns one or more items and item attributes by accessing every item in a table or a secondary index. Scan operations proceed sequentially; however, for faster performance on a large table or secondary index, applications can use parallel scan.
+      tags:
+      - Queries
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/ScanInput'
+            examples:
+              scanRequestExample:
+                summary: Default scan request
+                x-microcks-default: true
+                value:
+                  TableName: example-resource-name
+                  IndexName: example-resource-name
+                  FilterExpression: example-string
+                  ProjectionExpression: example-string
+                  ExpressionAttributeNames: {}
+      responses:
+        '200':
+          description: Successfully scanned items
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/ScanOutput'
+              examples:
+                scan200Example:
+                  summary: Default scan 200 response
+                  x-microcks-default: true
+                  value:
+                    Items:
+                    - {}
+                    Count: 1
+                    ScannedCount: 1
+                    LastEvaluatedKey: {}
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: Table not found
+      x-amz-target: DynamoDB_20120810.Scan
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ScanInput:
+      type: object
+      required:
+      - TableName
+      properties:
+        TableName:
+          type: string
+          description: The name of the table to scan
+          example: example-resource-name
+        IndexName:
+          type: string
+          description: The name of a secondary index to scan
+          example: example-resource-name
+        FilterExpression:
+          type: string
+          description: A string that contains conditions for filtering the scan results
+          example: example-string
+        ProjectionExpression:
+          type: string
+          description: A string that identifies attributes to retrieve
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        Limit:
+          type: integer
+          description: The maximum number of items to evaluate
+          minimum: 1
+          example: 1
+        ConsistentRead:
+          type: boolean
+          description: Determines the read consistency model
+          example: true
+        ExclusiveStartKey:
+          type: object
+          description: The primary key of the first item that this operation evaluates
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        Segment:
+          type: integer
+          description: For parallel scan, identifies the segment to be scanned
+          minimum: 0
+          example: 1
+        TotalSegments:
+          type: integer
+          description: For parallel scan, the total number of segments
+          minimum: 1
+          maximum: 1000000
+          example: 1
+        Select:
+          type: string
+          description: The attributes to be returned in the result
+          enum:
+          - ALL_ATTRIBUTES
+          - ALL_PROJECTED_ATTRIBUTES
+          - COUNT
+          - SPECIFIC_ATTRIBUTES
+          example: ALL_ATTRIBUTES
+    QueryOutput:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: An array of item attributes that match the query criteria
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/AttributeValue'
+          example:
+          - {}
+        Count:
+          type: integer
+          description: The number of items in the response
+          example: 1
+        ScannedCount:
+          type: integer
+          description: The number of items evaluated before any filter is applied
+          example: 1
+        LastEvaluatedKey:
+          type: object
+          description: The primary key of the item where the operation stopped
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    ScanOutput:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: An array of item attributes that match the scan criteria
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/AttributeValue'
+          example:
+          - {}
+        Count:
+          type: integer
+          description: The number of items in the response
+          example: 1
+        ScannedCount:
+          type: integer
+          description: The number of items evaluated before any filter is applied
+          example: 1
+        LastEvaluatedKey:
+          type: object
+          description: The primary key of the item where the operation stopped
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    QueryInput:
+      type: object
+      required:
+      - TableName
+      properties:
+        TableName:
+          type: string
+          description: The name of the table to query
+          example: example-resource-name
+        IndexName:
+          type: string
+          description: The name of a secondary index to query
+          example: example-resource-name
+        KeyConditionExpression:
+          type: string
+          description: The condition that specifies the key values for items to be retrieved
+          example: example-string
+        FilterExpression:
+          type: string
+          description: A string that contains conditions for filtering the query results
+          example: example-string
+        ProjectionExpression:
+          type: string
+          description: A string that identifies attributes to retrieve
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ScanIndexForward:
+          type: boolean
+          description: Specifies the order for index traversal (true=ascending, false=descending)
+          default: true
+          example: true
+        Limit:
+          type: integer
+          description: The maximum number of items to evaluate
+          minimum: 1
+          example: 1
+        ConsistentRead:
+          type: boolean
+          description: Determines the read consistency model
+          example: true
+        ExclusiveStartKey:
+          type: object
+          description: The primary key of the first item that this operation evaluates
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        Select:
+          type: string
+          description: The attributes to be returned in the result
+          enum:
+          - ALL_ATTRIBUTES
+          - ALL_PROJECTED_ATTRIBUTES
+          - COUNT
+          - SPECIFIC_ATTRIBUTES
+          example: ALL_ATTRIBUTES
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
+  securitySchemes:
+    sigv4Auth:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon DynamoDB API Reference
+  url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/

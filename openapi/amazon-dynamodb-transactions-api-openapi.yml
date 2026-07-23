@@ -1,0 +1,285 @@
+openapi: 3.1.0
+info:
+  title: Amazon DynamoDB Batch Transactions API
+  description: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.
+  version: '2012-08-10'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://dynamodb.{region}.amazonaws.com
+  description: Amazon DynamoDB Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Transactions
+  description: Operations for transactional reads and writes across multiple items
+paths:
+  /#TransactGetItems:
+    post:
+      operationId: transactGetItems
+      summary: Amazon DynamoDB Get Items in a Transaction
+      description: A synchronous operation that atomically retrieves multiple items from one or more DynamoDB tables. TransactGetItems is a synchronous read operation that groups up to 100 Get actions together.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/TransactGetItemsInput'
+            examples:
+              transactGetItemsRequestExample:
+                summary: Default transactGetItems request
+                x-microcks-default: true
+                value:
+                  TransactItems:
+                  - Get:
+                      TableName: example
+                      Key: example
+                      ProjectionExpression: example
+      responses:
+        '200':
+          description: Successfully retrieved items in transaction
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/TransactGetItemsOutput'
+              examples:
+                transactGetItems200Example:
+                  summary: Default transactGetItems 200 response
+                  x-microcks-default: true
+                  value:
+                    Responses:
+                    - Item: {}
+        '400':
+          description: Invalid request parameters
+        '409':
+          description: Transaction conflict
+      x-amz-target: DynamoDB_20120810.TransactGetItems
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#TransactWriteItems:
+    post:
+      operationId: transactWriteItems
+      summary: Amazon DynamoDB Write Items in a Transaction
+      description: A synchronous write operation that groups up to 100 action requests. These actions can target up to 100 distinct items in one or more DynamoDB tables within the same AWS account and Region. The actions are completed atomically.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/TransactWriteItemsInput'
+            examples:
+              transactWriteItemsRequestExample:
+                summary: Default transactWriteItems request
+                x-microcks-default: true
+                value:
+                  TransactItems:
+                  - ConditionCheck: {}
+                    Put: {}
+                    Delete: {}
+                  ClientRequestToken: example-string
+      responses:
+        '200':
+          description: Successfully wrote items in transaction
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/TransactWriteItemsOutput'
+              examples:
+                transactWriteItems200Example:
+                  summary: Default transactWriteItems 200 response
+                  x-microcks-default: true
+                  value:
+                    ItemCollectionMetrics: {}
+        '400':
+          description: Invalid request parameters
+        '409':
+          description: Transaction conflict or conditional check failed
+      x-amz-target: DynamoDB_20120810.TransactWriteItems
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
+  schemas:
+    TransactGetItemsOutput:
+      type: object
+      properties:
+        Responses:
+          type: array
+          description: An ordered array of up to 100 ItemResponse objects
+          items:
+            type: object
+            properties:
+              Item:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AttributeValue'
+          example:
+          - Item: {}
+    TransactGetItemsInput:
+      type: object
+      required:
+      - TransactItems
+      properties:
+        TransactItems:
+          type: array
+          description: An ordered array of up to 100 TransactGetItem objects
+          items:
+            type: object
+            properties:
+              Get:
+                type: object
+                required:
+                - TableName
+                - Key
+                properties:
+                  TableName:
+                    type: string
+                  Key:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/components/schemas/AttributeValue'
+                  ProjectionExpression:
+                    type: string
+                  ExpressionAttributeNames:
+                    type: object
+                    additionalProperties:
+                      type: string
+          maxItems: 100
+          example:
+          - Get:
+              TableName: example
+              Key: example
+              ProjectionExpression: example
+    TransactWriteItemsInput:
+      type: object
+      required:
+      - TransactItems
+      properties:
+        TransactItems:
+          type: array
+          description: An ordered array of up to 100 TransactWriteItem objects
+          items:
+            type: object
+            properties:
+              ConditionCheck:
+                type: object
+                description: A request to perform a check item operation
+              Put:
+                type: object
+                description: A request to perform a PutItem operation
+              Delete:
+                type: object
+                description: A request to perform a DeleteItem operation
+              Update:
+                type: object
+                description: A request to perform an UpdateItem operation
+          maxItems: 100
+          example:
+          - ConditionCheck: {}
+            Put: {}
+            Delete: {}
+        ClientRequestToken:
+          type: string
+          description: A unique identifier for the client request to ensure idempotency
+          minLength: 1
+          maxLength: 36
+          example: example-string
+    TransactWriteItemsOutput:
+      type: object
+      properties:
+        ItemCollectionMetrics:
+          type: object
+          description: A list of tables affected by the TransactWriteItems call
+          example: {}
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
+  securitySchemes:
+    sigv4Auth:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon DynamoDB API Reference
+  url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/

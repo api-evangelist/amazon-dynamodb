@@ -1,0 +1,261 @@
+openapi: 3.1.0
+info:
+  title: Amazon DynamoDB Batch API
+  description: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.
+  version: '2012-08-10'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://dynamodb.{region}.amazonaws.com
+  description: Amazon DynamoDB Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Batch
+  description: Operations for batch reading and writing multiple items
+paths:
+  /#BatchGetItem:
+    post:
+      operationId: batchGetItem
+      summary: Amazon DynamoDB Get Multiple Items from One or More Tables
+      description: Returns the attributes of one or more items from one or more tables. You identify requested items by primary key. A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items.
+      tags:
+      - Batch
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/BatchGetItemInput'
+            examples:
+              batchGetItemRequestExample:
+                summary: Default batchGetItem request
+                x-microcks-default: true
+                value:
+                  RequestItems: {}
+      responses:
+        '200':
+          description: Successfully retrieved items
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/BatchGetItemOutput'
+              examples:
+                batchGetItem200Example:
+                  summary: Default batchGetItem 200 response
+                  x-microcks-default: true
+                  value:
+                    Responses: {}
+                    UnprocessedKeys: {}
+        '400':
+          description: Invalid request parameters
+      x-amz-target: DynamoDB_20120810.BatchGetItem
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#BatchWriteItem:
+    post:
+      operationId: batchWriteItem
+      summary: Amazon DynamoDB Put or Delete Multiple Items in One or More Tables
+      description: Puts or deletes multiple items in one or more tables. A single call to BatchWriteItem can transmit up to 16 MB of data over the network, consisting of up to 25 put or delete requests.
+      tags:
+      - Batch
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/BatchWriteItemInput'
+            examples:
+              batchWriteItemRequestExample:
+                summary: Default batchWriteItem request
+                x-microcks-default: true
+                value:
+                  RequestItems: {}
+      responses:
+        '200':
+          description: Successfully wrote items
+          content:
+            application/x-amz-json-1.0:
+              schema:
+                $ref: '#/components/schemas/BatchWriteItemOutput'
+              examples:
+                batchWriteItem200Example:
+                  summary: Default batchWriteItem 200 response
+                  x-microcks-default: true
+                  value:
+                    UnprocessedItems: {}
+        '400':
+          description: Invalid request parameters
+      x-amz-target: DynamoDB_20120810.BatchWriteItem
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    BatchWriteItemOutput:
+      type: object
+      properties:
+        UnprocessedItems:
+          type: object
+          description: A map of tables and requests against those tables that were not processed
+          example: {}
+    BatchGetItemInput:
+      type: object
+      required:
+      - RequestItems
+      properties:
+        RequestItems:
+          type: object
+          description: A map of table names to keys and attributes to retrieve
+          additionalProperties:
+            type: object
+            properties:
+              Keys:
+                type: array
+                description: The primary keys for items to retrieve
+                items:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/AttributeValue'
+              ProjectionExpression:
+                type: string
+              ConsistentRead:
+                type: boolean
+              ExpressionAttributeNames:
+                type: object
+                additionalProperties:
+                  type: string
+          example: {}
+    BatchGetItemOutput:
+      type: object
+      properties:
+        Responses:
+          type: object
+          description: A map of table names to lists of items retrieved
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        UnprocessedKeys:
+          type: object
+          description: A map of unprocessed keys, to be retried
+          example: {}
+    BatchWriteItemInput:
+      type: object
+      required:
+      - RequestItems
+      properties:
+        RequestItems:
+          type: object
+          description: A map of table names to write requests
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              properties:
+                PutRequest:
+                  type: object
+                  properties:
+                    Item:
+                      type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/AttributeValue'
+                DeleteRequest:
+                  type: object
+                  properties:
+                    Key:
+                      type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
+  securitySchemes:
+    sigv4Auth:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon DynamoDB API Reference
+  url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
