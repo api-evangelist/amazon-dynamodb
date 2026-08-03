@@ -1,0 +1,22 @@
+{
+  "provider": "amazon-dynamodb",
+  "sources": [
+    "amazon-dynamodb-batch-api-openapi.yml",
+    "amazon-dynamodb-items-api-openapi.yml",
+    "amazon-dynamodb-queries-api-openapi.yml",
+    "amazon-dynamodb-tables-api-openapi.yml",
+    "amazon-dynamodb-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-dynamodb-batch-api-openapi.yml",
+    "amazon-dynamodb-items-api-openapi.yml",
+    "amazon-dynamodb-queries-api-openapi.yml",
+    "amazon-dynamodb-tables-api-openapi.yml",
+    "amazon-dynamodb-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
