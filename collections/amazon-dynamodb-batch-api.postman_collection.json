@@ -1,0 +1,396 @@
+{
+  "item": [
+    {
+      "id": "93c771b6-2350-43b0-8f54-717eb55c13de",
+      "name": "Batch",
+      "description": {
+        "content": "Operations for batch reading and writing multiple items",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d2f867b3-e331-4769-bac8-679ff9f6aca1",
+          "name": "Amazon DynamoDB Get Multiple Items from One or More Tables",
+          "request": {
+            "name": "Amazon DynamoDB Get Multiple Items from One or More Tables",
+            "description": {
+              "content": "Returns the attributes of one or more items from one or more tables. You identify requested items by primary key. A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "BatchGetItem",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestItems\": {\n    \"key_0\": {\n      \"Keys\": [\n        {\n          \"key_0\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_1\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_3\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_2\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          }\n        },\n        {\n          \"key_0\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_1\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_2\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          }\n        }\n      ],\n      \"ProjectionExpression\": \"<string>\",\n      \"ConsistentRead\": \"<boolean>\",\n      \"ExpressionAttributeNames\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    },\n    \"key_1\": {\n      \"Keys\": [\n        {\n          \"key_0\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          }\n        },\n        {\n          \"key_0\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_1\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_2\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_3\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          },\n          \"key_4\": {\n            \"S\": \"<string>\",\n            \"N\": \"<string>\",\n            \"B\": \"<byte>\",\n            \"SS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"NS\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"BS\": [\n              \"<byte>\",\n              \"<byte>\"\n            ],\n            \"M\": {\n              \"key_0\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            },\n            \"L\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n              }\n            ],\n            \"NULL\": \"<boolean>\",\n            \"BOOL\": \"<boolean>\"\n          }\n        }\n      ],\n      \"ProjectionExpression\": \"<string>\",\n      \"ConsistentRead\": \"<boolean>\",\n      \"ExpressionAttributeNames\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\"\n      }\n    }\n  }\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "1e05da1b-1700-40aa-8fa0-70341f30ca6d",
+              "name": "Successfully retrieved items",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "BatchGetItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RequestItems\": {}\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d07a394-2056-49f9-8445-fd40ce8bcb98",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "BatchGetItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RequestItems\": {}\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a65c390-386b-42f2-b765-a2340f3f89b8",
+          "name": "Amazon DynamoDB Put or Delete Multiple Items in One or More Tables",
+          "request": {
+            "name": "Amazon DynamoDB Put or Delete Multiple Items in One or More Tables",
+            "description": {
+              "content": "Puts or deletes multiple items in one or more tables. A single call to BatchWriteItem can transmit up to 16 MB of data over the network, consisting of up to 25 put or delete requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "BatchWriteItem",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestItems\": {\n    \"key_0\": [\n      {\n        \"PutRequest\": {\n          \"Item\": {\n            \"key_0\": {\n              \"S\": \"<string>\",\n              \"N\": \"<string>\",\n              \"B\": \"<byte>\",\n              \"SS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"NS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"BS\": [\n                \"<byte>\",\n                \"<byte>\"\n              ],\n              \"M\": {\n                \"key_0\": {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              },\n              \"L\": [\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                },\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              ],\n              \"NULL\": \"<boolean>\",\n              \"BOOL\": \"<boolean>\"\n            }\n          }\n        },\n        \"DeleteRequest\": {\n          \"Key\": {\n            \"key_0\": {\n              \"S\": \"<string>\",\n              \"N\": \"<string>\",\n              \"B\": \"<byte>\",\n              \"SS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"NS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"BS\": [\n                \"<byte>\",\n                \"<byte>\"\n              ],\n              \"M\": {\n                \"key_0\": {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              },\n              \"L\": [\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                },\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              ],\n              \"NULL\": \"<boolean>\",\n              \"BOOL\": \"<boolean>\"\n            }\n          }\n        }\n      },\n      {\n        \"PutRequest\": {\n          \"Item\": {\n            \"key_0\": {\n              \"S\": \"<string>\",\n              \"N\": \"<string>\",\n              \"B\": \"<byte>\",\n              \"SS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"NS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"BS\": [\n                \"<byte>\",\n                \"<byte>\"\n              ],\n              \"M\": {\n                \"key_0\": {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              },\n              \"L\": [\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                },\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              ],\n              \"NULL\": \"<boolean>\",\n              \"BOOL\": \"<boolean>\"\n            },\n            \"key_1\": {\n              \"S\": \"<string>\",\n              \"N\": \"<string>\",\n              \"B\": \"<byte>\",\n              \"SS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"NS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"BS\": [\n                \"<byte>\",\n                \"<byte>\"\n              ],\n              \"M\": {\n                \"key_0\": {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              },\n              \"L\": [\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                },\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              ],\n              \"NULL\": \"<boolean>\",\n              \"BOOL\": \"<boolean>\"\n            }\n          }\n        },\n        \"DeleteRequest\": {\n          \"Key\": {\n            \"key_0\": {\n              \"S\": \"<string>\",\n              \"N\": \"<string>\",\n              \"B\": \"<byte>\",\n              \"SS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"NS\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"BS\": [\n                \"<byte>\",\n                \"<byte>\"\n              ],\n              \"M\": {\n                \"key_0\": {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              },\n              \"L\": [\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                },\n                {\n                  \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n                }\n              ],\n              \"NULL\": \"<boolean>\",\n              \"BOOL\": \"<boolean>\"\n            }\n          }\n        }\n      }\n    ]\n  }\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "ddce0355-027f-4317-9fdd-b5dc55de091f",
+              "name": "Successfully wrote items",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "BatchWriteItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RequestItems\": {}\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc140e89-7df9-415b-aae2-1c6bbcc09664",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "BatchWriteItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RequestItems\": {}\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "AWS Region",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://dynamodb.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "576548b9-50b1-41cf-997d-d6b1d0b558e0",
+    "name": "Amazon DynamoDB Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

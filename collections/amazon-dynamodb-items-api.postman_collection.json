@@ -1,0 +1,1134 @@
+{
+  "item": [
+    {
+      "id": "ea94d6da-dde7-4363-8258-9053e6f4cdb9",
+      "name": "Items",
+      "description": {
+        "content": "Operations for putting, getting, updating, and deleting individual items",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89e0c851-547b-4f10-a157-4506a04d0584",
+          "name": "Amazon DynamoDB Put an Item Into a Table",
+          "request": {
+            "name": "Amazon DynamoDB Put an Item Into a Table",
+            "description": {
+              "content": "Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "PutItem",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\",\n  \"Item\": {\n    \"key_0\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    }\n  },\n  \"ConditionExpression\": \"<string>\",\n  \"ExpressionAttributeNames\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"ExpressionAttributeValues\": {\n    \"key_0\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_3\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    }\n  },\n  \"ReturnValues\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "7725beac-d412-438a-80a9-4fa450926636",
+              "name": "Successfully put item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "PutItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Item\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a91e737-33e1-49d9-bc96-8ab700c78025",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "PutItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Item\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8cb245c-bdcd-4b0b-beec-03d2191fb9da",
+              "name": "Table not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "PutItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Item\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75ca4a7d-a7dc-415c-bc73-430376f2c84e",
+              "name": "Conditional check failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "PutItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Item\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6854939a-f575-4e8e-ad81-56e71c2e0f16",
+          "name": "Amazon DynamoDB Get an Item from a Table",
+          "request": {
+            "name": "Amazon DynamoDB Get an Item from a Table",
+            "description": {
+              "content": "Returns a set of attributes for the item with the given primary key. If there is no matching item, GetItem does not return any data and there will be no Item element in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "GetItem",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\",\n  \"Key\": {\n    \"key_0\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    },\n    \"key_1\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    }\n  },\n  \"ProjectionExpression\": \"<string>\",\n  \"ConsistentRead\": \"<boolean>\",\n  \"ExpressionAttributeNames\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "9c6801b7-93f8-47d1-a583-3bd549bfa375",
+              "name": "Successfully retrieved item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "GetItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"ProjectionExpression\": \"example-string\",\n  \"ConsistentRead\": true,\n  \"ExpressionAttributeNames\": {}\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "45691740-1c3d-4f50-ae90-4ff399b920b6",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "GetItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"ProjectionExpression\": \"example-string\",\n  \"ConsistentRead\": true,\n  \"ExpressionAttributeNames\": {}\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1bd38261-61d3-46e2-826d-da2ccb4b1d68",
+              "name": "Table not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "GetItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"ProjectionExpression\": \"example-string\",\n  \"ConsistentRead\": true,\n  \"ExpressionAttributeNames\": {}\n}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fdc4a15-7122-4b0e-8f66-ae1265f4ea6e",
+          "name": "Amazon DynamoDB Update an Item in a Table",
+          "request": {
+            "name": "Amazon DynamoDB Update an Item in a Table",
+            "description": {
+              "content": "Edits an existing item's attributes, or adds a new item to the table if it does not already exist. You can put, delete, or add attribute values using update expressions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "UpdateItem",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\",\n  \"Key\": {\n    \"key_0\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    }\n  },\n  \"UpdateExpression\": \"<string>\",\n  \"ConditionExpression\": \"<string>\",\n  \"ExpressionAttributeNames\": {\n    \"key_0\": \"<string>\"\n  },\n  \"ExpressionAttributeValues\": {\n    \"key_0\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    }\n  },\n  \"ReturnValues\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "cce3306c-45f8-43ab-b780-393c8d2ec705",
+              "name": "Successfully updated item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"UpdateExpression\": \"example-string\",\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {}\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6358f62e-ce5e-44da-909b-e6d6483b45b9",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"UpdateExpression\": \"example-string\",\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {}\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82753f52-fda1-494e-a0e1-b1c4698035ed",
+              "name": "Table not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"UpdateExpression\": \"example-string\",\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {}\n}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e48f527-a7cd-4a1a-9ed0-e6188da853f9",
+              "name": "Conditional check failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"UpdateExpression\": \"example-string\",\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {}\n}"
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18ef4442-3514-4915-b256-e159490942e0",
+          "name": "Amazon DynamoDB Delete an Item from a Table",
+          "request": {
+            "name": "Amazon DynamoDB Delete an Item from a Table",
+            "description": {
+              "content": "Deletes a single item in a table by primary key. You can perform a conditional delete operation that deletes the item if it exists, or if it has an expected attribute value.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "DeleteItem",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\",\n  \"Key\": {\n    \"key_0\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    },\n    \"key_1\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    }\n  },\n  \"ConditionExpression\": \"<string>\",\n  \"ExpressionAttributeNames\": {\n    \"key_0\": \"<string>\"\n  },\n  \"ExpressionAttributeValues\": {\n    \"key_0\": {\n      \"S\": \"<string>\",\n      \"N\": \"<string>\",\n      \"B\": \"<byte>\",\n      \"SS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"NS\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"BS\": [\n        \"<byte>\",\n        \"<byte>\"\n      ],\n      \"M\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      },\n      \"L\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AttributeValue detected>\"\n        }\n      ],\n      \"NULL\": \"<boolean>\",\n      \"BOOL\": \"<boolean>\"\n    }\n  },\n  \"ReturnValues\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "93382f47-4736-42a6-9667-193eaf2f41e3",
+              "name": "Successfully deleted item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DeleteItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b970a7cc-e5da-4bf7-84ee-674f52728e53",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DeleteItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d654a3a4-45e1-4847-b23d-f76c107fa2e8",
+              "name": "Table not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DeleteItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70cd059a-c16f-4a77-92da-2302ac8492e7",
+              "name": "Conditional check failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DeleteItem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"Key\": {},\n  \"ConditionExpression\": \"example-string\",\n  \"ExpressionAttributeNames\": {},\n  \"ExpressionAttributeValues\": {}\n}"
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "AWS Region",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://dynamodb.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "63b27e6f-0c7d-4b23-9778-faa21c235d8c",
+    "name": "Amazon DynamoDB Batch Items API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

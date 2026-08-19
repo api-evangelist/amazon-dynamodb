@@ -1,0 +1,1250 @@
+{
+  "item": [
+    {
+      "id": "72f96aa2-af07-4439-819b-15d3418a2090",
+      "name": "Tables",
+      "description": {
+        "content": "Operations for creating, describing, updating, listing, and deleting DynamoDB tables",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ce4146dc-8626-4116-9a58-78cee5e694d9",
+          "name": "Amazon DynamoDB Create a DynamoDB Table",
+          "request": {
+            "name": "Amazon DynamoDB Create a DynamoDB Table",
+            "description": {
+              "content": "Creates a new table in DynamoDB. The CreateTable operation adds a new table to your account. Table names must be unique within each Region. You must specify the table name, primary key schema, and provisioned throughput settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\",\n  \"KeySchema\": [\n    {\n      \"AttributeName\": \"<string>\",\n      \"KeyType\": \"<string>\"\n    }\n  ],\n  \"AttributeDefinitions\": [\n    {\n      \"AttributeName\": \"<string>\",\n      \"AttributeType\": \"<string>\"\n    },\n    {\n      \"AttributeName\": \"<string>\",\n      \"AttributeType\": \"<string>\"\n    }\n  ],\n  \"ProvisionedThroughput\": {\n    \"ReadCapacityUnits\": \"<integer>\",\n    \"WriteCapacityUnits\": \"<integer>\"\n  },\n  \"BillingMode\": \"<string>\",\n  \"GlobalSecondaryIndexes\": [\n    {\n      \"IndexName\": \"<string>\",\n      \"KeySchema\": [\n        {\n          \"AttributeName\": \"<string>\",\n          \"KeyType\": \"<string>\"\n        }\n      ],\n      \"Projection\": {\n        \"ProjectionType\": \"<string>\",\n        \"NonKeyAttributes\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"ProvisionedThroughput\": {\n        \"ReadCapacityUnits\": \"<integer>\",\n        \"WriteCapacityUnits\": \"<integer>\"\n      }\n    },\n    {\n      \"IndexName\": \"<string>\",\n      \"KeySchema\": [\n        {\n          \"AttributeName\": \"<string>\",\n          \"KeyType\": \"<string>\"\n        }\n      ],\n      \"Projection\": {\n        \"ProjectionType\": \"<string>\",\n        \"NonKeyAttributes\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"ProvisionedThroughput\": {\n        \"ReadCapacityUnits\": \"<integer>\",\n        \"WriteCapacityUnits\": \"<integer>\"\n      }\n    }\n  ],\n  \"LocalSecondaryIndexes\": [\n    {\n      \"IndexName\": \"<string>\",\n      \"KeySchema\": [\n        {\n          \"AttributeName\": \"<string>\",\n          \"KeyType\": \"<string>\"\n        },\n        {\n          \"AttributeName\": \"<string>\",\n          \"KeyType\": \"<string>\"\n        }\n      ],\n      \"Projection\": {\n        \"ProjectionType\": \"<string>\",\n        \"NonKeyAttributes\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"IndexName\": \"<string>\",\n      \"KeySchema\": [\n        {\n          \"AttributeName\": \"<string>\",\n          \"KeyType\": \"<string>\"\n        },\n        {\n          \"AttributeName\": \"<string>\",\n          \"KeyType\": \"<string>\"\n        }\n      ],\n      \"Projection\": {\n        \"ProjectionType\": \"<string>\",\n        \"NonKeyAttributes\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ],\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "f880ecd2-72d3-45dd-8967-5b4d1848f1bd",
+              "name": "Successfully created table",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"Movies\",\n  \"KeySchema\": [\n    {\n      \"AttributeName\": \"year\",\n      \"KeyType\": \"HASH\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"KeyType\": \"RANGE\"\n    }\n  ],\n  \"AttributeDefinitions\": [\n    {\n      \"AttributeName\": \"year\",\n      \"AttributeType\": \"N\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"AttributeType\": \"S\"\n    }\n  ],\n  \"ProvisionedThroughput\": {\n    \"ReadCapacityUnits\": 5,\n    \"WriteCapacityUnits\": 5\n  }\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bc64c9fe-431f-40f3-8164-bf94e8604fd3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"Movies\",\n  \"KeySchema\": [\n    {\n      \"AttributeName\": \"year\",\n      \"KeyType\": \"HASH\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"KeyType\": \"RANGE\"\n    }\n  ],\n  \"AttributeDefinitions\": [\n    {\n      \"AttributeName\": \"year\",\n      \"AttributeType\": \"N\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"AttributeType\": \"S\"\n    }\n  ],\n  \"ProvisionedThroughput\": {\n    \"ReadCapacityUnits\": 5,\n    \"WriteCapacityUnits\": 5\n  }\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "46d481b3-a4bb-42b9-ac2c-bb83ba3dcdf4",
+              "name": "Resource already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"Movies\",\n  \"KeySchema\": [\n    {\n      \"AttributeName\": \"year\",\n      \"KeyType\": \"HASH\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"KeyType\": \"RANGE\"\n    }\n  ],\n  \"AttributeDefinitions\": [\n    {\n      \"AttributeName\": \"year\",\n      \"AttributeType\": \"N\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"AttributeType\": \"S\"\n    }\n  ],\n  \"ProvisionedThroughput\": {\n    \"ReadCapacityUnits\": 5,\n    \"WriteCapacityUnits\": 5\n  }\n}"
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f222ac75-fa8f-40fd-bb87-b286c64f2a7c",
+              "name": "Too many requests - throughput exceeds the current limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"Movies\",\n  \"KeySchema\": [\n    {\n      \"AttributeName\": \"year\",\n      \"KeyType\": \"HASH\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"KeyType\": \"RANGE\"\n    }\n  ],\n  \"AttributeDefinitions\": [\n    {\n      \"AttributeName\": \"year\",\n      \"AttributeType\": \"N\"\n    },\n    {\n      \"AttributeName\": \"title\",\n      \"AttributeType\": \"S\"\n    }\n  ],\n  \"ProvisionedThroughput\": {\n    \"ReadCapacityUnits\": 5,\n    \"WriteCapacityUnits\": 5\n  }\n}"
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "beb6b9a6-b31a-4d10-8079-9e57b8bc2d7c",
+          "name": "Amazon DynamoDB Describe a DynamoDB Table",
+          "request": {
+            "name": "Amazon DynamoDB Describe a DynamoDB Table",
+            "description": {
+              "content": "Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "DescribeTable",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "32c6eb39-f729-44f5-8796-ad61711cc239",
+              "name": "Successfully described table",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13b2d5fe-5466-48bf-b3f4-6902c0195d3d",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "44a2433f-bfa0-49c5-99a5-c9545bd6b14e",
+              "name": "Table not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d40a35f8-d93b-4763-bf0f-fa1b85fc8574",
+          "name": "Amazon DynamoDB List DynamoDB Tables",
+          "request": {
+            "name": "Amazon DynamoDB List DynamoDB Tables",
+            "description": {
+              "content": "Returns an array of table names associated with the current account and endpoint. The output from ListTables is paginated, with each page returning a maximum number of table names.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "ListTables",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ExclusiveStartTableName\": \"<string>\",\n  \"Limit\": \"<integer>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "2d1fe67e-2cfc-4859-a532-d1da9c7a6a7d",
+              "name": "Successfully listed tables",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "ListTables",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b8e2b15c-66ac-4416-bbc5-52d36a89a491",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "ListTables",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e03d1794-4bf4-4793-9a7c-59d058f0a330",
+          "name": "Amazon DynamoDB Update a DynamoDB Table",
+          "request": {
+            "name": "Amazon DynamoDB Update a DynamoDB Table",
+            "description": {
+              "content": "Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "UpdateTable",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\",\n  \"ProvisionedThroughput\": {\n    \"ReadCapacityUnits\": \"<integer>\",\n    \"WriteCapacityUnits\": \"<integer>\"\n  },\n  \"BillingMode\": \"<string>\",\n  \"GlobalSecondaryIndexUpdates\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "ccd8e86a-ed26-431f-b855-e4080f32c0cd",
+              "name": "Successfully updated table",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"ProvisionedThroughput\": \"example-string\",\n  \"BillingMode\": \"PROVISIONED\",\n  \"GlobalSecondaryIndexUpdates\": [\n    {}\n  ]\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0f7672d-c5f7-4bc3-b3b0-f5d18238c3bd",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"ProvisionedThroughput\": \"example-string\",\n  \"BillingMode\": \"PROVISIONED\",\n  \"GlobalSecondaryIndexUpdates\": [\n    {}\n  ]\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a2376ea-bbe0-49a0-854a-f0944a9e4103",
+              "name": "Table not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"ProvisionedThroughput\": \"example-string\",\n  \"BillingMode\": \"PROVISIONED\",\n  \"GlobalSecondaryIndexUpdates\": [\n    {}\n  ]\n}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8e2eeba-6058-4a61-b21b-176d65a67a75",
+              "name": "Too many requests - throughput exceeds the current limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "UpdateTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TableName\": \"example-resource-name\",\n  \"ProvisionedThroughput\": \"example-string\",\n  \"BillingMode\": \"PROVISIONED\",\n  \"GlobalSecondaryIndexUpdates\": [\n    {}\n  ]\n}"
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c537a771-8399-4464-833f-df062aba0a00",
+          "name": "Amazon DynamoDB Delete a DynamoDB Table",
+          "request": {
+            "name": "Amazon DynamoDB Delete a DynamoDB Table",
+            "description": {
+              "content": "Deletes a table and all of its items. After a DeleteTable request, the specified table is in the DELETING state until DynamoDB completes the deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "DeleteTable",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.0"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-amz-json-1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TableName\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "9877642e-790a-4971-b9cf-3ba88cd11717",
+              "name": "Successfully deleted table",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DeleteTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-amz-json-1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-amz-json-1.0"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c7d12e9e-f155-489a-9bd5-a361ad2ed0db",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DeleteTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "267771b0-d54e-40d0-a661-f4ac5414133e",
+              "name": "Table not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DeleteTable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target DynamoDB operation, in the format DynamoDB_20120810.OperationName",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "AWS Region",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://dynamodb.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "89260ad6-5228-4de1-aafa-1d252340fcc8",
+    "name": "Amazon DynamoDB Batch Tables API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

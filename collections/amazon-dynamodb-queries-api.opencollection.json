@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon DynamoDB Batch Queries API",
+    "version": "2012-08-10"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Queries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon DynamoDB Query Items in a Table or Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#Query",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finds items based on primary key values. You can query a table or a secondary index. You must provide the name of the partition key attribute and a single value for that attribute. Query returns all items with that partition key value."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Scan Items in a Table or Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#Scan",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns one or more items and item attributes by accessing every item in a table or a secondary index. Scan operations proceed sequentially; however, for faster performance on a large table or secondary index, applications can use parallel scan."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

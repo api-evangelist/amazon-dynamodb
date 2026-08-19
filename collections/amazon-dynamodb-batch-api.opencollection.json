@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon DynamoDB Batch API",
+    "version": "2012-08-10"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon DynamoDB Get Multiple Items from One or More Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#BatchGetItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the attributes of one or more items from one or more tables. You identify requested items by primary key. A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items."
+        },
+        {
+          "info": {
+            "name": "Amazon DynamoDB Put or Delete Multiple Items in One or More Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dynamodb.{region}.amazonaws.com/#BatchWriteItem",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Puts or deletes multiple items in one or more tables. A single call to BatchWriteItem can transmit up to 16 MB of data over the network, consisting of up to 25 put or delete requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
