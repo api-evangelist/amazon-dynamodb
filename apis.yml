@@ -64,6 +64,8 @@ apis:
   humanURL: https://aws.amazon.com/dynamodb/
   baseURL: https://dynamodb.amazonaws.com
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -100,6 +102,8 @@ apis:
   humanURL: https://aws.amazon.com/dynamodb/
   baseURL: https://dynamodb.amazonaws.com
   tags:
+  - Query
+  tags_raw:
   - Queries
   properties:
   - type: OpenAPI
@@ -172,6 +176,8 @@ apis:
   humanURL: https://aws.amazon.com/dynamodb/
   baseURL: https://dynamodb.amazonaws.com
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
