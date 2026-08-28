@@ -3,6 +3,18 @@ description: >-
   Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless
   scalability, allowing you to store and retrieve any amount of data and serve any level of request traffic using
   key-value and document data models.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 specificationVersion: '0.23'
 accessModel:
   pricing: freemium
