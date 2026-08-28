@@ -12,8 +12,8 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: dynamodbApi
-  url: ../openapi/amazon-dynamodb-openapi.yml
+- name: queriesApi
+  url: ../openapi/amazon-dynamodb-queries-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: scan-paginate

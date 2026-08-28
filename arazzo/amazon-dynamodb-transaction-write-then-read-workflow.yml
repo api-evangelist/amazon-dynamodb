@@ -11,8 +11,8 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: dynamodbApi
-  url: ../openapi/amazon-dynamodb-openapi.yml
+- name: transactionsApi
+  url: ../openapi/amazon-dynamodb-transactions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: transaction-write-then-read

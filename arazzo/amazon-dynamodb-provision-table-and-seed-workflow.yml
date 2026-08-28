@@ -12,8 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: dynamodbApi
-  url: ../openapi/amazon-dynamodb-openapi.yml
+- name: itemsApi
+  url: ../openapi/amazon-dynamodb-items-api-openapi.yml
+  type: openapi
+- name: tablesApi
+  url: ../openapi/amazon-dynamodb-tables-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-table-and-seed

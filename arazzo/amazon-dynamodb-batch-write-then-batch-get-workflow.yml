@@ -12,8 +12,8 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: dynamodbApi
-  url: ../openapi/amazon-dynamodb-openapi.yml
+- name: batchApi
+  url: ../openapi/amazon-dynamodb-batch-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: batch-write-then-batch-get
