@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon DynamoDB Batch Queries API
   description: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.
@@ -121,75 +121,16 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
   schemas:
-    ScanInput:
-      type: object
-      required:
-      - TableName
-      properties:
-        TableName:
-          type: string
-          description: The name of the table to scan
-          example: example-resource-name
-        IndexName:
-          type: string
-          description: The name of a secondary index to scan
-          example: example-resource-name
-        FilterExpression:
-          type: string
-          description: A string that contains conditions for filtering the scan results
-          example: example-string
-        ProjectionExpression:
-          type: string
-          description: A string that identifies attributes to retrieve
-          example: example-string
-        ExpressionAttributeNames:
-          type: object
-          description: Substitution tokens for attribute names in an expression
-          additionalProperties:
-            type: string
-          example: {}
-        ExpressionAttributeValues:
-          type: object
-          description: Values that can be substituted in an expression
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        Limit:
-          type: integer
-          description: The maximum number of items to evaluate
-          minimum: 1
-          example: 1
-        ConsistentRead:
-          type: boolean
-          description: Determines the read consistency model
-          example: true
-        ExclusiveStartKey:
-          type: object
-          description: The primary key of the first item that this operation evaluates
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        Segment:
-          type: integer
-          description: For parallel scan, identifies the segment to be scanned
-          minimum: 0
-          example: 1
-        TotalSegments:
-          type: integer
-          description: For parallel scan, the total number of segments
-          minimum: 1
-          maximum: 1000000
-          example: 1
-        Select:
-          type: string
-          description: The attributes to be returned in the result
-          enum:
-          - ALL_ATTRIBUTES
-          - ALL_PROJECTED_ATTRIBUTES
-          - COUNT
-          - SPECIFIC_ATTRIBUTES
-          example: ALL_ATTRIBUTES
     QueryOutput:
       type: object
       properties:
@@ -216,6 +157,66 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
     ScanOutput:
       type: object
       properties:
@@ -308,75 +309,74 @@ components:
           - COUNT
           - SPECIFIC_ATTRIBUTES
           example: ALL_ATTRIBUTES
-    AttributeValue:
+    ScanInput:
       type: object
-      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      required:
+      - TableName
       properties:
-        S:
+        TableName:
           type: string
-          description: String attribute value
-          example: example-string
-        N:
+          description: The name of the table to scan
+          example: example-resource-name
+        IndexName:
           type: string
-          description: Number attribute value (sent as string)
-          example: example-string
-        B:
+          description: The name of a secondary index to scan
+          example: example-resource-name
+        FilterExpression:
           type: string
-          format: byte
-          description: Binary attribute value (Base64-encoded)
+          description: A string that contains conditions for filtering the scan results
           example: example-string
-        SS:
-          type: array
-          description: String set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        NS:
-          type: array
-          description: Number set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        BS:
-          type: array
-          description: Binary set attribute value
-          items:
-            type: string
-            format: byte
-          example:
-          - example-string
-        M:
+        ProjectionExpression:
+          type: string
+          description: A string that identifies attributes to retrieve
+          example: example-string
+        ExpressionAttributeNames:
           type: object
-          description: Map attribute value
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
-        L:
-          type: array
-          description: List attribute value
-          items:
+        Limit:
+          type: integer
+          description: The maximum number of items to evaluate
+          minimum: 1
+          example: 1
+        ConsistentRead:
+          type: boolean
+          description: Determines the read consistency model
+          example: true
+        ExclusiveStartKey:
+          type: object
+          description: The primary key of the first item that this operation evaluates
+          additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
-          example:
-          - example-string
-        'NULL':
-          type: boolean
-          description: Null attribute value
-          example: true
-        BOOL:
-          type: boolean
-          description: Boolean attribute value
-          example: true
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
-      schema:
-        type: string
-        pattern: ^DynamoDB_20120810\.\w+$
+          example: {}
+        Segment:
+          type: integer
+          description: For parallel scan, identifies the segment to be scanned
+          minimum: 0
+          example: 1
+        TotalSegments:
+          type: integer
+          description: For parallel scan, the total number of segments
+          minimum: 1
+          maximum: 1000000
+          example: 1
+        Select:
+          type: string
+          description: The attributes to be returned in the result
+          enum:
+          - ALL_ATTRIBUTES
+          - ALL_PROJECTED_ATTRIBUTES
+          - COUNT
+          - SPECIFIC_ATTRIBUTES
+          example: ALL_ATTRIBUTES
   securitySchemes:
     sigv4Auth:
       type: http

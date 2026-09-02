@@ -365,3 +365,5 @@ tags:
   - Key-Value
   - NoSQL
   - Serverless
+x-parent: aws
+x-relationship: product
