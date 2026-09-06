@@ -222,6 +222,10 @@ apis:
   - type: Examples
     url: examples/amazon-dynamodb-table-example.json
 common:
+  - type: Website
+    url: https://aws.amazon.com/dynamodb/
+  - type: Pricing
+    url: https://aws.amazon.com/dynamodb/pricing/
   - type: AgenticAccess
     url: agentic-access/amazon-dynamodb-agentic-access.yml
   - type: TrustCenter
