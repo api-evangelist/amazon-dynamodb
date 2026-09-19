@@ -32,18 +32,20 @@ accessModel:
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://aws.amazon.com/dynamodb/
 created: '2024-01-15'
-modified: '2026-09-16'
+modified: '2026-09-18'
 apis:
 - aid: amazon-dynamodb:amazon-dynamodb-batch-api
   name: Amazon DynamoDB Batch API
   description: Operations for batch reading and writing multiple items
   humanURL: https://aws.amazon.com/dynamodb/
-  baseURL: https://dynamodb.amazonaws.com
+  baseURL: https://dynamodb.{region}.amazonaws.com
   tags:
   - Batch
   properties:
   - type: OpenAPI
     url: openapi/amazon-dynamodb-batch-api-openapi.yml
+  - type: Overlay
+    url: overlays/amazon-dynamodb-batch-api-overlay.yaml
   - type: Documentation
     url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
   - type: JSONSchema
@@ -74,7 +76,7 @@ apis:
   name: Amazon DynamoDB Items API
   description: Operations for putting, getting, updating, and deleting individual items
   humanURL: https://aws.amazon.com/dynamodb/
-  baseURL: https://dynamodb.amazonaws.com
+  baseURL: https://dynamodb.{region}.amazonaws.com
   tags:
   - Item
   tags_raw:
@@ -82,6 +84,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/amazon-dynamodb-items-api-openapi.yml
+  - type: Overlay
+    url: overlays/amazon-dynamodb-items-api-overlay.yaml
   - type: Documentation
     url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
   - type: JSONSchema
@@ -112,7 +116,7 @@ apis:
   name: Amazon DynamoDB Queries API
   description: Operations for querying and scanning table data
   humanURL: https://aws.amazon.com/dynamodb/
-  baseURL: https://dynamodb.amazonaws.com
+  baseURL: https://dynamodb.{region}.amazonaws.com
   tags:
   - Query
   tags_raw:
@@ -120,6 +124,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/amazon-dynamodb-queries-api-openapi.yml
+  - type: Overlay
+    url: overlays/amazon-dynamodb-queries-api-overlay.yaml
   - type: Documentation
     url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
   - type: JSONSchema
@@ -150,12 +156,14 @@ apis:
   name: Amazon DynamoDB Tables API
   description: Operations for creating, describing, updating, listing, and deleting DynamoDB tables
   humanURL: https://aws.amazon.com/dynamodb/
-  baseURL: https://dynamodb.amazonaws.com
+  baseURL: https://dynamodb.{region}.amazonaws.com
   tags:
   - Tables
   properties:
   - type: OpenAPI
     url: openapi/amazon-dynamodb-tables-api-openapi.yml
+  - type: Overlay
+    url: overlays/amazon-dynamodb-tables-api-overlay.yaml
   - type: Documentation
     url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
   - type: JSONSchema
@@ -186,7 +194,7 @@ apis:
   name: Amazon DynamoDB Transactions API
   description: Operations for transactional reads and writes across multiple items
   humanURL: https://aws.amazon.com/dynamodb/
-  baseURL: https://dynamodb.amazonaws.com
+  baseURL: https://dynamodb.{region}.amazonaws.com
   tags:
   - Transaction
   tags_raw:
@@ -194,6 +202,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/amazon-dynamodb-transactions-api-openapi.yml
+  - type: Overlay
+    url: overlays/amazon-dynamodb-transactions-api-overlay.yaml
   - type: Documentation
     url: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
   - type: JSONSchema
@@ -235,12 +245,56 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html
-  - type: AsyncAPI
-    url: asyncapi/dynamodb-streams-asyncapi.yml
+  - type: Smithy
+    url: smithy/dynamodb-streams-2012-08-10.json
+    name: Amazon DynamoDB Streams Smithy 2.0 model (AWS first-party, 4 operations)
   - type: APIReference
     url: >-
       https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html
 common:
+- type: Smithy
+  url: smithy/dynamodb-2012-08-10.json
+  name: Amazon DynamoDB Smithy 2.0 model (AWS first-party, 58 operations)
+- type: Packages
+  url: packages/amazon-dynamodb-packages.yml
+- type: SDKs
+  url: packages/amazon-dynamodb-packages.yml
+- type: MCPServer
+  url: mcp/amazon-dynamodb-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/amazon-dynamodb-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/amazon-dynamodb-llms.txt
+- type: WellKnown
+  url: well-known/amazon-dynamodb-well-known.yml
+- type: SecurityTxt
+  url: well-known/amazon-dynamodb-security.txt
+- type: CLI
+  url: cli/amazon-dynamodb-cli.yml
+- type: Sandbox
+  url: sandbox/amazon-dynamodb-sandbox.yml
+- type: ChangeLog
+  url: changelog/amazon-dynamodb-changelog.yml
+- type: Lifecycle
+  url: lifecycle/amazon-dynamodb-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/amazon-dynamodb-lifecycle.yml
+- type: Conventions
+  url: conventions/amazon-dynamodb-conventions.yml
+- type: Idempotency
+  url: conventions/amazon-dynamodb-conventions.yml
+- type: ErrorCatalog
+  url: errors/amazon-dynamodb-problem-types.yml
+- type: DataModel
+  url: data-model/amazon-dynamodb-data-model.yml
+- type: Conformance
+  url: conformance/amazon-dynamodb-conformance.yml
+- type: Plans
+  url: plans/amazon-dynamodb-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/amazon-dynamodb-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
   url: https://aws.amazon.com/dynamodb/
 - type: Pricing
@@ -396,3 +450,8 @@ x-parent: aws
 x-relationship: product
 x-aliases:
 - Amazon DynamoDB
+x-enrichment:
+  date: '2026-09-18'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v3
