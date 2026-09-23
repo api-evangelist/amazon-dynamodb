@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon DynamoDB Batch Transactions API
+  title: Amazon DynamoDB Transactions API
   description: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. This API enables you to create and manage tables, perform CRUD operations on items, execute queries and scans, and run batch and transactional operations using JSON-based requests.
   version: '2012-08-10'
   contact:
@@ -114,82 +114,16 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
   schemas:
-    TransactGetItemsOutput:
-      type: object
-      properties:
-        Responses:
-          type: array
-          description: An ordered array of up to 100 ItemResponse objects
-          items:
-            type: object
-            properties:
-              Item:
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/AttributeValue'
-          example:
-          - Item: {}
-    AttributeValue:
-      type: object
-      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
-      properties:
-        S:
-          type: string
-          description: String attribute value
-          example: example-string
-        N:
-          type: string
-          description: Number attribute value (sent as string)
-          example: example-string
-        B:
-          type: string
-          format: byte
-          description: Binary attribute value (Base64-encoded)
-          example: example-string
-        SS:
-          type: array
-          description: String set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        NS:
-          type: array
-          description: Number set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        BS:
-          type: array
-          description: Binary set attribute value
-          items:
-            type: string
-            format: byte
-          example:
-          - example-string
-        M:
-          type: object
-          description: Map attribute value
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        L:
-          type: array
-          description: List attribute value
-          items:
-            $ref: '#/components/schemas/AttributeValue'
-          example:
-          - example-string
-        'NULL':
-          type: boolean
-          description: Null attribute value
-          example: true
-        BOOL:
-          type: boolean
-          description: Boolean attribute value
-          example: true
     TransactWriteItemsOutput:
       type: object
       properties:
@@ -266,15 +200,81 @@ components:
               TableName: example
               Key: example
               ProjectionExpression: example
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
-      schema:
-        type: string
-        pattern: ^DynamoDB_20120810\.\w+$
+    TransactGetItemsOutput:
+      type: object
+      properties:
+        Responses:
+          type: array
+          description: An ordered array of up to 100 ItemResponse objects
+          items:
+            type: object
+            properties:
+              Item:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AttributeValue'
+          example:
+          - Item: {}
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
   securitySchemes:
     sigv4Auth:
       type: http

@@ -1,0 +1,175 @@
+generated: '2026-09-18'
+method: probed
+source: >-
+  Live GET of each named path on every host this record knows - the website
+  (aws.amazon.com and its www alias), the docs host, the regional API endpoint
+  from the OpenAPI servers[] block, and the DynamoDB Streams endpoint - on
+  2026-09-18.
+note: >-
+  One document is served: RFC 9116 security.txt on aws.amazon.com (and its www
+  alias), which names the AWS Vulnerability Disclosure Program, a HackerOne
+  program, a contact address, a PGP key and an expiry. Every other path 404s.
+  aws.amazon.com returns a large HTML marketing shell with a 404 status on a
+  miss and docs.aws.amazon.com returns an HTML docs 404 - both recorded as
+  misses, not documents. The negative-control path 404s on every host, so no
+  host is echoing arbitrary paths back as 200s.
+  A finding worth keeping: https://dynamodb.amazonaws.com - the baseURL this
+  record carried until today - does not resolve in DNS at all (NXDOMAIN). Only
+  the regional form, https://dynamodb.{region}.amazonaws.com, exists.
+path_echo_control: passed
+hosts:
+- host: https://aws.amazon.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: amazon-dynamodb-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  negative_control:
+    path: /.well-known/amazon-dynamodb-negative-control-8b21fd.json
+    status: 404
+- host: https://www.aws.amazon.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: amazon-dynamodb-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  negative_control:
+    path: /.well-known/amazon-dynamodb-negative-control-8b21fd.json
+    status: 404
+- host: https://docs.aws.amazon.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  negative_control:
+    path: /.well-known/amazon-dynamodb-negative-control-8b21fd.json
+    status: 404
+  note: >-
+    docs.aws.amazon.com serves no /.well-known document, but it DOES serve
+    llms.txt - both an AWS-wide index at /llms.txt and a per-guide file at
+    /amazondynamodb/latest/APIReference/llms.txt, saved in llms/.
+- host: https://dynamodb.us-east-1.amazonaws.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  negative_control:
+    path: /.well-known/amazon-dynamodb-negative-control-8b21fd.json
+    status: 404
+- host: https://streams.dynamodb.us-east-1.amazonaws.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  negative_control:
+    path: /.well-known/amazon-dynamodb-negative-control-8b21fd.json
+    status: 404
+- host: https://dynamodb.amazonaws.com
+  resolves: false
+  dns: NXDOMAIN
+  documents: []
+  note: >-
+    Recorded as a finding, not a probe: this host, carried as the baseURL on all
+    five API entries until 2026-09-18, has no DNS record. It was replaced with
+    the templated regional endpoint the AWS docs and the Smithy model publish.
+agent_card:
+  found: false
+  note: >-
+    Neither /.well-known/agent-card.json nor the legacy /.well-known/agent.json
+    returned a document on any host, so no a2a/ artifact and no AgentCard
+    pointer were written. AWS publishes MCP servers, not A2A agent cards.

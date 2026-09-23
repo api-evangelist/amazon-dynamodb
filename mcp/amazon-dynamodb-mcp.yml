@@ -1,0 +1,120 @@
+generated: '2026-09-18'
+method: searched
+status: published
+source: >-
+  https://github.com/awslabs/mcp/tree/main/src/dynamodb-mcp-server (AWS Labs,
+  first-party), https://pypi.org/project/awslabs.dynamodb-mcp-server/ and
+  https://awslabs.github.io/mcp/servers/dynamodb-mcp-server/ - read 2026-09-18.
+  The two AWS-hosted remote servers were probed live with an anonymous JSON-RPC
+  tools/list on 2026-09-18; both answered HTTP 200 with real inputSchemas.
+note: >-
+  DynamoDB has BOTH shapes, and they do different jobs. AWS ships a dedicated
+  first-party stdio server, awslabs.dynamodb-mcp-server, whose eight tools are
+  DESIGN tools - data modeling, model validation against DynamoDB Local, source
+  database analysis, schema conversion, code generation and cost computation.
+  None of them is a wrapper around GetItem or PutItem. The runtime surface is
+  reached instead through AWS's general-purpose remote servers, where DynamoDB
+  is called generically through a sandboxed script executor. So an agent that
+  wants to DESIGN a table has a named tool for it, and an agent that wants to
+  WRITE an item does not - it has a Python executor with the caller's IAM
+  credentials. Recording that distinction is the point of this file.
+deployment:
+  mode: both
+  endpoint: https://aws-mcp.us-east-1.api.aws/mcp
+  install: uvx awslabs.dynamodb-mcp-server@latest
+  package: https://pypi.org/project/awslabs.dynamodb-mcp-server/
+  auth: api-key
+  verified: probed
+  note: >-
+    `auth: api-key` means AWS SigV4 / IAM credentials, not a bearer key. The
+    remote endpoint answered tools/list anonymously (HTTP 200, real schemas) but
+    every tool CALL executes against the caller's AWS credentials under IAM
+    policy with CloudTrail logging, and is reached through the
+    mcp-proxy-for-aws local proxy which performs the signing. The stdio server
+    named in `install` is the DynamoDB-specific one and reads AWS_PROFILE /
+    AWS_REGION from the environment.
+servers:
+- name: awslabs.dynamodb-mcp-server
+  status: published
+  scope: dynamodb-specific
+  transport: stdio
+  install: uvx awslabs.dynamodb-mcp-server@latest
+  package: https://pypi.org/project/awslabs.dynamodb-mcp-server/
+  package_version: 2.1.8
+  package_published: '2026-09-08'
+  repository: https://github.com/awslabs/mcp/tree/main/src/dynamodb-mcp-server
+  docs: https://awslabs.github.io/mcp/servers/dynamodb-mcp-server/
+  changelog: https://github.com/awslabs/mcp/blob/main/src/dynamodb-mcp-server/CHANGELOG.md
+  hosted_by: null
+  first_party: true
+  tools_list_status: not-applicable (stdio; tool names read from the published README, 2026-09-18)
+  tool_count: 8
+  tools:
+  - name: dynamodb_data_modeling
+    category: design
+    description: Returns the DynamoDB data-modeling expert prompt - access-pattern analysis, multi-table design philosophy, cost strategies.
+  - name: dynamodb_data_model_validation
+    category: design
+    description: Validates a data model by standing up DynamoDB Local, creating the tables with test data and executing every declared access pattern.
+  - name: source_db_analyzer
+    category: migration
+    description: Reads an existing MySQL / PostgreSQL / SQL Server / Oracle schema and extracts structure and access patterns to feed the modeling tool.
+  - name: generate_resources
+    category: codegen
+    description: Generates deployable resources from the data model; currently a CDK app that creates the tables.
+  - name: dynamodb_data_model_schema_converter
+    category: design
+    description: Converts the prose data model into a machine-readable schema.json of tables, indexes, entities, fields and access patterns.
+  - name: dynamodb_data_model_schema_validator
+    category: design
+    description: Validates schema.json for code-generation compatibility - field types, operations, GSI mappings, pattern IDs.
+  - name: generate_data_access_layer
+    category: codegen
+    description: Generates type-safe Python entity and repository classes (Pydantic + boto3) implementing the declared access patterns.
+  - name: compute_performances_and_costs
+    category: finops
+    description: Calculates RCU/WCU consumption and monthly cost from the access patterns, including GSI write amplification and storage.
+  covers_dynamodb: design-and-codegen-only
+  coverage_note: >-
+    Not one of the eight tools calls a DynamoDB data-plane or control-plane
+    operation on the user's account. The closest is
+    dynamodb_data_model_validation, which drives DynamoDB Local - a local JAR,
+    not the service.
+- name: AWS MCP Server
+  status: preview
+  scope: aws-wide
+  transport: http
+  url: https://aws-mcp.us-east-1.api.aws/mcp
+  docs: https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html
+  hosted_by: AWS
+  first_party: true
+  tools_list_status: 200
+  tools_list_probed: '2026-09-18'
+  tool_count: 8
+  tools_file: amazon-dynamodb-aws-mcp-tools-list.json
+  tools: [aws___get_presigned_url, aws___get_tasks, aws___run_script, aws___get_regional_availability, aws___list_regions, aws___read_documentation, aws___retrieve_skill, aws___search_documentation]
+  covers_dynamodb: true
+  coverage_note: >-
+    Through aws___run_script, which executes Python with AWS API access - a
+    DynamoDB call is a boto3 call inside that script. All 58 operations in the
+    Smithy model are reachable; none has a named tool.
+- name: AWS Knowledge MCP Server
+  status: published
+  scope: aws-wide
+  transport: http
+  url: https://knowledge-mcp.global.api.aws
+  hosted_by: AWS
+  first_party: true
+  tools_list_status: 200
+  tools_list_probed: '2026-09-18'
+  tool_count: 5
+  tools_file: amazon-dynamodb-aws-knowledge-mcp-tools-list.json
+  tools: [aws___read_documentation, aws___search_documentation, aws___list_regions, aws___get_regional_availability, aws___retrieve_skill]
+  covers_dynamodb: documentation-only
+  coverage_note: Read-only AWS documentation search and fetch. Returns the DynamoDB developer guide and API reference; cannot call the API.
+authentication:
+  runtime: AWS SigV4 (IAM)
+  read_only_switch: DDB-MCP-READONLY environment variable on the stdio server
+  note: >-
+    The stdio server honours a DDB-MCP-READONLY flag, which is a real agent-safety
+    control worth knowing about: the vendor's own install snippets set it true.

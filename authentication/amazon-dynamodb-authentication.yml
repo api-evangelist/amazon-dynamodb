@@ -1,6 +1,8 @@
-generated: '2026-07-11'
+generated: '2026-09-18'
 method: derived
-source: openapi/amazon-dynamodb-openapi.yml
+source: openapi/amazon-dynamodb-batch-api-openapi.yml, openapi/amazon-dynamodb-items-api-openapi.yml,
+  openapi/amazon-dynamodb-queries-api-openapi.yml, openapi/amazon-dynamodb-tables-api-openapi.yml,
+  openapi/amazon-dynamodb-transactions-api-openapi.yml
 summary:
   types:
   - http
@@ -10,4 +12,8 @@ schemes:
   scheme: bearer
   description: AWS Signature Version 4 authentication
   sources:
-  - openapi/amazon-dynamodb-openapi.yml
+  - openapi/amazon-dynamodb-batch-api-openapi.yml
+  - openapi/amazon-dynamodb-items-api-openapi.yml
+  - openapi/amazon-dynamodb-queries-api-openapi.yml
+  - openapi/amazon-dynamodb-tables-api-openapi.yml
+  - openapi/amazon-dynamodb-transactions-api-openapi.yml

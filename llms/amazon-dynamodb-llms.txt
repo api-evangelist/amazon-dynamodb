@@ -1,0 +1,281 @@
+# Amazon DynamoDB API Reference
+
+> Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. DynamoDB lets you offload the administrative burdens of operating and scaling a distributed database, so that you don't have to worry about hardware provisioning, setup and configuration, replication, software patching, or cluster scaling.
+
+- [Welcome](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.md)
+- [Common Error Types](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/CommonErrors.md)
+
+## [Actions](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations.md)
+
+### [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB.md)
+
+The following actions are supported by Amazon DynamoDB:
+
+- [BatchExecuteStatement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchExecuteStatement.md): This operation allows you to perform batch reads or writes on data stored in DynamoDB, using PartiQL.
+- [BatchGetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.md): The BatchGetItem operation returns the attributes of one or more items from one or more tables.
+- [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.md): The BatchWriteItem operation puts or deletes multiple items in one or more tables.
+- [CreateBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateBackup.md): Creates a backup for an existing table.
+- [CreateGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateGlobalTable.md): Creates a global table from an existing table.
+- [CreateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.md): The CreateTable operation adds a new table to your account.
+- [DeleteBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteBackup.md): Deletes an existing backup of a table.
+- [DeleteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.md): Deletes a single item in a table by primary key.
+- [DeleteResourcePolicy](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteResourcePolicy.md): Deletes the resource-based policy attached to the resource, which can be a table or stream.
+- [DeleteTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.md): The DeleteTable operation deletes a table and all of its items.
+- [DescribeBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeBackup.md): Describes an existing backup of a table.
+- [DescribeContinuousBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeContinuousBackups.md): Checks the status of continuous backups and point in time recovery on the specified table.
+- [DescribeContributorInsights](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeContributorInsights.md): Returns information about contributor insights for a given table or global secondary index.
+- [DescribeEndpoints](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeEndpoints.md): Returns the regional endpoint information.
+- [DescribeExport](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeExport.md): Describes an existing table export.
+- [DescribeGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeGlobalTable.md): Returns information about the specified global table.
+- [DescribeGlobalTableSettings](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeGlobalTableSettings.md): Describes Region-specific settings for a global table.
+- [DescribeImport](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeImport.md): Represents the properties of the import.
+- [DescribeKinesisStreamingDestination](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeKinesisStreamingDestination.md): Returns information about the status of Kinesis streaming.
+- [DescribeLimits](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.md): Returns the current provisioned-capacity quotas for your AWS account in a Region, both for the Region as a whole and for any one DynamoDB table that you create there.
+- [DescribeTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.md): Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table.
+- [DescribeTableReplicaAutoScaling](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTableReplicaAutoScaling.md): Describes auto scaling settings across replicas of the global table at once.
+- [DescribeTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTimeToLive.md): Gives a description of the Time to Live (TTL) status on the specified table.
+- [DisableKinesisStreamingDestination](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DisableKinesisStreamingDestination.md): Stops replication from the DynamoDB table to the Kinesis data stream.
+- [EnableKinesisStreamingDestination](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_EnableKinesisStreamingDestination.md): Starts table data replication to the specified Kinesis data stream at a timestamp chosen during the enable workflow.
+- [ExecuteStatement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExecuteStatement.md): This operation allows you to perform reads and singleton writes on data stored in DynamoDB, using PartiQL.
+- [ExecuteTransaction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExecuteTransaction.md): This operation allows you to perform transactional reads or writes on data stored in DynamoDB, using PartiQL.
+- [ExportTableToPointInTime](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExportTableToPointInTime.md): Exports table data to an S3 bucket.
+- [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.md): The GetItem operation returns a set of attributes for the item with the given primary key.
+- [GetResourcePolicy](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetResourcePolicy.md): Returns the resource-based policy document attached to the resource, which can be a table or stream, in JSON format.
+- [ImportTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ImportTable.md): Imports table data from an S3 bucket.
+- [ListBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListBackups.md): List DynamoDB backups that are associated with an AWS account and weren't made with AWS Backup.
+- [ListContributorInsights](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListContributorInsights.md): Returns a list of ContributorInsightsSummary for a table and all its global secondary indexes.
+- [ListExports](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListExports.md): Lists completed exports within the past 90 days, in reverse alphanumeric order of ExportArn.
+- [ListGlobalTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListGlobalTables.md): Lists all global tables that have a replica in the specified Region.
+- [ListImports](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListImports.md): Lists completed imports within the past 90 days.
+- [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.md): Returns an array of table names associated with the current account and endpoint.
+- [ListTagsOfResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTagsOfResource.md): List all tags on an Amazon DynamoDB resource.
+- [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.md): Creates a new item, or replaces an old item with a new item.
+- [PutResourcePolicy](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutResourcePolicy.md): Attaches a resource-based policy document to the resource, which can be a table or stream.
+- [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.md): You must provide the name of the partition key attribute and a single value for that attribute.
+- [RestoreTableFromBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableFromBackup.md): Creates a new table from an existing backup.
+- [RestoreTableToPointInTime](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableToPointInTime.md): Restores the specified table to the specified point in time within EarliestRestorableDateTime and LatestRestorableDateTime.
+- [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.md): The Scan operation returns one or more items and item attributes by accessing every item in a table or a secondary index.
+- [SearchVectors](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SearchVectors.md): Performs a vector similarity search on a vector index associated with an Amazon DynamoDB table, and returns the most similar items sorted by similarity score based on the distance function configured for the index.
+- [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TagResource.md): Associate a set of tags with an Amazon DynamoDB resource.
+- [TransactGetItems](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.md): TransactGetItems is a synchronous operation that atomically retrieves multiple items from one or more tables (but not from indexes) in a single account and Region.
+- [TransactWriteItems](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.md): TransactWriteItems is a synchronous write operation that groups up to 100 action requests.
+- [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UntagResource.md): Removes the association of tags from an Amazon DynamoDB resource.
+- [UpdateContinuousBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateContinuousBackups.md): UpdateContinuousBackups enables or disables point in time recovery for the specified table.
+- [UpdateContributorInsights](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateContributorInsights.md): Updates the status for contributor insights for a specific table or index.
+- [UpdateGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalTable.md): Adds or removes replicas in the specified global table.
+- [UpdateGlobalTableSettings](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalTableSettings.md): Updates settings for a global table.
+- [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.md): Edits an existing item's attributes, or adds a new item to the table if it does not already exist.
+- [UpdateKinesisStreamingDestination](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateKinesisStreamingDestination.md): The command to update the Kinesis stream destination.
+- [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.md): Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.
+- [UpdateTableReplicaAutoScaling](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTableReplicaAutoScaling.md): Updates auto scaling settings on your global tables at once.
+- [UpdateTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.md): The UpdateTimeToLive method enables or disables Time to Live (TTL) for the specified table.
+
+### [DynamoDB Accelerator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Accelerator__DAX_.md)
+
+The following actions are supported by DynamoDB Accelerator:
+
+- [CreateCluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateCluster.md): Creates a DAX cluster.
+- [CreateParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateParameterGroup.md): Creates a new parameter group.
+- [CreateSubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateSubnetGroup.md): Creates a new subnet group.
+- [DecreaseReplicationFactor](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DecreaseReplicationFactor.md): Removes one or more nodes from a DAX cluster.
+- [DeleteCluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteCluster.md): Deletes a previously provisioned DAX cluster.
+- [DeleteParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteParameterGroup.md): Deletes the specified parameter group.
+- [DeleteSubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteSubnetGroup.md): Deletes a subnet group.
+- [DescribeClusters](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeClusters.md): Returns information about all provisioned DAX clusters if no cluster identifier is specified, or about a specific DAX cluster if a cluster identifier is supplied.
+- [DescribeDefaultParameters](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeDefaultParameters.md): Returns the default system parameter information for the DAX caching software.
+- [DescribeEvents](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeEvents.md): Returns events related to DAX clusters and parameter groups.
+- [DescribeParameterGroups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeParameterGroups.md): Returns a list of parameter group descriptions.
+- [DescribeParameters](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeParameters.md): Returns the detailed parameter list for a particular parameter group.
+- [DescribeSubnetGroups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeSubnetGroups.md): Returns a list of subnet group descriptions.
+- [IncreaseReplicationFactor](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_IncreaseReplicationFactor.md): Adds one or more nodes to a DAX cluster.
+- [ListTags](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_ListTags.md): List all of the tags for a DAX cluster.
+- [RebootNode](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_RebootNode.md): Reboots a single node of a DAX cluster.
+- [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_TagResource.md): Associates a set of tags with a DAX resource.
+- [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UntagResource.md): Removes the association of tags from a DAX resource.
+- [UpdateCluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateCluster.md): Modifies the settings for a DAX cluster.
+- [UpdateParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateParameterGroup.md): Modifies the parameters of a parameter group.
+- [UpdateSubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateSubnetGroup.md): Modifies an existing subnet group.
+
+### [Amazon DynamoDB Streams](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.md)
+
+The following actions are supported by Amazon DynamoDB Streams:
+
+- [DescribeStream](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_DescribeStream.md): Returns information about a stream, including the current status of the stream, its Amazon Resource Name (ARN), the composition of its shards, and its corresponding DynamoDB table.
+- [GetRecords](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetRecords.md): Retrieves the stream records from a given shard.
+- [GetShardIterator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetShardIterator.md): Returns a shard iterator.
+- [ListStreams](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_ListStreams.md): Returns an array of stream ARNs associated with the current account and endpoint.
+
+
+## [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Types.md)
+
+### [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Types_Amazon_DynamoDB.md)
+
+The following data types are supported by Amazon DynamoDB:
+
+- [ArchivalSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ArchivalSummary.md): Contains details of a table archival operation.
+- [AttributeDefinition](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeDefinition.md): Represents an attribute for describing the schema for the table and indexes.
+- [AttributeValue](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.md): Represents the data for an attribute.
+- [AttributeValueUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValueUpdate.md): For the UpdateItem operation, represents the attributes to be modified, the action to perform on each, and the new value for each.
+- [AutoScalingPolicyDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AutoScalingPolicyDescription.md): Represents the properties of the scaling policy.
+- [AutoScalingPolicyUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AutoScalingPolicyUpdate.md): Represents the auto scaling policy to be modified.
+- [AutoScalingSettingsDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AutoScalingSettingsDescription.md): Represents the auto scaling settings for a global table or global secondary index.
+- [AutoScalingSettingsUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AutoScalingSettingsUpdate.md): Represents the auto scaling settings to be modified for a global table or global secondary index.
+- [AutoScalingTargetTrackingScalingPolicyConfigurationDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AutoScalingTargetTrackingScalingPolicyConfigurationDescription.md): Represents the properties of a target tracking scaling policy.
+- [AutoScalingTargetTrackingScalingPolicyConfigurationUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AutoScalingTargetTrackingScalingPolicyConfigurationUpdate.md): Represents the settings of a target tracking scaling policy that will be modified.
+- [BackupDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BackupDescription.md): Contains the description of the backup created for the table.
+- [BackupDetails](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BackupDetails.md): Contains the details of the backup created for the table.
+- [BackupSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BackupSummary.md): Contains details for the backup.
+- [BatchStatementError](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchStatementError.md): An error associated with a statement in a PartiQL batch that was run.
+- [BatchStatementRequest](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchStatementRequest.md): A PartiQL batch statement request.
+- [BatchStatementResponse](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchStatementResponse.md): A PartiQL batch statement response..
+- [BillingModeSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BillingModeSummary.md): Contains the details for the read/write capacity mode.
+- [CancellationReason](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CancellationReason.md): An ordered list of errors for each item in the request which caused the transaction to get cancelled.
+- [Capacity](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Capacity.md): Represents the amount of provisioned throughput capacity consumed on a table or an index.
+- [Condition](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Condition.md): Represents the selection criteria for a Query or Scan operation:
+- [ConditionCheck](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConditionCheck.md): Represents a request to perform a check that an item exists or to check the condition of specific attributes of the item.
+- [ConsumedCapacity](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.md): The capacity units consumed by an operation.
+- [ContinuousBackupsDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ContinuousBackupsDescription.md): Represents the continuous backups and point in time recovery settings on the table.
+- [ContributorInsightsSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ContributorInsightsSummary.md): Represents a Contributor Insights summary entry.
+- [CreateGlobalSecondaryIndexAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateGlobalSecondaryIndexAction.md): Represents a new global secondary index to be added to an existing table.
+- [CreateGlobalTableWitnessGroupMemberAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateGlobalTableWitnessGroupMemberAction.md): Specifies the action to add a new witness Region to a MRSC global table.
+- [CreateReplicaAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateReplicaAction.md): Represents a replica to be added.
+- [CreateReplicationGroupMemberAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateReplicationGroupMemberAction.md): Represents a replica to be created.
+- [CreateVectorIndexAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateVectorIndexAction.md): A new vector index to be added to a table.
+- [CsvOptions](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CsvOptions.md): Processing options for the CSV file being imported.
+- [Delete](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Delete.md): Represents a request to perform a DeleteItem operation.
+- [DeleteGlobalSecondaryIndexAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteGlobalSecondaryIndexAction.md): Represents a global secondary index to be deleted from an existing table.
+- [DeleteGlobalTableWitnessGroupMemberAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteGlobalTableWitnessGroupMemberAction.md): Specifies the action to remove a witness Region from a MRSC global table.
+- [DeleteReplicaAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteReplicaAction.md): Represents a replica to be removed.
+- [DeleteReplicationGroupMemberAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteReplicationGroupMemberAction.md): Represents a replica to be deleted.
+- [DeleteRequest](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteRequest.md): Represents a request to perform a DeleteItem operation on an item.
+- [DeleteVectorIndexAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteVectorIndexAction.md): A vector index to be removed from a table.
+- [EnableKinesisStreamingConfiguration](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_EnableKinesisStreamingConfiguration.md): Enables setting the configuration for Kinesis Streaming.
+- [Endpoint](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Endpoint.md): An endpoint information details.
+- [ExpectedAttributeValue](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExpectedAttributeValue.md): Represents a condition to be compared with an attribute value.
+- [ExportDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExportDescription.md): Represents the properties of the exported table.
+- [ExportSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExportSummary.md): Summary information about an export task.
+- [FailureException](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_FailureException.md): Represents a failure a contributor insights operation.
+- [Get](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Get.md): Specifies an item and related attribute values to retrieve in a TransactGetItem object.
+- [GlobalSecondaryIndex](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndex.md): Represents the properties of a global secondary index.
+- [GlobalSecondaryIndexAutoScalingUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndexAutoScalingUpdate.md): Represents the auto scaling settings of a global secondary index for a global table that will be modified.
+- [GlobalSecondaryIndexDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndexDescription.md): Represents the properties of a global secondary index.
+- [GlobalSecondaryIndexInfo](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndexInfo.md): Represents the properties of a global secondary index for the table when the backup was created.
+- [GlobalSecondaryIndexUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndexUpdate.md): Represents one of the following:
+- [GlobalSecondaryIndexWarmThroughputDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndexWarmThroughputDescription.md): The description of the warm throughput value on a global secondary index.
+- [GlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalTable.md): Represents the properties of a global table.
+- [GlobalTableDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalTableDescription.md): Contains details about the global table.
+- [GlobalTableGlobalSecondaryIndexSettingsUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalTableGlobalSecondaryIndexSettingsUpdate.md): Represents the settings of a global secondary index for a global table that will be modified.
+- [GlobalTableWitnessDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalTableWitnessDescription.md): Represents the properties of a witness Region in a MRSC global table.
+- [GlobalTableWitnessGroupUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalTableWitnessGroupUpdate.md): Represents one of the following:
+- [ImportSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ImportSummary.md): Summary information about the source file for the import.
+- [ImportTableDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ImportTableDescription.md): Represents the properties of the table being imported into.
+- [IncrementalExportSpecification](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_IncrementalExportSpecification.md): Optional object containing the parameters specific to an incremental export.
+- [InputFormatOptions](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_InputFormatOptions.md): The format options for the data that was imported into the target table.
+- [ItemCollectionMetrics](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.md): Information about item collections, if any, that were affected by the operation.
+- [ItemResponse](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemResponse.md): Details for the requested item.
+- [KeysAndAttributes](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_KeysAndAttributes.md): Represents a set of primary keys and, for each key, the attributes to retrieve from the table.
+- [KeySchemaElement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_KeySchemaElement.md): Represents a single element of a key schema.
+- [KinesisDataStreamDestination](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_KinesisDataStreamDestination.md): Describes a Kinesis data stream destination.
+- [LocalSecondaryIndex](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndex.md): Represents the properties of a local secondary index.
+- [LocalSecondaryIndexDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndexDescription.md): Represents the properties of a local secondary index.
+- [LocalSecondaryIndexInfo](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndexInfo.md): Represents the properties of a local secondary index for the table when the backup was created.
+- [OnDemandThroughput](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_OnDemandThroughput.md): Sets the maximum number of read and write units for the specified on-demand table.
+- [OnDemandThroughputOverride](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_OnDemandThroughputOverride.md): Overrides the on-demand throughput settings for this replica table.
+- [ParameterizedStatement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ParameterizedStatement.md): Represents a PartiQL statement that uses parameters.
+- [PointInTimeRecoveryDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PointInTimeRecoveryDescription.md): The description of the point in time settings applied to the table.
+- [PointInTimeRecoverySpecification](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PointInTimeRecoverySpecification.md): Represents the settings used to enable point in time recovery.
+- [Projection](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Projection.md): Represents attributes that are copied (projected) from the table into an index.
+- [ProvisionedThroughput](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.md): Represents the provisioned throughput settings for the specified global secondary index.
+- [ProvisionedThroughputDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughputDescription.md): Represents the provisioned throughput settings for the table, consisting of read and write capacity units, along with data about increases and decreases.
+- [ProvisionedThroughputOverride](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughputOverride.md): Replica-specific provisioned throughput settings.
+- [Put](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Put.md): Represents a request to perform a PutItem operation.
+- [PutRequest](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutRequest.md): Represents a request to perform a PutItem operation on an item.
+- [Replica](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Replica.md): Represents the properties of a replica.
+- [ReplicaAutoScalingDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaAutoScalingDescription.md): Represents the auto scaling settings of the replica.
+- [ReplicaAutoScalingUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaAutoScalingUpdate.md): Represents the auto scaling settings of a replica that will be modified.
+- [ReplicaDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaDescription.md): Contains the details of the replica.
+- [ReplicaGlobalSecondaryIndex](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaGlobalSecondaryIndex.md): Represents the properties of a replica global secondary index.
+- [ReplicaGlobalSecondaryIndexAutoScalingDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaGlobalSecondaryIndexAutoScalingDescription.md): Represents the auto scaling configuration for a replica global secondary index.
+- [ReplicaGlobalSecondaryIndexAutoScalingUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaGlobalSecondaryIndexAutoScalingUpdate.md): Represents the auto scaling settings of a global secondary index for a replica that will be modified.
+- [ReplicaGlobalSecondaryIndexDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaGlobalSecondaryIndexDescription.md): Represents the properties of a replica global secondary index.
+- [ReplicaGlobalSecondaryIndexSettingsDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaGlobalSecondaryIndexSettingsDescription.md): Represents the properties of a global secondary index.
+- [ReplicaGlobalSecondaryIndexSettingsUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaGlobalSecondaryIndexSettingsUpdate.md): Represents the settings of a global secondary index for a global table that will be modified.
+- [ReplicaSettingsDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaSettingsDescription.md): Represents the properties of a replica.
+- [ReplicaSettingsUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaSettingsUpdate.md): Represents the settings for a global table in a Region that will be modified.
+- [ReplicationGroupUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicationGroupUpdate.md): Represents one of the following:
+- [ReplicaUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicaUpdate.md): Represents one of the following:
+- [RestoreSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreSummary.md): Contains details for the restore.
+- [S3BucketSource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_S3BucketSource.md): The S3 bucket that is being imported from.
+- [SearchResultItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SearchResultItem.md): A single result from a SearchVectors operation.
+- [SearchSchemaElement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SearchSchemaElement.md): An element in the search schema of a vector index.
+- [SourceTableDetails](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SourceTableDetails.md): Contains the details of the table when the backup was created.
+- [SourceTableFeatureDetails](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SourceTableFeatureDetails.md): Contains the details of the features enabled on the table when the backup was created.
+- [SSEDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SSEDescription.md): The description of the server-side encryption status on the specified table.
+- [SSESpecification](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SSESpecification.md): Represents the settings used to enable server-side encryption.
+- [StreamSpecification](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.md): Represents the DynamoDB Streams configuration for a table in DynamoDB.
+- [TableAutoScalingDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableAutoScalingDescription.md): Represents the auto scaling configuration for a global table.
+- [TableClassSummary](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableClassSummary.md): Contains details of the table class.
+- [TableCreationParameters](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableCreationParameters.md): The parameters for the table created as part of the import operation.
+- [TableDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.md): Represents the properties of a table.
+- [TableWarmThroughputDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableWarmThroughputDescription.md): Represents the warm throughput value (in read units per second and write units per second) of the table.
+- [Tag](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Tag.md): Describes a tag.
+- [ThrottlingReason](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ThrottlingReason.md): Represents the specific reason why a DynamoDB request was throttled and the ARN of the impacted resource.
+- [TimeToLiveDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TimeToLiveDescription.md): The description of the Time to Live (TTL) status on the specified table.
+- [TimeToLiveSpecification](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TimeToLiveSpecification.md): Represents the settings used to enable or disable Time to Live (TTL) for the specified table.
+- [TransactGetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItem.md): Specifies an item to be retrieved as part of the transaction.
+- [TransactWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItem.md): A list of requests that can perform update, put, delete, or check operations on multiple items in one or more tables atomically.
+- [Update](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Update.md): Represents a request to perform an UpdateItem operation.
+- [UpdateGlobalSecondaryIndexAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalSecondaryIndexAction.md): Represents the new provisioned throughput settings to be applied to a global secondary index.
+- [UpdateKinesisStreamingConfiguration](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateKinesisStreamingConfiguration.md): Enables updating the configuration for Kinesis Streaming.
+- [UpdateReplicationGroupMemberAction](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateReplicationGroupMemberAction.md): Represents a replica to be modified.
+- [VectorAttributeDefinition](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_VectorAttributeDefinition.md): The definition of a vector attribute for a vector index.
+- [VectorCapacity](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_VectorCapacity.md): The consumed capacity for vector index operations, including vector search request bytes and vector write request bytes.
+- [VectorIndex](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_VectorIndex.md): Contains the configuration settings for a vector index, including the index name, vector attribute, dimensions, distance function, search schema, and projection.
+- [VectorIndexDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_VectorIndexDescription.md): Contains the current state and configuration of a vector index, including its status, size, item count, and the settings specified when the index was created.
+- [VectorIndexInfo](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_VectorIndexInfo.md): Contains the configuration of a vector index as it existed at the time a backup was created.
+- [VectorIndexUpdate](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_VectorIndexUpdate.md): A vector index to be added to or removed from a table.
+- [WarmThroughput](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_WarmThroughput.md): Provides visibility into the number of read and write operations your table or secondary index can instantaneously support.
+- [WriteRequest](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_WriteRequest.md): Represents an operation to perform - either DeleteItem or PutItem.
+
+### [DynamoDB Accelerator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Types_Amazon_DynamoDB_Accelerator__DAX_.md)
+
+The following data types are supported by DynamoDB Accelerator:
+
+- [Cluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_Cluster.md): Contains all of the attributes of a specific DAX cluster.
+- [Endpoint](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_Endpoint.md): Represents the information required for client programs to connect to the endpoint for a DAX cluster.
+- [Event](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_Event.md): Represents a single occurrence of something interesting within the system.
+- [Node](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_Node.md): Represents an individual node within a DAX cluster.
+- [NodeTypeSpecificValue](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_NodeTypeSpecificValue.md): Represents a parameter value that is applicable to a particular node type.
+- [NotificationConfiguration](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_NotificationConfiguration.md): Describes a notification topic and its status.
+- [Parameter](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_Parameter.md): Describes an individual setting that controls some aspect of DAX behavior.
+- [ParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_ParameterGroup.md): A named set of parameters that are applied to all of the nodes in a DAX cluster.
+- [ParameterGroupStatus](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_ParameterGroupStatus.md): The status of a parameter group.
+- [ParameterNameValue](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_ParameterNameValue.md): An individual DAX parameter.
+- [SecurityGroupMembership](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_SecurityGroupMembership.md): An individual VPC security group and its status.
+- [SSEDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_SSEDescription.md): The description of the server-side encryption status on the specified DAX cluster.
+- [SSESpecification](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_SSESpecification.md): Represents the settings used to enable server-side encryption.
+- [Subnet](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_Subnet.md): Represents the subnet associated with a DAX cluster.
+- [SubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_SubnetGroup.md): Represents the output of one of the following actions:
+- [Tag](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_Tag.md): A description of a tag.
+
+### [Amazon DynamoDB Streams](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Types_Amazon_DynamoDB_Streams.md)
+
+The following data types are supported by Amazon DynamoDB Streams:
+
+- [AttributeValue](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.md): Represents the data for an attribute.
+- [Identity](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Identity.md): Contains details about the type of identity that made the request.
+- [KeySchemaElement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_KeySchemaElement.md): Represents a single element of a key schema.
+- [Record](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Record.md): A description of a unique event within a stream.
+- [SequenceNumberRange](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_SequenceNumberRange.md): The beginning and ending sequence numbers for the stream records contained within a shard.
+- [Shard](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Shard.md): A uniquely identified group of stream records within a stream.
+- [ShardFilter](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_ShardFilter.md): This optional field contains the filter definition for the DescribeStream API.
+- [Stream](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Stream.md): Represents all of the data describing a particular stream.
+- [StreamDescription](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamDescription.md): Represents all of the data describing a particular stream.
+- [StreamRecord](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.md): A description of a single data modification that was performed on an item in a DynamoDB table.
+
+
+## Full content
+
+The entire guide is also available as a single markdown file, useful for feeding the full guide to an LLM in one pass:
+
+- [Complete guide (single file)](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/full.md)

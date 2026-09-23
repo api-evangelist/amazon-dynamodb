@@ -36,6 +36,12 @@ artifacts:
   authentication/amazon-dynamodb-authentication.yml:
     method: derived
     evidence: declared in the artifact
+  changelog/amazon-dynamodb-changelog.yml:
+    method: searched
+    evidence: declared in the artifact
+  cli/amazon-dynamodb-cli.yml:
+    method: searched
+    evidence: declared in the artifact
   collections/amazon-dynamodb-batch-api.opencollection.json:
     method: derived
     evidence: openapi/amazon-dynamodb-batch-api
@@ -72,6 +78,18 @@ artifacts:
   collections/amazon-dynamodb.postman_collection.json:
     method: derived
     evidence: openapi/amazon-dynamodb
+  conformance/amazon-dynamodb-conformance.yml:
+    method: searched
+    evidence: declared in the artifact
+  conventions/amazon-dynamodb-conventions.yml:
+    method: searched
+    evidence: declared in the artifact
+  data-model/amazon-dynamodb-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
+  errors/amazon-dynamodb-problem-types.yml:
+    method: derived
+    evidence: declared in the artifact
   examples/amazon-dynamodb-table-example.json:
     method: unknown
     evidence: no authorship recorded
@@ -180,6 +198,9 @@ artifacts:
   finops/amazon-dynamodb-finops.yml:
     method: generated
     evidence: declared in the artifact
+  front-door-ai/2026-09-17.yml:
+    method: unknown
+    evidence: no authorship recorded
   json-ld/amazon-dynamodb-context.jsonld:
     method: unknown
     evidence: no authorship recorded
@@ -393,28 +414,7 @@ artifacts:
   json-structure/dynamodb-openapi-update-table-input-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-06T210741.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-07T135032.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T093022.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T111628.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-11T211707.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-12T193225.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-17T064519.yml:
+  kin/checks-2026-09-17T233623.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-19T080027.yml:
@@ -528,6 +528,102 @@ artifacts:
   kin/score-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T144739.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T195450.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T211839.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T011047.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T224210.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T200636.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T213054.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T214843.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T232836.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T204815.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T222408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T062655.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T080032.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T204651.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T221936.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-13T214537.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T064754.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T210656.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T225847.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T211329.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T230249.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T210549.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T225339.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T211151.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T233623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  lifecycle/amazon-dynamodb-lifecycle.yml:
+    method: searched
+    evidence: declared in the artifact
+  llms/amazon-dynamodb-llms.txt:
+    method: unknown
+    evidence: no authorship recorded
+  mcp/amazon-dynamodb-aws-knowledge-mcp-tools-list.json:
+    method: unknown
+    evidence: no authorship recorded
+  mcp/amazon-dynamodb-aws-mcp-tools-list.json:
+    method: unknown
+    evidence: no authorship recorded
+  mcp/amazon-dynamodb-mcp.yml:
+    method: searched
+    evidence: declared in the artifact
+  mcp/amazon-dynamodb-tool-crosswalk.yml:
+    method: derived
+    evidence: declared in the artifact
   openapi/_original/amazon-dynamodb-openapi.yml:
     method: harvested
     evidence: fetched from the provider as-is; byte-identical to the source
@@ -546,20 +642,41 @@ artifacts:
   openapi/amazon-dynamodb-transactions-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  plans/amazon-dynamodb-plans-pricing.yml:
+  overlays/amazon-dynamodb-batch-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/amazon-dynamodb-items-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/amazon-dynamodb-queries-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/amazon-dynamodb-tables-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/amazon-dynamodb-transactions-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  packages/amazon-dynamodb-packages.yml:
+    method: searched
+    evidence: declared in the artifact
+  plans/amazon-dynamodb-plans-pricing.yml:
+    method: unknown
+    evidence: no authorship recorded
   postman/amazon-dynamodb.postman_collection.json:
     method: derived
     evidence: openapi/amazon-dynamodb
   rate-limits/amazon-dynamodb-rate-limits.yml:
-    method: generated
+    method: searched
     evidence: declared in the artifact
   rules/amazon-dynamodb-jsonschema-spectral-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/amazon-dynamodb-spectral-rules.yml:
     method: generated
+    evidence: declared in the artifact
+  sandbox/amazon-dynamodb-sandbox.yml:
+    method: searched
     evidence: declared in the artifact
   security/amazon-dynamodb-domain-security.yml:
     method: unknown
@@ -570,6 +687,33 @@ artifacts:
   security/amazon-dynamodb-vulnerability-disclosure.yml:
     method: searched
     evidence: declared in the artifact
+  skills/_index.yml:
+    method: generated
+    evidence: declared in the artifact
+  skills/amazon-dynamodb-provision-a-table-safely.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/amazon-dynamodb-query-and-paginate.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/amazon-dynamodb-transactional-write.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/amazon-dynamodb-write-and-read-an-item.md:
+    method: generated
+    evidence: declared in the artifact
+  smithy/dynamodb-2012-08-10.json:
+    method: unknown
+    evidence: no authorship recorded
+  smithy/dynamodb-streams-2012-08-10.json:
+    method: unknown
+    evidence: no authorship recorded
   vocabulary/amazon-dynamodb-vocabulary.yaml:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-dynamodb-security.txt:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-dynamodb-well-known.yml:
     method: unknown
     evidence: no authorship recorded

@@ -1,0 +1,102 @@
+generated: '2026-09-18'
+method: searched
+source: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DocumentHistory.md (the markdown twin of the Document history page), read 2026-09-18
+scheme: dated-documentation-history
+current_api_version: '2012-08-10'
+note: >-
+  DynamoDB has no API changelog in the release-notes sense - the API version has
+  not moved since 2012 - so the honest changelog is the developer-guide document
+  history, where capability changes are announced. Recent window only; the full
+  table runs back to July 2018. Each entry below carries the date AWS printed.
+  One thing the window itself says: the table jumps from 31 August 2026 back to
+  30 October 2025, so published documentation changes have been sparse over the
+  last year even while the contract grew a SearchVectors operation.
+docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DocumentHistory.html
+entries:
+  - date: '2026-08-31'
+    title: Expanded agentic AI documentation with vector search guidance and AI framework connectors
+    type: documentation
+    breaking: false
+    highlights:
+      - Vector search guidance for RAG and agent memory
+      - Deep-dive topics for the Strands Agents, LangChain and LangGraph connectors
+      - Session persistence, chat history and long-term agent memory patterns
+    docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ddb-ai-integration.html
+  - date: '2025-10-30'
+    title: DAX now supports AWS PrivateLink in commercial and China Regions
+    type: addition
+    breaking: false
+  - date: '2025-10-03'
+    title: DynamoDB now supports Internet Protocol version 6 (IPv6)
+    type: addition
+    breaking: false
+    highlights:
+      - IPv6 addressing in a VPC for tables, streams and DAX, including PrivateLink gateway and interface endpoints
+  - date: '2025-09-23'
+    title: Console-to-Code for DynamoDB
+    type: addition
+    breaking: false
+    highlights:
+      - Turns console table-creation steps into CDK or CloudFormation
+  - date: '2025-09-14'
+    title: DynamoDB Local 3.1.0
+    type: addition
+    breaking: false
+    highlights:
+      - PartiQL query performance, Joda-time dependency
+  - date: '2025-08-14'
+    title: Enhanced throttling diagnostics
+    type: addition
+    breaking: false
+    highlights:
+      - Structured ThrottlingReason fields with reason codes and resource ARNs on throttling exceptions
+      - A "Throttled keys" only mode in CloudWatch Contributor Insights
+      - 16 new targeted CloudWatch throttling metrics
+    docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TroubleshootingThrottling.html
+    note: This is the change that makes DynamoDB throttling legible to an agent - see rate-limits/amazon-dynamodb-rate-limits.yml.
+  - date: '2025-08-12'
+    title: Capacity-mode switches raised from once to four times per 24 hours
+    type: quota-change
+    breaking: false
+  - date: '2025-07-17'
+    title: DynamoDB Local 3.0 migrates from AWS SDK for Java v1 to v2
+    type: breaking-local-only
+    breaking: false
+    note: Affects the local emulator's dependency surface, not the service contract.
+  - date: '2025-07-17'
+    title: Optimized shard discovery in DynamoDB Streams
+    type: addition
+    breaking: false
+  - date: '2025-06-30'
+    title: Multi-Region Strong Consistency (MRSC) for global tables
+    type: addition
+    breaking: false
+    highlights:
+      - Strongly consistent cross-Region reads with RPO of zero
+      - Exactly three Regions - three replicas, or two replicas and one witness
+  - date: '2025-06-11'
+    title: DynamoDB Streams Kinesis Client Library 2.x adapter
+    type: addition
+    breaking: false
+  - date: '2025-04-28'
+    title: AmazonDynamoDBFullAccess deprecated in favour of AmazonDynamoDBFullAccess_v2
+    type: deprecation
+    breaking: false
+    effective: '2025-04-25'
+    docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ddb-security-iam.awsmanpol.html
+  - date: '2025-03-26'
+    title: AWS PrivateLink support for DynamoDB Streams
+    type: addition
+    breaking: false
+  - date: '2025-01-07'
+    title: Configurable point-in-time recovery period
+    type: addition
+    breaking: false
+    highlights:
+      - PITR window now settable per table between 1 and 35 days
+    docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Point-in-time-recovery.html
+    note: The window that makes a table delete reversible - see the reversibility block in conventions/.
+  - date: '2024-11-18'
+    title: Attribute-based access control (ABAC) for DynamoDB
+    type: addition
+    breaking: false

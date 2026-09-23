@@ -1,0 +1,223 @@
+generated: '2026-09-18'
+method: derived
+source: mcp/amazon-dynamodb-mcp.yml (live tools/list on the two AWS remote servers + the published tool
+  list of awslabs.dynamodb-mcp-server) x smithy/dynamodb-2012-08-10.json (AWS first-party, 58 operations)
+  x openapi/*.yml
+note: 'DynamoDB''s MCP surface does not mirror its API surface, and the crosswalk is lopsided on purpose.
+  The eight tools of the first-party awslabs.dynamodb-mcp-server are DESIGN tools - none of them binds
+  to a DynamoDB operation at all, so they are recorded in mcp_only[] with the reason. The runtime binding
+  is a single generic executor, aws___run_script, which fans out to every operation in the model. Fifty-eight
+  REST operations therefore have no named tool. Nothing here is mapped by guesswork: a tool is bound to
+  an operation only where the tool''s own published description names that work.'
+surfaces:
+  openapi:
+    files:
+    - openapi/amazon-dynamodb-batch-api-openapi.yml
+    - openapi/amazon-dynamodb-items-api-openapi.yml
+    - openapi/amazon-dynamodb-queries-api-openapi.yml
+    - openapi/amazon-dynamodb-tables-api-openapi.yml
+    - openapi/amazon-dynamodb-transactions-api-openapi.yml
+    operations: 15
+    note: API Evangelist best-effort subset of 15 operations, derived from the API reference; see smithy
+      for the full first-party contract.
+  smithy:
+    files:
+    - smithy/dynamodb-2012-08-10.json
+    - smithy/dynamodb-streams-2012-08-10.json
+    operations: 62
+    gated: false
+    note: 'AWS first-party Smithy 2.0 JSON AST from github.com/aws/api-models-aws: 58 DynamoDB operations
+      plus 4 DynamoDB Streams operations.'
+  mcp:
+    remote: https://aws-mcp.us-east-1.api.aws/mcp
+    tools_list: 200 anonymous
+    stdio: uvx awslabs.dynamodb-mcp-server@latest
+    gated: tool execution requires SigV4 / IAM credentials
+  graphql: null
+crosswalk:
+- tool: aws___run_script
+  server: AWS MCP Server (remote)
+  category: execution
+  rest:
+  - BatchExecuteStatement
+  - BatchGetItem
+  - BatchWriteItem
+  - CreateBackup
+  - CreateGlobalTable
+  - CreateTable
+  - DeleteBackup
+  - DeleteItem
+  - DeleteResourcePolicy
+  - DeleteTable
+  - DescribeBackup
+  - DescribeContinuousBackups
+  - DescribeContributorInsights
+  - DescribeEndpoints
+  - DescribeExport
+  - DescribeGlobalTable
+  - DescribeGlobalTableSettings
+  - DescribeImport
+  - DescribeKinesisStreamingDestination
+  - DescribeLimits
+  - DescribeTable
+  - DescribeTableReplicaAutoScaling
+  - DescribeTimeToLive
+  - DisableKinesisStreamingDestination
+  - EnableKinesisStreamingDestination
+  - ExecuteStatement
+  - ExecuteTransaction
+  - ExportTableToPointInTime
+  - GetItem
+  - GetResourcePolicy
+  - ImportTable
+  - ListBackups
+  - ListContributorInsights
+  - ListExports
+  - ListGlobalTables
+  - ListImports
+  - ListTables
+  - ListTagsOfResource
+  - PutItem
+  - PutResourcePolicy
+  - Query
+  - RestoreTableFromBackup
+  - RestoreTableToPointInTime
+  - Scan
+  - SearchVectors
+  - TagResource
+  - TransactGetItems
+  - TransactWriteItems
+  - UntagResource
+  - UpdateContinuousBackups
+  - UpdateContributorInsights
+  - UpdateGlobalTable
+  - UpdateGlobalTableSettings
+  - UpdateItem
+  - UpdateKinesisStreamingDestination
+  - UpdateTable
+  - UpdateTableReplicaAutoScaling
+  - UpdateTimeToLive
+  - DescribeStream
+  - GetRecords
+  - GetShardIterator
+  - ListStreams
+  binding: generic-executor
+  confidence: high
+  note: Executes Python with AWS API access; a DynamoDB call is a boto3 call inside the script. Every
+    modeled operation is reachable, none is named.
+- tool: aws___read_documentation
+  server: AWS Knowledge MCP Server (remote)
+  category: documentation
+  rest: []
+  binding: documentation
+  confidence: high
+  note: Fetches DynamoDB developer-guide and API-reference pages as markdown. Reads about operations;
+    calls none.
+- tool: aws___search_documentation
+  server: AWS Knowledge MCP Server (remote)
+  category: documentation
+  rest: []
+  binding: documentation
+  confidence: high
+mcp_only:
+- tool: dynamodb_data_modeling
+  reason: Design guidance. Returns a modeling prompt; no API operation backs it.
+- tool: dynamodb_data_model_validation
+  reason: Drives DynamoDB Local (a local JAR) to create tables and replay access patterns. It exercises
+    CreateTable/PutItem/Query semantics, but against the local emulator, not the service, so it binds
+    to no account-facing operation.
+- tool: source_db_analyzer
+  reason: Reads a MySQL/PostgreSQL/SQL Server/Oracle source schema. Not a DynamoDB surface at all.
+- tool: generate_resources
+  reason: Emits a CDK app. Deployment happens later through CloudFormation, not through the DynamoDB API.
+- tool: dynamodb_data_model_schema_converter
+  reason: File-to-file transformation of the data model into schema.json.
+- tool: dynamodb_data_model_schema_validator
+  reason: Static validation of schema.json.
+- tool: generate_data_access_layer
+  reason: Generates Python that WILL call boto3 DynamoDB operations; the tool itself calls none.
+- tool: compute_performances_and_costs
+  reason: Cost arithmetic over the access patterns. Reads the price list model, not the API.
+- tool: aws___get_presigned_url
+  reason: Amazon S3 surface, used for file hand-off around run_script.
+- tool: aws___get_tasks
+  reason: Server-side task bookkeeping for long-running run_script invocations.
+- tool: aws___list_regions
+  reason: AWS-wide metadata.
+- tool: aws___get_regional_availability
+  reason: AWS-wide metadata.
+- tool: aws___retrieve_skill
+  reason: Returns AWS-authored agent skills; not a DynamoDB operation.
+rest_only:
+- BatchExecuteStatement
+- BatchGetItem
+- BatchWriteItem
+- CreateBackup
+- CreateGlobalTable
+- CreateTable
+- DeleteBackup
+- DeleteItem
+- DeleteResourcePolicy
+- DeleteTable
+- DescribeBackup
+- DescribeContinuousBackups
+- DescribeContributorInsights
+- DescribeEndpoints
+- DescribeExport
+- DescribeGlobalTable
+- DescribeGlobalTableSettings
+- DescribeImport
+- DescribeKinesisStreamingDestination
+- DescribeLimits
+- DescribeStream
+- DescribeTable
+- DescribeTableReplicaAutoScaling
+- DescribeTimeToLive
+- DisableKinesisStreamingDestination
+- EnableKinesisStreamingDestination
+- ExecuteStatement
+- ExecuteTransaction
+- ExportTableToPointInTime
+- GetItem
+- GetRecords
+- GetResourcePolicy
+- GetShardIterator
+- ImportTable
+- ListBackups
+- ListContributorInsights
+- ListExports
+- ListGlobalTables
+- ListImports
+- ListStreams
+- ListTables
+- ListTagsOfResource
+- PutItem
+- PutResourcePolicy
+- Query
+- RestoreTableFromBackup
+- RestoreTableToPointInTime
+- Scan
+- SearchVectors
+- TagResource
+- TransactGetItems
+- TransactWriteItems
+- UntagResource
+- UpdateContinuousBackups
+- UpdateContributorInsights
+- UpdateGlobalTable
+- UpdateGlobalTableSettings
+- UpdateItem
+- UpdateKinesisStreamingDestination
+- UpdateTable
+- UpdateTableReplicaAutoScaling
+- UpdateTimeToLive
+coverage:
+  smithy_operations: 62
+  openapi_operations: 15
+  mcp_tools_total: 16
+  tools_bound_to_operations: 1
+  operations_with_a_named_tool: 0
+  operations_reachable_via_generic_executor: 62
+  note: 'Zero named tools and one generic executor. For an agent this means DynamoDB is callable but not
+    discoverable through MCP: it cannot read a tool schema to learn what PutItem requires, it has to know
+    boto3.'

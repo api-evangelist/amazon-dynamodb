@@ -102,15 +102,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
-      schema:
-        type: string
-        pattern: ^DynamoDB_20120810\.\w+$
   schemas:
     BatchGetItemOutput:
       type: object
@@ -135,6 +126,61 @@ components:
         UnprocessedItems:
           type: object
           description: A map of tables and requests against those tables that were not processed
+          example: {}
+    BatchGetItemInput:
+      type: object
+      required:
+      - RequestItems
+      properties:
+        RequestItems:
+          type: object
+          description: A map of table names to keys and attributes to retrieve
+          additionalProperties:
+            type: object
+            properties:
+              Keys:
+                type: array
+                description: The primary keys for items to retrieve
+                items:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/AttributeValue'
+              ProjectionExpression:
+                type: string
+              ConsistentRead:
+                type: boolean
+              ExpressionAttributeNames:
+                type: object
+                additionalProperties:
+                  type: string
+          example: {}
+    BatchWriteItemInput:
+      type: object
+      required:
+      - RequestItems
+      properties:
+        RequestItems:
+          type: object
+          description: A map of table names to write requests
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              properties:
+                PutRequest:
+                  type: object
+                  properties:
+                    Item:
+                      type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/AttributeValue'
+                DeleteRequest:
+                  type: object
+                  properties:
+                    Key:
+                      type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/AttributeValue'
           example: {}
     AttributeValue:
       type: object
@@ -196,61 +242,15 @@ components:
           type: boolean
           description: Boolean attribute value
           example: true
-    BatchGetItemInput:
-      type: object
-      required:
-      - RequestItems
-      properties:
-        RequestItems:
-          type: object
-          description: A map of table names to keys and attributes to retrieve
-          additionalProperties:
-            type: object
-            properties:
-              Keys:
-                type: array
-                description: The primary keys for items to retrieve
-                items:
-                  type: object
-                  additionalProperties:
-                    $ref: '#/components/schemas/AttributeValue'
-              ProjectionExpression:
-                type: string
-              ConsistentRead:
-                type: boolean
-              ExpressionAttributeNames:
-                type: object
-                additionalProperties:
-                  type: string
-          example: {}
-    BatchWriteItemInput:
-      type: object
-      required:
-      - RequestItems
-      properties:
-        RequestItems:
-          type: object
-          description: A map of table names to write requests
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              properties:
-                PutRequest:
-                  type: object
-                  properties:
-                    Item:
-                      type: object
-                      additionalProperties:
-                        $ref: '#/components/schemas/AttributeValue'
-                DeleteRequest:
-                  type: object
-                  properties:
-                    Key:
-                      type: object
-                      additionalProperties:
-                        $ref: '#/components/schemas/AttributeValue'
-          example: {}
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
   securitySchemes:
     sigv4Auth:
       type: http

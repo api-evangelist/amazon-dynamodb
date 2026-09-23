@@ -1,0 +1,141 @@
+generated: '2026-09-18'
+method: searched
+source: >-
+  Registry metadata endpoints read 2026-09-18: registry.npmjs.org,
+  pypi.org/pypi/<pkg>/json, rubygems.org/api/v1/gems/<pkg>.json,
+  api.nuget.org registration index, repo1.maven.org maven-metadata.xml,
+  proxy.golang.org/@latest, crates.io/api/v1/crates, repo.packagist.org/p2,
+  hub.docker.com/v2. Cross-read against
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.SDKOverview.html
+note: >-
+  Every entry is first-party AWS. DynamoDB is a service client inside the AWS SDK
+  family, so the pattern is: a dedicated dynamodb package where AWS ships one
+  (JS, Ruby, .NET, Java, Go, Rust) and the umbrella SDK where it does not
+  (Python/boto3, PHP). There is no abandonment signal anywhere in this surface -
+  every package below was published within the last ten days except the Maven
+  artifact, which tracks the same release train. The one entry that is NOT an
+  SDK is the MCP server, listed here because it is how an agent installs the
+  DynamoDB tool surface.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@aws-sdk/client-dynamodb"
+    url: https://www.npmjs.com/package/@aws-sdk/client-dynamodb
+    install: npm install @aws-sdk/client-dynamodb
+    official: true
+    version: 3.1135.0
+    published: '2026-09-17'
+    scope: dynamodb-only
+  - language: javascript
+    registry: npm
+    name: "@aws-sdk/lib-dynamodb"
+    url: https://www.npmjs.com/package/@aws-sdk/lib-dynamodb
+    install: npm install @aws-sdk/lib-dynamodb
+    official: true
+    version: 3.1135.0
+    published: '2026-09-17'
+    scope: dynamodb-only
+    note: The document client - marshals native JavaScript types to and from DynamoDB AttributeValue shapes. Most JS callers use this rather than the raw client.
+  - language: python
+    registry: pypi
+    name: boto3
+    url: https://pypi.org/project/boto3/
+    install: pip install boto3
+    official: true
+    version: 1.43.97
+    published: '2026-09-17'
+    scope: aws-wide
+    note: DynamoDB is reached as boto3.client('dynamodb') or boto3.resource('dynamodb'); AWS publishes no standalone DynamoDB package on PyPI.
+  - language: ruby
+    registry: rubygems
+    name: aws-sdk-dynamodb
+    url: https://rubygems.org/gems/aws-sdk-dynamodb
+    install: gem install aws-sdk-dynamodb
+    official: true
+    version: 1.174.0
+    published: '2026-09-11'
+    scope: dynamodb-only
+  - language: dotnet
+    registry: nuget
+    name: AWSSDK.DynamoDBv2
+    url: https://www.nuget.org/packages/AWSSDK.DynamoDBv2/
+    install: dotnet add package AWSSDK.DynamoDBv2
+    official: true
+    version: 4.0.103.8
+    published: '2026-09-14'
+    scope: dynamodb-only
+  - language: java
+    registry: maven
+    name: software.amazon.awssdk:dynamodb
+    url: https://central.sonatype.com/artifact/software.amazon.awssdk/dynamodb
+    install: 'implementation("software.amazon.awssdk:dynamodb:2.55.0")'
+    official: true
+    version: 2.55.0
+    published: '2026-09-17'
+    scope: dynamodb-only
+    note: Version and date read from repo1.maven.org/maven2/software/amazon/awssdk/dynamodb/maven-metadata.xml (latest 2.55.0, lastUpdated 2026-09-17).
+  - language: java
+    registry: maven
+    name: software.amazon.awssdk:dynamodb-enhanced
+    url: https://central.sonatype.com/artifact/software.amazon.awssdk/dynamodb-enhanced
+    install: 'implementation("software.amazon.awssdk:dynamodb-enhanced:2.55.0")'
+    official: true
+    version: 2.55.0
+    published: '2026-09-17'
+    scope: dynamodb-only
+    note: The enhanced client - annotated bean mapping over the low-level client. Version tracks the SDK train.
+  - language: go
+    registry: gomodules
+    name: github.com/aws/aws-sdk-go-v2/service/dynamodb
+    url: https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb
+    install: go get github.com/aws/aws-sdk-go-v2/service/dynamodb
+    official: true
+    version: v1.69.0
+    published: '2026-09-15'
+    scope: dynamodb-only
+  - language: rust
+    registry: crates
+    name: aws-sdk-dynamodb
+    url: https://crates.io/crates/aws-sdk-dynamodb
+    install: cargo add aws-sdk-dynamodb
+    official: true
+    version: 1.126.0
+    published: '2026-09-16'
+    scope: dynamodb-only
+  - language: php
+    registry: packagist
+    name: aws/aws-sdk-php
+    url: https://packagist.org/packages/aws/aws-sdk-php
+    install: composer require aws/aws-sdk-php
+    official: true
+    version: 3.395.6
+    published: '2026-09-18'
+    scope: aws-wide
+    note: DynamoDB is reached as $sdk->createDynamoDb(); AWS publishes no DynamoDB-only Composer package.
+  - language: python
+    registry: pypi
+    name: awslabs.dynamodb-mcp-server
+    url: https://pypi.org/project/awslabs.dynamodb-mcp-server/
+    install: uvx awslabs.dynamodb-mcp-server@latest
+    official: true
+    version: 2.1.8
+    published: '2026-09-08'
+    scope: dynamodb-only
+    kind: mcp-server
+    note: Not an SDK - the first-party MCP server. See mcp/amazon-dynamodb-mcp.yml for its eight design-oriented tools.
+  - language: java
+    registry: cdn
+    name: DynamoDBLocal
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
+    install: docker run -p 8000:8000 amazon/dynamodb-local
+    official: true
+    version: 3.3.1
+    published: '2026-07-31'
+    scope: dynamodb-only
+    kind: emulator
+    note: >-
+      Distributed as a downloadable JAR/tarball from an S3-backed CDN with no
+      package-registry metadata endpoint; the version and date above are read
+      from the first-party container image amazon/dynamodb-local on Docker Hub,
+      whose `latest` tag and `3.3.1` tag were both pushed 2026-07-31. Also
+      available as an Apache Maven artifact and in AWS CloudShell.

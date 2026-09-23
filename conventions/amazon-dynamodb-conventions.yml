@@ -1,0 +1,207 @@
+generated: '2026-09-18'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/ (including the
+  markdown twin API_TransactWriteItems.md),
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.Errors.html,
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery_Howitworks.html,
+  cross-derived from smithy/dynamodb-2012-08-10.json - read 2026-09-18. Wire
+  behaviour confirmed by a live unauthenticated POST to
+  https://dynamodb.us-east-1.amazonaws.com/.
+docs: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
+protocol:
+  style: RPC-over-HTTP (JSON)
+  smithy_protocol: aws.protocols#awsJson1_0
+  wire_format: application/x-amz-json-1.0
+  http_method: POST
+  path: /
+  operation_selector: 'X-Amz-Target: DynamoDB_20120810.<Operation>'
+  note: >-
+    DynamoDB is not REST and an agent that treats it as REST will fail on every
+    call. There is one path - POST / - and the operation is named in the
+    X-Amz-Target header. There are no resource URLs, no path parameters and no
+    verb semantics; GET /tables/foo does not exist.
+data_shape:
+  attribute_values: true
+  note: >-
+    Every item attribute is wrapped in a type tag - {"S":"text"}, {"N":"42"},
+    {"BOOL":true}, {"L":[...]}, {"M":{...}} - rather than being plain JSON.
+    Numbers travel as STRINGS to preserve 38-digit precision. This is the single
+    most common source of malformed requests; the document-client layers
+    (@aws-sdk/lib-dynamodb, boto3 resource API, the Java enhanced client) exist
+    to hide it, and PartiQL (ExecuteStatement) is the other way around it.
+authentication:
+  style: aws-sigv4
+  service_name: dynamodb
+  signing_region: per-Region (the endpoint host names it)
+  headers: [Authorization, X-Amz-Date, X-Amz-Target, X-Amz-Security-Token]
+  authorization_model: IAM policy, optionally resource-based policies and ABAC tags
+  scopes: false
+  note: >-
+    No OAuth surface, therefore no scopes/ artifact. Authorization is an IAM
+    policy evaluation against a signed request, extended since 2024 by
+    resource-based policies (PutResourcePolicy) and attribute-based access
+    control on tags.
+  artifact: authentication/amazon-dynamodb-authentication.yml
+idempotency:
+  supported: true
+  mechanism: client-supplied idempotency token in the request body
+  header: null
+  fields: [ClientRequestToken, ClientToken]
+  coverage: partial
+  scope:
+    - TransactWriteItems
+    - ExecuteTransaction
+    - ExportTableToPointInTime
+    - ImportTable
+  retention: 10 minutes for ClientRequestToken on the transactional operations
+  retention_docs: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html
+  semantics: >-
+    A repeated call carrying a ClientRequestToken already seen, with identical
+    parameters, has the same effect as the single original call. The same token
+    with different parameters inside the window returns
+    IdempotentParameterMismatchException. After 10 minutes the token is forgotten
+    and the request is treated as new.
+  note: >-
+    coverage is `partial` and the gap is the important part: 4 of the 31 mutating
+    operations in the first-party model accept an idempotency token, and none of
+    them is PutItem, UpdateItem, DeleteItem or BatchWriteItem - the writes an
+    agent actually issues. The single-item writes rely instead on CONDITIONAL
+    expressions (see concurrency below), which prevent a wrong write but do not
+    make a retry safe: a retried PutItem whose first attempt succeeded will
+    happily overwrite, and a retried DeleteItem returns success for an item that
+    is already gone. An agent driving DynamoDB must build its own replay
+    protection - typically a condition on a version attribute, or wrapping the
+    write in TransactWriteItems purely to obtain the token.
+  evidence: 'smithy/dynamodb-2012-08-10.json: smithy.api#idempotencyToken trait on 4 operation inputs'
+concurrency:
+  style: optimistic
+  mechanism: ConditionExpression on the write itself
+  operations: [PutItem, UpdateItem, DeleteItem, TransactWriteItems, ExecuteStatement]
+  failure: ConditionalCheckFailedException (HTTP 400)
+  return_values_on_failure: ReturnValuesOnConditionCheckFailure=ALL_OLD returns the item that caused the failure
+  note: >-
+    There is no ETag and no If-Match. Concurrency control is expressed in the
+    request - attribute_not_exists(pk) to make a create exclusive, or
+    version = :expected to implement optimistic locking by hand. The enhanced
+    clients (Java @DynamoDbVersionAttribute, the DynamoDBMapper) automate it;
+    the raw API does not.
+consistency:
+  default: eventually consistent reads
+  strong_reads: ConsistentRead=true on GetItem, Query, Scan, BatchGetItem, TransactGetItems
+  cost: a strongly consistent read costs twice an eventually consistent one
+  cross_region: >-
+    Global tables are eventually consistent by default (MREC); Multi-Region
+    Strong Consistency (MRSC), added 2025-06-30, gives strongly consistent
+    cross-Region reads with RPO zero across exactly three Regions.
+  note: >-
+    The default is the trap. An agent that writes then immediately reads without
+    ConsistentRead can legitimately read the old value; this is documented
+    behaviour, not an incident.
+pagination:
+  style: cursor
+  request_field: ExclusiveStartKey
+  response_field: LastEvaluatedKey
+  limit_field: Limit
+  paginated_operations: [Query, Scan, ListTables, ListContributorInsights, ListExports, ListImports]
+  termination: absence of LastEvaluatedKey in the response
+  note: >-
+    Limit caps ITEMS EXAMINED, not items returned, and every response is capped
+    at 1 MB regardless. A Query that returns zero items with a LastEvaluatedKey
+    present is not finished - it is the second most common agent bug on this API
+    after AttributeValue shapes.
+partial_success:
+  operations: [BatchGetItem, BatchWriteItem]
+  fields: [UnprocessedKeys, UnprocessedItems]
+  status: 200
+  note: >-
+    A 200 with unprocessed entries means part of the batch did not happen. The
+    caller must re-drive those entries with backoff. Nothing in the status code
+    or the error surface signals it.
+error_envelope:
+  format: aws-json
+  shape: '{"__type":"com.amazonaws.dynamodb#<Exception>","message":"..."}'
+  status: 400 for client errors (including throttling), 500 for InternalServerError
+  headers: [x-amzn-RequestId]
+  rfc9457: false
+  probed: '2026-09-18'
+  probe_evidence: >-
+    POST https://dynamodb.us-east-1.amazonaws.com/ with
+    X-Amz-Target: DynamoDB_20120810.ListTables and no credentials returned
+    HTTP 400, content-type application/x-amz-json-1.0, body
+    {"__type":"com.amazon.coral.service#MissingAuthenticationTokenException",...}
+    and an x-amzn-RequestId header.
+  artifact: errors/amazon-dynamodb-problem-types.yml
+rate_limit_signalling:
+  headers: none
+  mechanism: typed 400 errors plus opt-in ConsumedCapacity in the response body
+  artifact: rate-limits/amazon-dynamodb-rate-limits.yml
+versioning:
+  scheme: dated-api-version
+  current: '2012-08-10'
+  artifact: lifecycle/amazon-dynamodb-lifecycle.yml
+dry_run_mode:
+  supported: false
+  note: >-
+    There is no dry-run or validate-only flag on any operation. The nearest
+    rehearsal surfaces are DynamoDB Local (run the whole workload against a local
+    emulator) and a ConditionExpression that is guaranteed to fail, which tells
+    you whether the condition holds without mutating. Both are workarounds, not a
+    published dry-run.
+reversibility:
+  grade: verified
+  note: >-
+    DynamoDB splits cleanly in two, and an agent needs to know which half it is
+    in. Control-plane destruction is reversible with a stated window. Data-plane
+    destruction is not reversible at all - there is no undo for an item write or
+    delete, and that is the case an autonomous agent is most likely to reach.
+  write_surfaces:
+    - operation: DeleteTable
+      reversal: RestoreTableFromBackup
+      reversal_operation_id: RestoreTableFromBackup
+      window: >-
+        35 days, IF point-in-time recovery was enabled on the table before the
+        delete: DynamoDB automatically writes a system backup named
+        {table}$DeletedTableBackup at delete time and retains it for 35 days at
+        no charge.
+      precondition: PITR enabled before deletion, or an on-demand backup taken beforehand
+      docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery_Howitworks.html
+      grade: verified
+    - operation: 'PutItem / UpdateItem / DeleteItem / BatchWriteItem / TransactWriteItems (item-level writes)'
+      reversal: point-in-time restore of the WHOLE table to a new table name
+      reversal_operation_id: RestoreTableToPointInTime
+      window: >-
+        the configured PITR recovery period, settable per table between 1 and 35
+        days, with a floor of about five minutes before now
+        (LatestRestorableDateTime) - and only when PITR was already on.
+      caveat: >-
+        This is not an undo. RestoreTableToPointInTime always restores to a NEW
+        table; it cannot roll one item back in place, and the application must
+        then be repointed or the data copied. If PITR is off, a wrong write is
+        permanent.
+      docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.Tutorial.html
+      grade: verified
+    - operation: UpdateTable (capacity, indexes, class)
+      reversal: a further UpdateTable
+      window: >-
+        rate-limited rather than time-limited: capacity DECREASES are capped at
+        27 per table per UTC day, and capacity-mode switches at 4 per 24 hours.
+        An agent can therefore make a change it cannot immediately take back.
+      grade: documented
+    - operation: DeleteBackup
+      reversal: none
+      window: null
+      grade: none
+      note: Deleting a backup is permanent and removes the reversal path for everything above it.
+  na: false
+metadata_and_tracing:
+  request_id_header: x-amzn-RequestId
+  audit: AWS CloudTrail (control-plane operations always; data-plane events opt-in)
+  metrics: Amazon CloudWatch, plus Contributor Insights for hot and throttled keys
+cross_links:
+  errors: errors/amazon-dynamodb-problem-types.yml
+  lifecycle: lifecycle/amazon-dynamodb-lifecycle.yml
+  authentication: authentication/amazon-dynamodb-authentication.yml
+  rate_limits: rate-limits/amazon-dynamodb-rate-limits.yml
+  data_model: data-model/amazon-dynamodb-data-model.yml
+  sandbox: sandbox/amazon-dynamodb-sandbox.yml

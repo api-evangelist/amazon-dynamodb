@@ -1,0 +1,82 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Amazon DynamoDB Items API
+  version: 1.0.0
+extends: amazon-dynamodb-items-api-openapi.yml
+x-generated: '2026-09-18'
+x-method: generated
+x-source: openapi/amazon-dynamodb-items-api-openapi.yml + conventions/amazon-dynamodb-conventions.yml
+  + smithy/dynamodb-2012-08-10.json
+x-note: Captures API Evangelist enhancements only. The original OpenAPI is never mutated; nothing here
+  changes the operations AWS publishes.
+actions:
+- target: $.info
+  description: Record who enhanced this document and where the first-party contract lives.
+  update:
+    x-api-evangelist:
+      enriched: '2026-09-18'
+      provider: Amazon DynamoDB
+      first-party-contract: smithy/dynamodb-2012-08-10.json (github.com/aws/api-models-aws, Smithy 2.0,
+        58 operations)
+      coverage-note: This document covers 4 of the 58 operations AWS models. It is an API Evangelist rendering
+        of the AWS API Reference, not an AWS-published OpenAPI - AWS publishes Smithy, not OpenAPI.
+      artifacts:
+        conventions: conventions/amazon-dynamodb-conventions.yml
+        errors: errors/amazon-dynamodb-problem-types.yml
+        rate-limits: rate-limits/amazon-dynamodb-rate-limits.yml
+        plans: plans/amazon-dynamodb-plans-pricing.yml
+        data-model: data-model/amazon-dynamodb-data-model.yml
+        skills: skills/_index.yml
+- target: $.info
+  description: State the protocol facts a caller must know before the first request.
+  update:
+    x-protocol:
+      style: RPC over HTTP
+      smithy-protocol: aws.protocols#awsJson1_0
+      content-type: application/x-amz-json-1.0
+      http-method: POST
+      path: /
+      operation-selector: 'X-Amz-Target: DynamoDB_20120810.<Operation>'
+      auth: AWS SigV4 (IAM)
+- target: $.servers
+  description: Note that only the regional endpoint form resolves; dynamodb.amazonaws.com has no DNS record.
+  update:
+  - url: https://dynamodb.{region}.amazonaws.com
+    description: 'Amazon DynamoDB regional endpoint. Probed 2026-09-18: the non-regional form dynamodb.amazonaws.com
+      does NOT resolve.'
+    variables:
+      region:
+        default: us-east-1
+        description: AWS Region
+- target: $.paths['/#PutItem'].post
+  description: Annotate putItem with its runtime semantics.
+  update:
+    x-idempotency:
+      token: false
+      note: No idempotency token on this operation; use a ConditionExpression or wrap the write in TransactWriteItems.
+    x-error-catalog: errors/amazon-dynamodb-problem-types.yml
+    x-throttle-status: 400
+- target: $.paths['/#GetItem'].post
+  description: Annotate getItem with its runtime semantics.
+  update:
+    x-idempotency:
+      token: false
+      note: No idempotency token on this operation; use a ConditionExpression or wrap the write in TransactWriteItems.
+    x-error-catalog: errors/amazon-dynamodb-problem-types.yml
+    x-throttle-status: 400
+- target: $.paths['/#UpdateItem'].post
+  description: Annotate updateItem with its runtime semantics.
+  update:
+    x-idempotency:
+      token: false
+      note: No idempotency token on this operation; use a ConditionExpression or wrap the write in TransactWriteItems.
+    x-error-catalog: errors/amazon-dynamodb-problem-types.yml
+    x-throttle-status: 400
+- target: $.paths['/#DeleteItem'].post
+  description: Annotate deleteItem with its runtime semantics.
+  update:
+    x-idempotency:
+      token: false
+      note: No idempotency token on this operation; use a ConditionExpression or wrap the write in TransactWriteItems.
+    x-error-catalog: errors/amazon-dynamodb-problem-types.yml
+    x-throttle-status: 400

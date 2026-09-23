@@ -1,0 +1,31 @@
+generated: '2026-09-18'
+method: generated
+source: openapi/*.yml (every operationId grepped out of the specs in this repo) + smithy/dynamodb-2012-08-10.json + conventions/, errors/, rate-limits/, plans/
+note: >-
+  Every operationId referenced in these skills exists in the OpenAPI files in
+  this repo; none is invented. The behavioural rules come from
+  conventions/amazon-dynamodb-conventions.yml and
+  errors/amazon-dynamodb-problem-types.yml, both grounded in the AWS first-party
+  Smithy model. The skills mirror the arazzo/ workflows this repo already
+  carries.
+skills:
+  - file: amazon-dynamodb-provision-a-table-safely.md
+    name: Provision a DynamoDB table safely
+    api: openapi/amazon-dynamodb-tables-api-openapi.yml
+    operations: [createTable, describeTable, listTables]
+    mirrors_workflow: provision-table
+  - file: amazon-dynamodb-write-and-read-an-item.md
+    name: Write and read a DynamoDB item without losing data
+    api: openapi/amazon-dynamodb-items-api-openapi.yml
+    operations: [putItem, getItem, updateItem, deleteItem]
+    mirrors_workflow: conditional-update-item
+  - file: amazon-dynamodb-query-and-paginate.md
+    name: Query and paginate a DynamoDB table completely
+    api: openapi/amazon-dynamodb-queries-api-openapi.yml
+    operations: [query, scan]
+    mirrors_workflow: scan-paginate
+  - file: amazon-dynamodb-transactional-write.md
+    name: Write a DynamoDB transaction that can be safely retried
+    api: openapi/amazon-dynamodb-transactions-api-openapi.yml
+    operations: [transactWriteItems, transactGetItems]
+    mirrors_workflow: transaction-write-then-read

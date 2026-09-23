@@ -1,0 +1,73 @@
+generated: '2026-09-18'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html,
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html,
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html,
+  https://hub.docker.com/r/amazon/dynamodb-local - read 2026-09-18
+note: >-
+  DynamoDB has no hosted sandbox and no test-mode key prefix, because it has no
+  API keys at all - credentials are IAM. What it has instead is unusually strong
+  for this catalogue: a downloadable, offline, API-compatible emulator that
+  speaks the same wire protocol on localhost, so an agent or a CI job can
+  exercise the real operation set without an AWS account and without spending
+  anything. There are no test cards or fixture tokens to record; the fixtures
+  are whatever you create locally.
+modes:
+  - name: DynamoDB Local
+    kind: offline-emulator
+    version: 3.3.1
+    published: '2026-07-31'
+    endpoint: http://localhost:8000
+    api_compatible: true
+    requires_account: false
+    install:
+      - docker run -p 8000:8000 amazon/dynamodb-local
+      - java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+      - available in AWS CloudShell from the console since 2025-05-19
+    usage: aws dynamodb list-tables --endpoint-url http://localhost:8000
+    credentials:
+      note: >-
+        Any non-empty access key and secret are accepted. By default the local
+        instance partitions data BY credential and Region, so a job that changes
+        either appears to lose its tables; -sharedDb forces a single database
+        file. This is the most common local-only surprise.
+    limitations:
+      - Capacity, throttling and provisioned-throughput behaviour are simulated, not enforced the same way
+      - Streams, transactions and PartiQL are supported, but IAM, resource-based policies, ABAC, PITR, backups, exports and global tables are not
+      - Latency characteristics tell you nothing about the service
+    docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html
+  - name: NoSQL Workbench for DynamoDB
+    kind: desktop-client
+    requires_account: false
+    description: >-
+      First-party desktop tool for data modeling, visualization and query
+      building. Connects to either DynamoDB Local or a live account, can clone
+      tables between them, and generates code from a built operation.
+    docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html
+  - name: Free-tier allowance on the live service
+    kind: live-with-allowance
+    requires_account: true
+    description: >-
+      There is no separate test environment on the service. The nearest thing is
+      the standing monthly allowance - 25 GB storage, 25 provisioned RCU, 25
+      provisioned WCU and 2.5 million Streams read request units - under which a
+      small live table costs nothing.
+    caveat: >-
+      On-demand request units carry NO free allowance in the price list, so a
+      table created with the default billing mode starts billing on the first
+      request.
+    artifact: plans/amazon-dynamodb-plans-pricing.yml
+test_credentials:
+  published: false
+  note: No test keys, test cards or magic identifiers exist - DynamoDB authenticates with IAM SigV4 only.
+key_prefixes:
+  test: null
+  live: null
+  note: Not applicable. There is no API-key surface to prefix.
+time_simulation:
+  supported: false
+  note: >-
+    No test clocks. TTL deletion is asynchronous and can lag by up to 48 hours
+    even on the live service, which is worth knowing before an agent asserts on
+    expiry.

@@ -1,0 +1,199 @@
+generated: '2026-09-18'
+method: derived
+source: >-
+  smithy/dynamodb-2012-08-10.json and smithy/dynamodb-streams-2012-08-10.json
+  (AWS first-party models, 270 + 22 structures), cross-read against
+  https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/ - 2026-09-18
+note: >-
+  Derived from the contract, not invented. The unusual thing about DynamoDB's
+  data model is that half of it is not in the contract at all: the control-plane
+  entities below (Table, Index, Backup, Export, Stream, ResourcePolicy) are fully
+  modelled, but the ITEM - the thing an application actually stores - has no
+  schema anywhere in the API. An Item is a map of AttributeValue, and its shape
+  is the caller's private business. That is why no entity below carries a field
+  list for user data, and why the id conventions section names what the SERVICE
+  identifies rather than what an application does.
+identifiers:
+  - entity: Table
+    key: TableName
+    scope: per account, per Region
+    arn: 'arn:aws:dynamodb:<region>:<account>:table/<TableName>'
+  - entity: Index
+    key: IndexName
+    scope: per table
+    arn: 'arn:aws:dynamodb:<region>:<account>:table/<TableName>/index/<IndexName>'
+  - entity: Stream
+    key: StreamArn
+    arn: 'arn:aws:dynamodb:<region>:<account>:table/<TableName>/stream/<ISO8601 timestamp>'
+    note: The stream ARN embeds the enable time, so disabling and re-enabling a stream produces a NEW ARN - a consumer holding the old one gets ResourceNotFoundException.
+  - entity: Backup
+    key: BackupArn
+    arn: 'arn:aws:dynamodb:<region>:<account>:table/<TableName>/backup/<id>'
+  - entity: Export
+    key: ExportArn
+  - entity: Import
+    key: ImportArn
+entities:
+  - name: Table
+    description: The top-level container. Carries a key schema, a billing mode, a table class, throughput settings and a status.
+    primary_operations: [CreateTable, DescribeTable, UpdateTable, DeleteTable, ListTables]
+    key_fields: [TableName, TableArn, TableId, TableStatus, KeySchema, AttributeDefinitions, BillingModeSummary, TableClassSummary]
+    states: [CREATING, UPDATING, DELETING, ACTIVE, INACCESSIBLE_ENCRYPTION_CREDENTIALS, ARCHIVING, ARCHIVED]
+    relationships:
+      - has_many: GlobalSecondaryIndex
+        via: GlobalSecondaryIndexes[]
+      - has_many: LocalSecondaryIndex
+        via: LocalSecondaryIndexes[]
+      - has_one: StreamSpecification
+        via: StreamSpecification / LatestStreamArn
+      - has_many: Item
+        via: the table's key schema
+      - has_many: Backup
+        via: TableName
+      - has_many: Replica
+        via: Replicas[] (global tables)
+      - has_one: ResourcePolicy
+        via: ResourceArn
+      - has_many: Tag
+        via: ListTagsOfResource
+  - name: Item
+    description: >-
+      A map of attribute name to AttributeValue. Identified by the table's
+      partition key, and sort key where one exists. No schema beyond the key
+      attributes is declared anywhere in the contract.
+    primary_operations: [PutItem, GetItem, UpdateItem, DeleteItem, BatchGetItem, BatchWriteItem, TransactGetItems, TransactWriteItems, Query, Scan, ExecuteStatement, BatchExecuteStatement]
+    key_fields: [Key (HASH + optional RANGE)]
+    constraints:
+      max_item_size: 400 KB including attribute names
+      note: AttributeDefinitions declares ONLY the key attributes; every other attribute is undeclared and may differ per item.
+    relationships:
+      - belongs_to: Table
+        via: TableName
+      - has_many: StreamRecord
+        via: a modification, when a stream is enabled
+  - name: GlobalSecondaryIndex
+    description: An alternate key schema over the same items, with its own throughput and its own projection. Eventually consistent only.
+    primary_operations: [CreateTable, UpdateTable (GlobalSecondaryIndexUpdates), DescribeTable]
+    key_fields: [IndexName, KeySchema, Projection, ProvisionedThroughput, IndexStatus, Backfilling]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+    note: >-
+      Adding a GSI is an asynchronous backfill (Backfilling=true) that an agent
+      must poll DescribeTable for; the write it costs is billed as extra write
+      units per item projected.
+  - name: LocalSecondaryIndex
+    description: An alternate sort key sharing the table's partition key. Can be created only at table-creation time and cannot be removed.
+    key_fields: [IndexName, KeySchema, Projection]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+    constraints:
+      item_collection_limit: 10 GB per partition key value across the table and its LSIs
+      irreversible: true
+  - name: Stream
+    description: A 24-hour, time-ordered log of item-level changes, read through the separate DynamoDB Streams endpoint.
+    primary_operations: [ListStreams, DescribeStream, GetShardIterator, GetRecords]
+    key_fields: [StreamArn, StreamLabel, StreamViewType, Shards]
+    view_types: [KEYS_ONLY, NEW_IMAGE, OLD_IMAGE, NEW_AND_OLD_IMAGES]
+    retention: 24 hours
+    relationships:
+      - belongs_to: Table
+        via: TableName
+      - has_many: Shard
+        via: DescribeStream
+  - name: Shard
+    description: An append-only partition of a stream, discovered through DescribeStream and read with an iterator.
+    key_fields: [ShardId, ParentShardId, SequenceNumberRange]
+    relationships:
+      - belongs_to: Stream
+        via: StreamArn
+      - has_many: StreamRecord
+        via: GetRecords
+  - name: StreamRecord
+    description: One item-level modification - INSERT, MODIFY or REMOVE - carrying the images the stream view type selects.
+    key_fields: [eventID, eventName, dynamodb.Keys, dynamodb.NewImage, dynamodb.OldImage, dynamodb.SequenceNumber]
+    relationships:
+      - belongs_to: Shard
+        via: ShardIterator
+      - belongs_to: Item
+        via: dynamodb.Keys
+  - name: Backup
+    description: An on-demand full snapshot, or the system backup written automatically when a PITR-enabled table is deleted.
+    primary_operations: [CreateBackup, DescribeBackup, DeleteBackup, ListBackups, RestoreTableFromBackup]
+    key_fields: [BackupArn, BackupName, BackupStatus, BackupType, BackupSizeBytes]
+    types: [USER, SYSTEM, AWS_BACKUP]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+  - name: ContinuousBackups
+    description: Point-in-time recovery state - whether PITR is on, the configurable 1-35 day recovery period, and the earliest and latest restorable times.
+    primary_operations: [DescribeContinuousBackups, UpdateContinuousBackups, RestoreTableToPointInTime]
+    key_fields: [PointInTimeRecoveryStatus, RecoveryPeriodInDays, EarliestRestorableDateTime, LatestRestorableDateTime]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+    note: This is the entity that decides whether a destructive write is reversible - see the reversibility block in conventions/.
+  - name: Replica
+    description: A same-table copy in another Region under global tables, with its own throughput and table class.
+    primary_operations: [CreateGlobalTable, UpdateGlobalTable, UpdateGlobalTableSettings, DescribeGlobalTable, UpdateTable (ReplicaUpdates)]
+    key_fields: [RegionName, ReplicaStatus, GlobalSecondaryIndexes, ReplicaTableClassSummary]
+    consistency_modes: [MREC (eventual), MRSC (strong, exactly three Regions)]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+  - name: Export
+    description: A point-in-time export of table data to Amazon S3, in DynamoDB JSON or Ion, full or incremental.
+    primary_operations: [ExportTableToPointInTime, DescribeExport, ListExports]
+    key_fields: [ExportArn, ExportStatus, ExportFormat, ExportType, S3Bucket]
+    relationships:
+      - belongs_to: Table
+        via: TableArn
+  - name: Import
+    description: A bulk load from Amazon S3 into a NEW table. Cannot import into an existing table.
+    primary_operations: [ImportTable, DescribeImport, ListImports]
+    key_fields: [ImportArn, ImportStatus, InputFormat, S3BucketSource, FailureCode]
+    relationships:
+      - has_one: Table
+        via: TableArn
+  - name: ResourcePolicy
+    description: A resource-based IAM policy attached to a table, index or stream, with an optimistic-concurrency RevisionId.
+    primary_operations: [PutResourcePolicy, GetResourcePolicy, DeleteResourcePolicy]
+    key_fields: [ResourceArn, Policy, RevisionId, ExpectedRevisionId]
+    relationships:
+      - belongs_to: Table
+        via: ResourceArn
+    note: ExpectedRevisionId is the one place in the API that does classic compare-and-set on a control-plane object.
+  - name: TimeToLive
+    description: The attribute whose epoch-seconds value marks an item for asynchronous deletion.
+    primary_operations: [DescribeTimeToLive, UpdateTimeToLive]
+    key_fields: [TimeToLiveStatus, AttributeName]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+    note: Deletion is best-effort and can lag by up to 48 hours; items remain readable and billable until removed.
+  - name: KinesisStreamingDestination
+    description: A live change-data-capture fan-out from a table to a Kinesis data stream.
+    primary_operations: [EnableKinesisStreamingDestination, DisableKinesisStreamingDestination, UpdateKinesisStreamingDestination, DescribeKinesisStreamingDestination]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+  - name: VectorIndex
+    description: >-
+      The newest surface in the model - vector data searched through
+      SearchVectors, billed by GB searched and GB written rather than by request
+      unit.
+    primary_operations: [SearchVectors]
+    relationships:
+      - belongs_to: Table
+        via: TableName
+    note: Present in the 2026 contract and in the price list; documented capability, thinly modelled compared with the rest.
+graph_summary:
+  root: Table
+  fan_out: [GlobalSecondaryIndex, LocalSecondaryIndex, Stream, Backup, ContinuousBackups, Replica, Export, Import, ResourcePolicy, TimeToLive, KinesisStreamingDestination, VectorIndex]
+  leaf_of_interest: Item
+  note: >-
+    Everything hangs off TableName. There is no account-level object graph, no
+    workspace, no project - which is why an IAM policy or a resource policy on a
+    table ARN is the only real containment boundary.
+render: null

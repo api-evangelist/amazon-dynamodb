@@ -1,0 +1,392 @@
+generated: '2026-09-18'
+method: derived
+source: smithy/dynamodb-2012-08-10.json and smithy/dynamodb-streams-2012-08-10.json (AWS first-party models),
+  enriched from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.Errors.html
+  and https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/CommonErrors.html - read 2026-09-18
+format: aws-json
+rfc9457: false
+envelope:
+  shape: '{"__type":"com.amazonaws.dynamodb#<Exception>","message":"<human text>"}'
+  type_field: __type
+  message_field: message
+  request_id_header: x-amzn-RequestId
+  note: 'Not application/problem+json. The error IDENTITY lives in the __type field, not in the status
+    code: almost every client error is HTTP 400, including every throttle, so status-code-based handling
+    cannot distinguish ''slow down'' from ''your request is wrong''.'
+note: 'Derived from the first-party contract, so the list is complete rather than a docs sample: 35 modeled
+  exceptions on the DynamoDB service and 5 on DynamoDB Streams. Two facts matter more than the list. First,
+  only one exception in the entire model carries a machine-readable retryable marker (ReplicatedWriteConflictException)
+  - every other retry decision is published as prose and baked into the SDKs, so a caller not using an
+  AWS SDK has to hard-code it. Second, since 2025-08-14 the throttling exceptions carry structured ThrottlingReason
+  fields naming the resource, operation class and limit, which is the most agent-legible thing in this
+  error surface.'
+counts:
+  dynamodb: 35
+  dynamodb_streams: 5
+  modeled_retryable: 1
+throttling_reason:
+  field: ThrottlingReason
+  format: ResourceType+OperationType+LimitType
+  'on':
+  - ProvisionedThroughputExceededException
+  - ThrottlingException
+  - RequestLimitExceeded
+  docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TroubleshootingThrottling.html
+partial_failure:
+  note: BatchGetItem/BatchWriteItem return HTTP 200 with UnprocessedKeys/UnprocessedItems rather than
+    an error. A caller that only inspects errors will lose writes silently.
+problem_types:
+- code: BackupInUseException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: There is another ongoing conflicting backup control plane operation on the table. The backup
+    is either being created, deleted or restored to a table.
+- code: BackupNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: Backup not found for the given BackupARN.
+- code: ConditionalCheckFailedException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: A condition specified in the operation failed to be evaluated.
+  remediation: Not a failure of the API - the condition you asked for did not hold. Re-read the item (or
+    set ReturnValuesOnConditionCheckFailure=ALL_OLD) and decide; never blind-retry.
+- code: ContinuousBackupsUnavailableException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: Backups have not yet been enabled for this table.
+- code: DuplicateItemException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: There was an attempt to insert an item with the same primary key as an item that already exists
+    in the DynamoDB table.
+- code: ExportConflictException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: There was a conflict when writing to the specified S3 bucket.
+- code: ExportNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The specified export was not found.
+- code: GlobalTableAlreadyExistsException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The specified global table already exists.
+- code: GlobalTableNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The specified global table does not exist.
+- code: IdempotentParameterMismatchException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: DynamoDB rejected the request because you retried a request with a different payload but with
+    an idempotent token that was already used.
+  remediation: The same ClientRequestToken was reused within 10 minutes with different parameters. Use
+    a fresh token or send the identical payload.
+- code: ImportConflictException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: There was a conflict when importing from the specified S3 source. This can occur when the current
+    import conflicts with a previous import request that had the same client token.
+- code: ImportNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The specified import was not found.
+- code: IndexNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The operation tried to access a nonexistent index.
+- code: InternalServerError
+  service: Amazon DynamoDB
+  class: server
+  status: 500
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: An error occurred on the server side.
+  remediation: Server-side. Retry with exponential backoff.
+- code: InvalidEndpointException
+  service: Amazon DynamoDB
+  class: client
+  status: 421
+  status_source: modeled
+  retryable: false
+  title: ''
+- code: InvalidExportTimeException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The specified ExportTime is outside of the point in time recovery window.
+- code: InvalidRestoreTimeException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: An invalid restore time was specified. RestoreDateTime must be between EarliestRestorableDateTime
+    and LatestRestorableDateTime.
+- code: ItemCollectionSizeLimitExceededException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: An item collection is too large. This exception is only returned for tables that have one or
+    more local secondary indexes.
+  remediation: A local secondary index item collection passed 10 GB. This is a data-model problem, not
+    a transient one - it will not clear on retry.
+- code: LimitExceededException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: There is no limit to the number of daily on-demand backups that can be taken. For most purposes,
+    up to 500 simultaneous table operations are allowed per account. These operations include CreateTable
+    , UpdateTable , DeleteTable , UpdateTimeToLive , RestoreTableFromBackup , and RestoreTableToPointInTime
+    . When you are creating a table with one or more secondary indexes, you can have up to 250 such r
+  remediation: An account or table quota was hit (concurrent control-plane operations, table count, capacity
+    decreases per day). Check ServiceQuotas before retrying.
+- code: PointInTimeRecoveryUnavailableException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: Point in time recovery has not yet been enabled for this source table.
+- code: PolicyNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The operation tried to access a nonexistent resource-based policy. If you specified an ExpectedRevisionId
+    , it's possible that a policy is present for the resource but its revision ID didn't match the expected
+    value.
+- code: ProvisionedThroughputExceededException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The request was denied due to request throttling. For detailed information about why the request
+    was throttled and the ARN of the impacted resource, find the ThrottlingReason field in the returned
+    exception. The Amazon Web Services SDKs for DynamoDB automatically retry requests that receive this
+    exception. Your request is eventually successful, unless your retry queue is too large to finish.
+    Reduc
+  remediation: Retry with exponential backoff; read the ThrottlingReason fields to tell a table-level
+    throttle from a hot-partition one. Raise provisioned capacity or switch to on-demand if it persists.
+- code: ReplicaAlreadyExistsException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The specified replica is already part of the global table.
+- code: ReplicaNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The specified replica is no longer part of the global table.
+- code: ReplicatedWriteConflictException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: true
+  title: The request was rejected because one or more items in the request are being modified by a request
+    in another Region.
+  remediation: Concurrent writes to the same item in a multi-Region strongly consistent global table.
+    Retryable.
+- code: RequestLimitExceeded
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: Throughput exceeds the current throughput quota for your account. For detailed information about
+    why the request was throttled and the ARN of the impacted resource, find the ThrottlingReason field
+    in the returned exception. Contact Amazon Web Services Support to request a quota increase.
+  remediation: Account-level request quota. Back off and request a Service Quotas increase.
+- code: ResourceInUseException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: 'The operation conflicts with the resource''s availability. For example: You attempted to recreate
+    an existing table. You tried to delete a table currently in the CREATING state. You tried to update
+    a resource that was already being updated. When appropriate, wait for the ongoing update to complete
+    and attempt the request again.'
+  remediation: The table is being created, updated or deleted. Wait for ACTIVE.
+- code: ResourceNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The operation tried to access a nonexistent table or index. The resource might not be specified
+    correctly, or its status might not be ACTIVE .
+  remediation: The table, index, backup or stream does not exist, or is not ACTIVE yet. On a freshly created
+    table, wait for table-exists before writing.
+- code: TableAlreadyExistsException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: A target table with the specified name already exists.
+- code: TableInUseException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: A target table with the specified name is either being created or deleted.
+- code: TableNotFoundException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: A source table with the name TableName does not currently exist within the subscriber's account
+    or the subscriber is operating in the wrong Amazon Web Services Region.
+- code: ThrottlingException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: modeled
+  retryable: false
+  title: The request was denied due to request throttling. For detailed information about why the request
+    was throttled and the ARN of the impacted resource, find the ThrottlingReason field in the returned
+    exception.
+  remediation: Control-plane calls issued too fast. Back off; do not parallelise CreateTable/UpdateTable
+    loops.
+- code: TransactionCanceledException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: 'The entire transaction request was canceled. DynamoDB cancels a TransactWriteItems request under
+    the following circumstances: A condition in one of the condition expressions is not met. A table in
+    the TransactWriteItems request is in a different account or region. More than one action in the TransactWriteItems
+    operation targets the same item. There is insufficient provisioned capacity for the tran'
+  remediation: Read CancellationReasons - each entry says which item failed and why (ConditionalCheckFailed,
+    ItemCollectionSizeLimitExceeded, TransactionConflict, ThrottlingError, ValidationError). Retry only
+    the conflict and throttling reasons.
+- code: TransactionConflictException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: Operation was rejected because there is an ongoing transaction for the item.
+  remediation: Another transaction touched the same item. Retry with backoff.
+- code: TransactionInProgressException
+  service: Amazon DynamoDB
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The transaction with the given request token is already in progress. Recommended Settings This
+    is a general recommendation for handling the TransactionInProgressException . These settings help
+    ensure that the client retries will trigger completion of the ongoing TransactWriteItems request.
+    Set clientExecutionTimeout to a value that allows at least one retry to be processed after 5 seconds
+    have ela
+  remediation: The same ClientRequestToken is still executing. Wait, then poll the outcome rather than
+    resubmitting.
+- code: ExpiredIteratorException
+  service: Amazon DynamoDB Streams
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The shard iterator has expired and can no longer be used to retrieve stream records. A shard
+    iterator expires 15 minutes after it is retrieved using the GetShardIterator action.
+  remediation: The shard iterator is older than 15 minutes. Call GetShardIterator again; do not cache
+    iterators across polls.
+- code: InternalServerError
+  service: Amazon DynamoDB Streams
+  class: server
+  status: 500
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: An error occurred on the server side.
+  remediation: Server-side. Retry with exponential backoff.
+- code: LimitExceededException
+  service: Amazon DynamoDB Streams
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: There is no limit to the number of daily on-demand backups that can be taken. For most purposes,
+    up to 500 simultaneous table operations are allowed per account. These operations include CreateTable
+    , UpdateTable , DeleteTable , UpdateTimeToLive , RestoreTableFromBackup , and RestoreTableToPointInTime
+    . When you are creating a table with one or more secondary indexes, you can have up to 250 such r
+  remediation: An account or table quota was hit (concurrent control-plane operations, table count, capacity
+    decreases per day). Check ServiceQuotas before retrying.
+- code: ResourceNotFoundException
+  service: Amazon DynamoDB Streams
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: The operation tried to access a nonexistent table or index. The resource might not be specified
+    correctly, or its status might not be ACTIVE .
+  remediation: The table, index, backup or stream does not exist, or is not ACTIVE yet. On a freshly created
+    table, wait for table-exists before writing.
+- code: TrimmedDataAccessException
+  service: Amazon DynamoDB Streams
+  class: client
+  status: 400
+  status_source: protocol default for awsJson1_0
+  retryable: false
+  title: 'The operation attempted to read past the oldest stream record in a shard. In DynamoDB Streams,
+    there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject
+    to removal (trimming) from the stream. You might receive a TrimmedDataAccessException if: You request
+    a shard iterator with a sequence number older than the trim point (24 hours). You obtain a shard iterat'
+  remediation: The stream record is older than the 24-hour Streams retention window and is gone. Restart
+    from TRIM_HORIZON.

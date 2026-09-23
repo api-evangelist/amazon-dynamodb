@@ -1,0 +1,79 @@
+generated: '2026-09-18'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/,
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DocumentHistory.html,
+  https://aws.amazon.com/dynamodb/sla/, https://health.aws.amazon.com/health/status,
+  and smithy/dynamodb-2012-08-10.json - read 2026-09-18.
+versioning:
+  scheme: dated-api-version
+  current: '2012-08-10'
+  stable_since: '2012-08-10'
+  wire_marker: 'X-Amz-Target: DynamoDB_20120810.<Operation>'
+  docs: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/
+  note: >-
+    Fourteen years on one API version. The version is carried in the X-Amz-Target
+    header rather than in the path, and AWS has added every new capability -
+    transactions, PartiQL (ExecuteStatement/BatchExecuteStatement), exports,
+    imports, resource policies and most recently SearchVectors - inside
+    2012-08-10 rather than cutting a new version. The consequence for a consumer
+    is good and bad: nothing has ever broken, and the version string tells you
+    nothing about freshness. The Smithy model in smithy/ is the freshness
+    signal - it carried 58 operations on 2026-09-18.
+deprecation:
+  policy_url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DocumentHistory.html
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  contract_marks_deprecation: false
+  note: >-
+    Honest finding: AWS publishes no DynamoDB-specific API deprecation policy,
+    and NOT ONE of the 58 operations in the first-party Smithy model carries the
+    smithy.api#deprecated trait. Retirement is announced as prose in the document
+    history and in AWS service announcements, never signalled in the contract or
+    in a response header. An agent cannot learn from the API that anything is
+    going away.
+  observed_retirements:
+    - name: AmazonDynamoDBFullAccess managed IAM policy
+      kind: iam-policy
+      status: deprecated
+      date: '2025-04-25'
+      superseded_by: AmazonDynamoDBFullAccess_v2
+      docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ddb-security-iam.awsmanpol.html
+      note: The clearest dated deprecation DynamoDB has published recently, and it is an IAM policy rather than an API operation.
+    - name: AWS SDK for Java v1 in DynamoDB Local
+      kind: dependency
+      status: removed
+      date: '2025-07-17'
+      note: DynamoDB Local 3.0 dropped the SDK v1 dependency. Local emulator, not the service contract.
+  legacy_surfaces:
+    - name: Kinesis Client Library 1.x adapter for DynamoDB Streams
+      status: superseded
+      superseded_by: KCL 2.x / 3.x adapter with AWS SDK v2
+      date: '2025-06-11'
+      marked_deprecated_in_contract: false
+      docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/streams-migrating-kcl.html
+sla:
+  url: https://aws.amazon.com/dynamodb/sla/
+  uptime_targets:
+    standard: '99.99%'
+    global_tables: '99.999%'
+  remedy: service credits (10% below target, 25% below 99.0%, 100% below 95.0%)
+  note: >-
+    Two commitments, not one: 99.99% monthly uptime per Region under the Standard
+    SLA, and 99.999% under the Global Tables SLA where a table has replicas.
+    Service credits are the sole remedy.
+status_page: https://health.aws.amazon.com/health/status
+status_page_note: >-
+  AWS Health Dashboard, account-agnostic public view. There is no DynamoDB-only
+  status page; DynamoDB appears as a row per Region in the global service list.
+changelog: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DocumentHistory.html
+changelog_feed: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/amazon-dynamodb-doc-releases.rss
+changelog_feed_status: >-
+  Advertised as an RSS subscription at the top of the document-history page; the
+  guessed feed path returned 404 on 2026-09-18, so the HTML page is the
+  authoritative surface. Not recorded as a working feed.
+artifact_changelog: changelog/amazon-dynamodb-changelog.yml
+support_policy:
+  url: https://aws.amazon.com/premiumsupport/
+  note: Support is an AWS-account-level plan, not a DynamoDB entitlement.

@@ -4,149 +4,325 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Amazon DynamoDB
 providerId: amazon-dynamodb
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-18'
+generated: '2026-09-18'
+method: probed
+source: >-
+  AWS Price List Bulk API, first-party and machine-readable:
+  https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonDynamoDB/current/region_index.json
+  -> /offers/v1.0/aws/AmazonDynamoDB/20260911124422/us-east-1/index.json
+  (offer publicationDate 2026-09-11T12:44:22Z, read 2026-09-18). Prose cross-read
+  from https://aws.amazon.com/dynamodb/pricing/ and
+  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html
+note: >-
+  THIS FILE REPLACES A FABRICATION. Until 2026-09-18 this artifact carried a
+  bulk-sweep scaffold (a "Free / Professional / Enterprise" ladder with 1,000
+  requests a month, a 10-requests-per-minute rate limit and price "TBD") that
+  Amazon has never published and that describes no part of DynamoDB. Every
+  number below is read from the AWS Price List API for us-east-1 and is
+  reproducible from the SKU named on each entry. DynamoDB has no plan ladder:
+  it sells two capacity modes plus storage and data-movement line items, priced
+  per unit, and the same account can run both modes on different tables.
+currency: USD
+region_basis: us-east-1 (US East, N. Virginia). Every other Region has its own price list; the shape is identical, the rates are not.
+pricing_model: usage-based
 tags:
   - AWS
   - Database
-  - Document Store
-  - Key-Value
   - NoSQL
   - Serverless
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Usage-Based Pricing
+description: >-
+  Machine-readable pricing for Amazon DynamoDB, read from the AWS Price List
+  Bulk API rather than a marketing page. DynamoDB bills capacity (on-demand
+  request units or provisioned capacity-unit hours), storage, and data
+  movement (backup, restore, export, import, Streams reads) as independent
+  meters; there are no subscription tiers, no seats, and no per-call API plan.
 plans:
-  - id: amazon-dynamodb-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Amazon DynamoDB API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: amazon-dynamodb-on-demand
+    name: On-demand capacity mode (PayPerRequest)
+    type: usage
+    description: >-
+      Per-request billing with no capacity to provision. The default for new
+      tables. Charged in read request units (RRU) and write request units (WRU);
+      one strongly consistent read of an item up to 4 KB is 1 RRU, one write of
+      an item up to 1 KB is 1 WRU.
+    docs: https://aws.amazon.com/dynamodb/pricing/on-demand/
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://dynamodb.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://dynamodb.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Amazon DynamoDB API
-  - id: amazon-dynamodb-pro
-    name: Professional
-    type: paid
-    description: Production tier for Amazon DynamoDB. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://dynamodb.amazonaws.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://dynamodb.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Read request units
+        name: read_request_units
         type: metered
-        metric: requests
-        limit: -1
+        metric: read_request_units
+        unit: 1000000
+        price: '0.125'
         timeFrame: month
-        geo: global
-        domains:
-          - https://dynamodb.amazonaws.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Amazon DynamoDB API
-  - id: amazon-dynamodb-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Amazon DynamoDB. Includes dedicated capacity, contractual
-      SLAs, security review, data residency options, and named technical account management.
+        geo: us-east-1
+        sku_usagetype: ReadRequestUnits
+      - label: Write request units
+        name: write_request_units
+        type: metered
+        metric: write_request_units
+        unit: 1000000
+        price: '0.625'
+        timeFrame: month
+        geo: us-east-1
+        sku_usagetype: WriteRequestUnits
+      - label: Replicated write request units (global tables)
+        name: replicated_write_request_units
+        type: metered
+        metric: replicated_write_request_units
+        unit: 1000000
+        price: '0.625'
+        timeFrame: month
+        geo: us-east-1
+        sku_usagetype: ReplWriteRequestUnits
+      - label: Vector data searched
+        name: vector_search
+        type: metered
+        metric: gb_searched
+        unit: 1
+        price: '0.002'
+        geo: us-east-1
+        sku_usagetype: VectorSearch
+        note: Meter for the SearchVectors operation added to the 2012-08-10 contract.
+      - label: Vector write requests
+        name: vector_write
+        type: metered
+        metric: gb_written
+        unit: 1
+        price: '0.52'
+        geo: us-east-1
+        sku_usagetype: VectorWriteRequest
+  - id: amazon-dynamodb-on-demand-ia
+    name: On-demand, Standard-Infrequent Access table class
+    type: usage
+    description: >-
+      Same on-demand model against the Standard-IA table class: cheaper storage,
+      more expensive requests. Chosen per table, not per account.
+    docs: https://aws.amazon.com/dynamodb/pricing/on-demand/
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: IA read request units
+        name: ia_read_request_units
+        type: metered
+        metric: read_request_units
+        unit: 1000000
+        price: '0.155'
+        geo: us-east-1
+        sku_usagetype: IA-ReadRequestUnits
+      - label: IA write request units
+        name: ia_write_request_units
+        type: metered
+        metric: write_request_units
+        unit: 1000000
+        price: '0.78'
+        geo: us-east-1
+        sku_usagetype: IA-WriteRequestUnits
+      - label: IA replicated write request units
+        name: ia_replicated_write_request_units
+        type: metered
+        metric: replicated_write_request_units
+        unit: 1000000
+        price: '0.78'
+        geo: us-east-1
+        sku_usagetype: IA-ReplWriteRequestUnits
+  - id: amazon-dynamodb-provisioned
+    name: Provisioned capacity mode
+    type: usage
+    description: >-
+      Capacity reserved by the hour in read capacity units (RCU) and write
+      capacity units (WCU), with optional auto scaling. Requests beyond the
+      provisioned rate are throttled with ProvisionedThroughputExceededException
+      rather than billed as overage.
+    docs: https://aws.amazon.com/dynamodb/pricing/provisioned/
+    entries:
+      - label: Read capacity unit-hours
+        name: read_capacity_unit_hours
+        type: metered
+        metric: rcu_hours
+        unit: 1
+        price: '0.00013'
+        timeFrame: hour
+        geo: us-east-1
+        sku_usagetype: ReadCapacityUnit-Hrs
+      - label: Write capacity unit-hours
+        name: write_capacity_unit_hours
+        type: metered
+        metric: wcu_hours
+        unit: 1
+        price: '0.00065'
+        timeFrame: hour
+        geo: us-east-1
+        sku_usagetype: WriteCapacityUnit-Hrs
+      - label: Replicated write capacity unit-hours (global tables)
+        name: replicated_write_capacity_unit_hours
+        type: metered
+        metric: replicated_wcu_hours
+        unit: 1
+        price: '0.00065'
+        timeFrame: hour
+        geo: us-east-1
+        sku_usagetype: ReplWriteCapacityUnit-Hrs
+      - label: IA read capacity unit-hours
+        name: ia_read_capacity_unit_hours
+        type: metered
+        metric: rcu_hours
+        unit: 1
+        price: '0.00016'
+        timeFrame: hour
+        geo: us-east-1
+        sku_usagetype: IA-ReadCapacityUnit-Hrs
+      - label: IA write capacity unit-hours
+        name: ia_write_capacity_unit_hours
+        type: metered
+        metric: wcu_hours
+        unit: 1
+        price: '0.00081'
+        timeFrame: hour
+        geo: us-east-1
+        sku_usagetype: IA-WriteCapacityUnit-Hrs
+  - id: amazon-dynamodb-free-allowance
+    name: Always-free allowance (provisioned mode and Streams)
+    type: freemium
+    description: >-
+      A standing monthly allowance modelled in the price list itself as $0.00
+      SKUs, not a signup trial. It applies to provisioned capacity, storage and
+      Streams reads; on-demand request units carry no free allowance in this
+      price list.
+    docs: https://aws.amazon.com/free/
+    entries:
+      - label: Free provisioned read capacity
+        name: free_rcu
         type: quota
-        metric: requests
-        limit: -1
+        metric: rcu
+        limit: 25
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://dynamodb.amazonaws.com
+        price: '0.00'
+        geo: us-east-1
+        sku_usagetype: ReadCapacityUnit-Hrs
+      - label: Free provisioned write capacity
+        name: free_wcu
+        type: quota
+        metric: wcu
+        limit: 25
+        timeFrame: month
+        price: '0.00'
+        geo: us-east-1
+        sku_usagetype: WriteCapacityUnit-Hrs
+      - label: Free storage
+        name: free_storage
+        type: quota
+        metric: gb_month
+        limit: 25
+        timeFrame: month
+        price: '0.00'
+        geo: us-east-1
+        sku_usagetype: TimedStorage-ByteHrs
+      - label: Free DynamoDB Streams read request units
+        name: free_stream_reads
+        type: quota
+        metric: stream_read_request_units
+        limit: 2500000
+        timeFrame: month
+        price: '0.00'
+        geo: us-east-1
+        sku_usagetype: USE1-Streams-Requests
+  - id: amazon-dynamodb-storage-and-data-movement
+    name: Storage, backup, restore, export, import and Streams
+    type: usage
+    description: >-
+      Meters that bill independently of capacity mode. These are where an agent
+      driving the control plane can spend money without issuing a single item
+      write.
+    docs: https://aws.amazon.com/dynamodb/pricing/
+    entries:
+      - label: Table storage (Standard class) beyond the free 25 GB-month
+        name: storage_standard
+        type: metered
+        metric: gb_month
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://dynamodb.amazonaws.com
+        price: '0.25'
+        geo: us-east-1
+        sku_usagetype: TimedStorage-ByteHrs
+      - label: Table storage (Standard-IA class)
+        name: storage_ia
+        type: metered
+        metric: gb_month
         unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Amazon DynamoDB API
+        price: '0.10'
+        geo: us-east-1
+        sku_usagetype: IA-TimedStorage-ByteHrs
+      - label: On-demand backup storage
+        name: backup_storage
+        type: metered
+        metric: gb_month
+        unit: 1
+        price: '0.10'
+        geo: us-east-1
+        sku_usagetype: USE1-TimedBackupStorage-ByteHrs
+      - label: Point-in-time recovery (continuous backup) storage
+        name: pitr_storage
+        type: metered
+        metric: gb_month
+        unit: 1
+        price: '0.20'
+        geo: us-east-1
+        sku_usagetype: USE1-TimedPITRStorage-ByteHrs
+      - label: Restore
+        name: restore
+        type: metered
+        metric: gb_restored
+        unit: 1
+        price: '0.15'
+        geo: us-east-1
+        sku_usagetype: USE1-RestoreDataSize-Bytes
+      - label: Export to Amazon S3
+        name: export
+        type: metered
+        metric: gb_exported
+        unit: 1
+        price: '0.10'
+        geo: us-east-1
+        sku_usagetype: USE1-ExportDataSize-Bytes
+      - label: Incremental export to Amazon S3
+        name: incremental_export
+        type: metered
+        metric: gb_exported
+        unit: 1
+        price: '0.10'
+        geo: us-east-1
+        sku_usagetype: USE1-IncrementalExportDataSize-Bytes
+      - label: Import from Amazon S3
+        name: import
+        type: metered
+        metric: gb_imported
+        unit: 1
+        price: '0.15'
+        geo: us-east-1
+        sku_usagetype: USE1-ImportDataSize-Bytes
+      - label: DynamoDB Streams read request units beyond the free allowance
+        name: streams_reads
+        type: metered
+        metric: stream_read_request_units
+        unit: 1000000
+        price: '0.20'
+        geo: us-east-1
+        sku_usagetype: USE1-Streams-Requests
+      - label: Change data capture to Kinesis Data Streams
+        name: cdc_kinesis
+        type: metered
+        metric: change_data_capture_units
+        unit: 1000000
+        price: '0.10'
+        geo: us-east-1
+        sku_usagetype: USE1-ChangeDataCaptureUnits-Kinesis
+reserved_capacity:
+  available: true
+  docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html#reserved-capacity
+  note: >-
+    One- and three-year reserved capacity can be purchased against provisioned
+    RCU/WCU. The Price List Reserved terms are not expanded here; the default
+    account quota is 1,000,000 active provisioned capacity units per account.
+enterprise_contact_only: false
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
