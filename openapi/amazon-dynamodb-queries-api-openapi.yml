@@ -121,6 +121,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
   schemas:
     ScanInput:
       type: object
@@ -196,32 +205,6 @@ components:
         Items:
           type: array
           description: An array of item attributes that match the query criteria
-          items:
-            type: object
-            additionalProperties:
-              $ref: '#/components/schemas/AttributeValue'
-          example:
-          - {}
-        Count:
-          type: integer
-          description: The number of items in the response
-          example: 1
-        ScannedCount:
-          type: integer
-          description: The number of items evaluated before any filter is applied
-          example: 1
-        LastEvaluatedKey:
-          type: object
-          description: The primary key of the item where the operation stopped
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-    ScanOutput:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: An array of item attributes that match the scan criteria
           items:
             type: object
             additionalProperties:
@@ -368,15 +351,32 @@ components:
           type: boolean
           description: Boolean attribute value
           example: true
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
-      schema:
-        type: string
-        pattern: ^DynamoDB_20120810\.\w+$
+    ScanOutput:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: An array of item attributes that match the scan criteria
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/AttributeValue'
+          example:
+          - {}
+        Count:
+          type: integer
+          description: The number of items in the response
+          example: 1
+        ScannedCount:
+          type: integer
+          description: The number of items evaluated before any filter is applied
+          example: 1
+        LastEvaluatedKey:
+          type: object
+          description: The primary key of the item where the operation stopped
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
   securitySchemes:
     sigv4Auth:
       type: http

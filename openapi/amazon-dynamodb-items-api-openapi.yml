@@ -212,6 +212,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DeleteItemOutput:
+      type: object
+      properties:
+        Attributes:
+          type: object
+          description: A map of attribute values as they appeared before the delete operation
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
     UpdateItemOutput:
       type: object
       properties:
@@ -221,60 +230,12 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
-    PutItemOutput:
+    GetItemOutput:
       type: object
       properties:
-        Attributes:
-          type: object
-          description: The attribute values as they appeared before the PutItem operation
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-    PutItemInput:
-      type: object
-      required:
-      - TableName
-      - Item
-      properties:
-        TableName:
-          type: string
-          description: The name of the table to contain the item
-          example: example-resource-name
         Item:
           type: object
-          description: A map of attribute name to attribute values, representing the item
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        ConditionExpression:
-          type: string
-          description: A condition that must be satisfied for a put to succeed
-          example: example-string
-        ExpressionAttributeNames:
-          type: object
-          description: Substitution tokens for attribute names in an expression
-          additionalProperties:
-            type: string
-          example: {}
-        ExpressionAttributeValues:
-          type: object
-          description: Values that can be substituted in an expression
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        ReturnValues:
-          type: string
-          description: Determines the return values after the operation
-          enum:
-          - NONE
-          - ALL_OLD
-          example: NONE
-    DeleteItemOutput:
-      type: object
-      properties:
-        Attributes:
-          type: object
-          description: A map of attribute values as they appeared before the delete operation
+          description: A map of attribute names to AttributeValue objects
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
@@ -324,84 +285,15 @@ components:
           - UPDATED_NEW
           - ALL_NEW
           example: NONE
-    GetItemInput:
-      type: object
-      required:
-      - TableName
-      - Key
-      properties:
-        TableName:
-          type: string
-          description: The name of the table containing the requested item
-          example: example-resource-name
-        Key:
-          type: object
-          description: A map of attribute names to AttributeValue objects for the primary key
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        ProjectionExpression:
-          type: string
-          description: A string that identifies attributes to retrieve
-          example: example-string
-        ConsistentRead:
-          type: boolean
-          description: Determines the read consistency model
-          example: true
-        ExpressionAttributeNames:
-          type: object
-          description: Substitution tokens for attribute names in an expression
-          additionalProperties:
-            type: string
-          example: {}
-    GetItemOutput:
+    PutItemOutput:
       type: object
       properties:
-        Item:
+        Attributes:
           type: object
-          description: A map of attribute names to AttributeValue objects
+          description: The attribute values as they appeared before the PutItem operation
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
-    DeleteItemInput:
-      type: object
-      required:
-      - TableName
-      - Key
-      properties:
-        TableName:
-          type: string
-          description: The name of the table from which to delete the item
-          example: example-resource-name
-        Key:
-          type: object
-          description: A map of attribute names to AttributeValue objects for the primary key
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        ConditionExpression:
-          type: string
-          description: A condition that must be satisfied for the delete to succeed
-          example: example-string
-        ExpressionAttributeNames:
-          type: object
-          description: Substitution tokens for attribute names in an expression
-          additionalProperties:
-            type: string
-          example: {}
-        ExpressionAttributeValues:
-          type: object
-          description: Values that can be substituted in an expression
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        ReturnValues:
-          type: string
-          description: Determines the return values after the operation
-          enum:
-          - NONE
-          - ALL_OLD
-          example: NONE
     AttributeValue:
       type: object
       description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
@@ -462,6 +354,114 @@ components:
           type: boolean
           description: Boolean attribute value
           example: true
+    DeleteItemInput:
+      type: object
+      required:
+      - TableName
+      - Key
+      properties:
+        TableName:
+          type: string
+          description: The name of the table from which to delete the item
+          example: example-resource-name
+        Key:
+          type: object
+          description: A map of attribute names to AttributeValue objects for the primary key
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ConditionExpression:
+          type: string
+          description: A condition that must be satisfied for the delete to succeed
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ReturnValues:
+          type: string
+          description: Determines the return values after the operation
+          enum:
+          - NONE
+          - ALL_OLD
+          example: NONE
+    PutItemInput:
+      type: object
+      required:
+      - TableName
+      - Item
+      properties:
+        TableName:
+          type: string
+          description: The name of the table to contain the item
+          example: example-resource-name
+        Item:
+          type: object
+          description: A map of attribute name to attribute values, representing the item
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ConditionExpression:
+          type: string
+          description: A condition that must be satisfied for a put to succeed
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ReturnValues:
+          type: string
+          description: Determines the return values after the operation
+          enum:
+          - NONE
+          - ALL_OLD
+          example: NONE
+    GetItemInput:
+      type: object
+      required:
+      - TableName
+      - Key
+      properties:
+        TableName:
+          type: string
+          description: The name of the table containing the requested item
+          example: example-resource-name
+        Key:
+          type: object
+          description: A map of attribute names to AttributeValue objects for the primary key
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ProjectionExpression:
+          type: string
+          description: A string that identifies attributes to retrieve
+          example: example-string
+        ConsistentRead:
+          type: boolean
+          description: Determines the read consistency model
+          example: true
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
   parameters:
     XAmzTarget:
       name: X-Amz-Target

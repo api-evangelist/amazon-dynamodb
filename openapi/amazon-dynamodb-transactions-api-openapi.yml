@@ -124,47 +124,6 @@ components:
         type: string
         pattern: ^DynamoDB_20120810\.\w+$
   schemas:
-    TransactWriteItemsOutput:
-      type: object
-      properties:
-        ItemCollectionMetrics:
-          type: object
-          description: A list of tables affected by the TransactWriteItems call
-          example: {}
-    TransactWriteItemsInput:
-      type: object
-      required:
-      - TransactItems
-      properties:
-        TransactItems:
-          type: array
-          description: An ordered array of up to 100 TransactWriteItem objects
-          items:
-            type: object
-            properties:
-              ConditionCheck:
-                type: object
-                description: A request to perform a check item operation
-              Put:
-                type: object
-                description: A request to perform a PutItem operation
-              Delete:
-                type: object
-                description: A request to perform a DeleteItem operation
-              Update:
-                type: object
-                description: A request to perform an UpdateItem operation
-          maxItems: 100
-          example:
-          - ConditionCheck: {}
-            Put: {}
-            Delete: {}
-        ClientRequestToken:
-          type: string
-          description: A unique identifier for the client request to ensure idempotency
-          minLength: 1
-          maxLength: 36
-          example: example-string
     TransactGetItemsInput:
       type: object
       required:
@@ -275,6 +234,47 @@ components:
           type: boolean
           description: Boolean attribute value
           example: true
+    TransactWriteItemsOutput:
+      type: object
+      properties:
+        ItemCollectionMetrics:
+          type: object
+          description: A list of tables affected by the TransactWriteItems call
+          example: {}
+    TransactWriteItemsInput:
+      type: object
+      required:
+      - TransactItems
+      properties:
+        TransactItems:
+          type: array
+          description: An ordered array of up to 100 TransactWriteItem objects
+          items:
+            type: object
+            properties:
+              ConditionCheck:
+                type: object
+                description: A request to perform a check item operation
+              Put:
+                type: object
+                description: A request to perform a PutItem operation
+              Delete:
+                type: object
+                description: A request to perform a DeleteItem operation
+              Update:
+                type: object
+                description: A request to perform an UpdateItem operation
+          maxItems: 100
+          example:
+          - ConditionCheck: {}
+            Put: {}
+            Delete: {}
+        ClientRequestToken:
+          type: string
+          description: A unique identifier for the client request to ensure idempotency
+          minLength: 1
+          maxLength: 36
+          example: example-string
   securitySchemes:
     sigv4Auth:
       type: http

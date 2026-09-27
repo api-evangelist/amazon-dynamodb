@@ -443,10 +443,17 @@ tags:
 - AWS
 - Database
 - Document Store
+- Key-Value Store
+- NoSQL
+- Serverless
+tags_raw:
+- AWS
+- Database
+- Document Store
 - Key-Value
 - NoSQL
 - Serverless
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product
 x-aliases:
 - Amazon DynamoDB

@@ -285,101 +285,49 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CreateTableInput:
+    ProvisionedThroughputDescription:
       type: object
+      description: Describes the provisioned throughput settings for a table or index
+      properties:
+        LastIncreaseDateTime:
+          type: number
+          description: The date and time of the last provisioned throughput increase
+          example: 1.0
+        LastDecreaseDateTime:
+          type: number
+          description: The date and time of the last provisioned throughput decrease
+          example: 1.0
+        NumberOfDecreasesToday:
+          type: integer
+          description: The number of provisioned throughput decreases for this table during this UTC calendar day
+          example: 1
+        ReadCapacityUnits:
+          type: integer
+          description: The maximum number of strongly consistent reads per second
+          example: 1
+        WriteCapacityUnits:
+          type: integer
+          description: The maximum number of writes per second
+          example: 1
+    AttributeDefinition:
+      type: object
+      description: Represents an attribute for describing the schema for a table or index
       required:
-      - TableName
-      - KeySchema
-      - AttributeDefinitions
+      - AttributeName
+      - AttributeType
       properties:
-        TableName:
+        AttributeName:
           type: string
-          description: The name of the table to create
-          minLength: 3
-          maxLength: 255
+          description: A name for the attribute
           example: example-resource-name
-        KeySchema:
-          type: array
-          description: Specifies the attributes that make up the primary key for the table. The attributes must also be defined in AttributeDefinitions.
-          items:
-            $ref: '#/components/schemas/KeySchemaElement'
-          minItems: 1
-          maxItems: 2
-          example:
-          - example-string
-        AttributeDefinitions:
-          type: array
-          description: An array of attributes that describe the key schema for the table and indexes
-          items:
-            $ref: '#/components/schemas/AttributeDefinition'
-          example:
-          - example-string
-        ProvisionedThroughput:
-          $ref: '#/components/schemas/ProvisionedThroughput'
-        BillingMode:
+        AttributeType:
           type: string
-          description: Controls how you are charged for read and write throughput
+          description: The data type for the attribute
           enum:
-          - PROVISIONED
-          - PAY_PER_REQUEST
-          example: PROVISIONED
-        GlobalSecondaryIndexes:
-          type: array
-          description: One or more global secondary indexes to be created on the table
-          items:
-            $ref: '#/components/schemas/GlobalSecondaryIndex'
-          example:
-          - example-string
-        LocalSecondaryIndexes:
-          type: array
-          description: One or more local secondary indexes to be created on the table
-          items:
-            $ref: '#/components/schemas/LocalSecondaryIndex'
-          example:
-          - example-string
-        Tags:
-          type: array
-          description: Tags to associate with the table
-          items:
-            $ref: '#/components/schemas/Tag'
-          example:
-          - example-string
-    ErrorResponse:
-      type: object
-      properties:
-        __type:
-          type: string
-          description: The error type
-          example: standard
-        message:
-          type: string
-          description: The error message
-          example: example-string
-    Projection:
-      type: object
-      description: Represents attributes that are copied from the table into an index
-      properties:
-        ProjectionType:
-          type: string
-          description: The set of attributes that are projected into the index
-          enum:
-          - ALL
-          - KEYS_ONLY
-          - INCLUDE
-          example: ALL
-        NonKeyAttributes:
-          type: array
-          description: The non-key projected attributes
-          items:
-            type: string
-          maxItems: 20
-          example:
-          - example-string
-    DescribeTableOutput:
-      type: object
-      properties:
-        Table:
-          $ref: '#/components/schemas/TableDescription'
+          - S
+          - N
+          - B
+          example: S
     UpdateTableInput:
       type: object
       required:
@@ -404,29 +352,44 @@ components:
             type: object
           example:
           - {}
-    CreateTableOutput:
+    Projection:
       type: object
+      description: Represents attributes that are copied from the table into an index
       properties:
-        TableDescription:
-          $ref: '#/components/schemas/TableDescription'
-    Tag:
+        ProjectionType:
+          type: string
+          description: The set of attributes that are projected into the index
+          enum:
+          - ALL
+          - KEYS_ONLY
+          - INCLUDE
+          example: ALL
+        NonKeyAttributes:
+          type: array
+          description: The non-key projected attributes
+          items:
+            type: string
+          maxItems: 20
+          example:
+          - example-string
+    KeySchemaElement:
       type: object
+      description: Represents a single element of a key schema
       required:
-      - Key
-      - Value
+      - AttributeName
+      - KeyType
       properties:
-        Key:
+        AttributeName:
           type: string
-          description: The key of the tag
-          minLength: 1
-          maxLength: 128
-          example: example-string
-        Value:
+          description: The name of a key attribute
+          example: example-resource-name
+        KeyType:
           type: string
-          description: The value of the tag
-          minLength: 0
-          maxLength: 256
-          example: example-string
+          description: The role that this key attribute will assume
+          enum:
+          - HASH
+          - RANGE
+          example: HASH
     GlobalSecondaryIndex:
       type: object
       description: Represents the properties of a global secondary index
@@ -536,84 +499,40 @@ components:
           example:
             BillingMode: PROVISIONED
             LastUpdateToPayPerRequestDateTime: 1.0
-    ProvisionedThroughputDescription:
+    ErrorResponse:
       type: object
-      description: Describes the provisioned throughput settings for a table or index
       properties:
-        LastIncreaseDateTime:
-          type: number
-          description: The date and time of the last provisioned throughput increase
-          example: 1.0
-        LastDecreaseDateTime:
-          type: number
-          description: The date and time of the last provisioned throughput decrease
-          example: 1.0
-        NumberOfDecreasesToday:
-          type: integer
-          description: The number of provisioned throughput decreases for this table during this UTC calendar day
-          example: 1
-        ReadCapacityUnits:
-          type: integer
-          description: The maximum number of strongly consistent reads per second
-          example: 1
-        WriteCapacityUnits:
-          type: integer
-          description: The maximum number of writes per second
-          example: 1
-    AttributeDefinition:
+        __type:
+          type: string
+          description: The error type
+          example: standard
+        message:
+          type: string
+          description: The error message
+          example: example-string
+    DescribeTableOutput:
       type: object
-      description: Represents an attribute for describing the schema for a table or index
+      properties:
+        Table:
+          $ref: '#/components/schemas/TableDescription'
+    Tag:
+      type: object
       required:
-      - AttributeName
-      - AttributeType
+      - Key
+      - Value
       properties:
-        AttributeName:
+        Key:
           type: string
-          description: A name for the attribute
-          example: example-resource-name
-        AttributeType:
+          description: The key of the tag
+          minLength: 1
+          maxLength: 128
+          example: example-string
+        Value:
           type: string
-          description: The data type for the attribute
-          enum:
-          - S
-          - N
-          - B
-          example: S
-    KeySchemaElement:
-      type: object
-      description: Represents a single element of a key schema
-      required:
-      - AttributeName
-      - KeyType
-      properties:
-        AttributeName:
-          type: string
-          description: The name of a key attribute
-          example: example-resource-name
-        KeyType:
-          type: string
-          description: The role that this key attribute will assume
-          enum:
-          - HASH
-          - RANGE
-          example: HASH
-    ProvisionedThroughput:
-      type: object
-      description: Represents the provisioned throughput settings for a table or index
-      required:
-      - ReadCapacityUnits
-      - WriteCapacityUnits
-      properties:
-        ReadCapacityUnits:
-          type: integer
-          description: The maximum number of strongly consistent reads per second
-          minimum: 1
-          example: 1
-        WriteCapacityUnits:
-          type: integer
-          description: The maximum number of writes per second
-          minimum: 1
-          example: 1
+          description: The value of the tag
+          minLength: 0
+          maxLength: 256
+          example: example-string
     LocalSecondaryIndex:
       type: object
       description: Represents the properties of a local secondary index
@@ -637,6 +556,87 @@ components:
           - example-string
         Projection:
           $ref: '#/components/schemas/Projection'
+    ProvisionedThroughput:
+      type: object
+      description: Represents the provisioned throughput settings for a table or index
+      required:
+      - ReadCapacityUnits
+      - WriteCapacityUnits
+      properties:
+        ReadCapacityUnits:
+          type: integer
+          description: The maximum number of strongly consistent reads per second
+          minimum: 1
+          example: 1
+        WriteCapacityUnits:
+          type: integer
+          description: The maximum number of writes per second
+          minimum: 1
+          example: 1
+    CreateTableOutput:
+      type: object
+      properties:
+        TableDescription:
+          $ref: '#/components/schemas/TableDescription'
+    CreateTableInput:
+      type: object
+      required:
+      - TableName
+      - KeySchema
+      - AttributeDefinitions
+      properties:
+        TableName:
+          type: string
+          description: The name of the table to create
+          minLength: 3
+          maxLength: 255
+          example: example-resource-name
+        KeySchema:
+          type: array
+          description: Specifies the attributes that make up the primary key for the table. The attributes must also be defined in AttributeDefinitions.
+          items:
+            $ref: '#/components/schemas/KeySchemaElement'
+          minItems: 1
+          maxItems: 2
+          example:
+          - example-string
+        AttributeDefinitions:
+          type: array
+          description: An array of attributes that describe the key schema for the table and indexes
+          items:
+            $ref: '#/components/schemas/AttributeDefinition'
+          example:
+          - example-string
+        ProvisionedThroughput:
+          $ref: '#/components/schemas/ProvisionedThroughput'
+        BillingMode:
+          type: string
+          description: Controls how you are charged for read and write throughput
+          enum:
+          - PROVISIONED
+          - PAY_PER_REQUEST
+          example: PROVISIONED
+        GlobalSecondaryIndexes:
+          type: array
+          description: One or more global secondary indexes to be created on the table
+          items:
+            $ref: '#/components/schemas/GlobalSecondaryIndex'
+          example:
+          - example-string
+        LocalSecondaryIndexes:
+          type: array
+          description: One or more local secondary indexes to be created on the table
+          items:
+            $ref: '#/components/schemas/LocalSecondaryIndex'
+          example:
+          - example-string
+        Tags:
+          type: array
+          description: Tags to associate with the table
+          items:
+            $ref: '#/components/schemas/Tag'
+          example:
+          - example-string
   parameters:
     XAmzTarget:
       name: X-Amz-Target

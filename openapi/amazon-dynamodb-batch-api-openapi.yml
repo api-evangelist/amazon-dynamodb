@@ -103,30 +103,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BatchGetItemOutput:
-      type: object
-      properties:
-        Responses:
-          type: object
-          description: A map of table names to lists of items retrieved
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        UnprocessedKeys:
-          type: object
-          description: A map of unprocessed keys, to be retried
-          example: {}
-    BatchWriteItemOutput:
-      type: object
-      properties:
-        UnprocessedItems:
-          type: object
-          description: A map of tables and requests against those tables that were not processed
-          example: {}
     BatchGetItemInput:
       type: object
       required:
@@ -153,6 +129,13 @@ components:
                 type: object
                 additionalProperties:
                   type: string
+          example: {}
+    BatchWriteItemOutput:
+      type: object
+      properties:
+        UnprocessedItems:
+          type: object
+          description: A map of tables and requests against those tables that were not processed
           example: {}
     BatchWriteItemInput:
       type: object
@@ -181,6 +164,23 @@ components:
                       type: object
                       additionalProperties:
                         $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    BatchGetItemOutput:
+      type: object
+      properties:
+        Responses:
+          type: object
+          description: A map of table names to lists of items retrieved
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        UnprocessedKeys:
+          type: object
+          description: A map of unprocessed keys, to be retried
           example: {}
     AttributeValue:
       type: object
