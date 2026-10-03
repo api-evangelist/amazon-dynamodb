@@ -121,15 +121,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
-      schema:
-        type: string
-        pattern: ^DynamoDB_20120810\.\w+$
   schemas:
     ScanInput:
       type: object
@@ -225,72 +216,6 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
-    QueryInput:
-      type: object
-      required:
-      - TableName
-      properties:
-        TableName:
-          type: string
-          description: The name of the table to query
-          example: example-resource-name
-        IndexName:
-          type: string
-          description: The name of a secondary index to query
-          example: example-resource-name
-        KeyConditionExpression:
-          type: string
-          description: The condition that specifies the key values for items to be retrieved
-          example: example-string
-        FilterExpression:
-          type: string
-          description: A string that contains conditions for filtering the query results
-          example: example-string
-        ProjectionExpression:
-          type: string
-          description: A string that identifies attributes to retrieve
-          example: example-string
-        ExpressionAttributeNames:
-          type: object
-          description: Substitution tokens for attribute names in an expression
-          additionalProperties:
-            type: string
-          example: {}
-        ExpressionAttributeValues:
-          type: object
-          description: Values that can be substituted in an expression
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        ScanIndexForward:
-          type: boolean
-          description: Specifies the order for index traversal (true=ascending, false=descending)
-          default: true
-          example: true
-        Limit:
-          type: integer
-          description: The maximum number of items to evaluate
-          minimum: 1
-          example: 1
-        ConsistentRead:
-          type: boolean
-          description: Determines the read consistency model
-          example: true
-        ExclusiveStartKey:
-          type: object
-          description: The primary key of the first item that this operation evaluates
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        Select:
-          type: string
-          description: The attributes to be returned in the result
-          enum:
-          - ALL_ATTRIBUTES
-          - ALL_PROJECTED_ATTRIBUTES
-          - COUNT
-          - SPECIFIC_ATTRIBUTES
-          example: ALL_ATTRIBUTES
     AttributeValue:
       type: object
       description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
@@ -377,6 +302,81 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
+    QueryInput:
+      type: object
+      required:
+      - TableName
+      properties:
+        TableName:
+          type: string
+          description: The name of the table to query
+          example: example-resource-name
+        IndexName:
+          type: string
+          description: The name of a secondary index to query
+          example: example-resource-name
+        KeyConditionExpression:
+          type: string
+          description: The condition that specifies the key values for items to be retrieved
+          example: example-string
+        FilterExpression:
+          type: string
+          description: A string that contains conditions for filtering the query results
+          example: example-string
+        ProjectionExpression:
+          type: string
+          description: A string that identifies attributes to retrieve
+          example: example-string
+        ExpressionAttributeNames:
+          type: object
+          description: Substitution tokens for attribute names in an expression
+          additionalProperties:
+            type: string
+          example: {}
+        ExpressionAttributeValues:
+          type: object
+          description: Values that can be substituted in an expression
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        ScanIndexForward:
+          type: boolean
+          description: Specifies the order for index traversal (true=ascending, false=descending)
+          default: true
+          example: true
+        Limit:
+          type: integer
+          description: The maximum number of items to evaluate
+          minimum: 1
+          example: 1
+        ConsistentRead:
+          type: boolean
+          description: Determines the read consistency model
+          example: true
+        ExclusiveStartKey:
+          type: object
+          description: The primary key of the first item that this operation evaluates
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        Select:
+          type: string
+          description: The attributes to be returned in the result
+          enum:
+          - ALL_ATTRIBUTES
+          - ALL_PROJECTED_ATTRIBUTES
+          - COUNT
+          - SPECIFIC_ATTRIBUTES
+          example: ALL_ATTRIBUTES
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
   securitySchemes:
     sigv4Auth:
       type: http

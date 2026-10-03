@@ -103,85 +103,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BatchGetItemInput:
-      type: object
-      required:
-      - RequestItems
-      properties:
-        RequestItems:
-          type: object
-          description: A map of table names to keys and attributes to retrieve
-          additionalProperties:
-            type: object
-            properties:
-              Keys:
-                type: array
-                description: The primary keys for items to retrieve
-                items:
-                  type: object
-                  additionalProperties:
-                    $ref: '#/components/schemas/AttributeValue'
-              ProjectionExpression:
-                type: string
-              ConsistentRead:
-                type: boolean
-              ExpressionAttributeNames:
-                type: object
-                additionalProperties:
-                  type: string
-          example: {}
-    BatchWriteItemOutput:
-      type: object
-      properties:
-        UnprocessedItems:
-          type: object
-          description: A map of tables and requests against those tables that were not processed
-          example: {}
-    BatchWriteItemInput:
-      type: object
-      required:
-      - RequestItems
-      properties:
-        RequestItems:
-          type: object
-          description: A map of table names to write requests
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              properties:
-                PutRequest:
-                  type: object
-                  properties:
-                    Item:
-                      type: object
-                      additionalProperties:
-                        $ref: '#/components/schemas/AttributeValue'
-                DeleteRequest:
-                  type: object
-                  properties:
-                    Key:
-                      type: object
-                      additionalProperties:
-                        $ref: '#/components/schemas/AttributeValue'
-          example: {}
-    BatchGetItemOutput:
-      type: object
-      properties:
-        Responses:
-          type: object
-          description: A map of table names to lists of items retrieved
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        UnprocessedKeys:
-          type: object
-          description: A map of unprocessed keys, to be retried
-          example: {}
     AttributeValue:
       type: object
       description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
@@ -242,6 +163,85 @@ components:
           type: boolean
           description: Boolean attribute value
           example: true
+    BatchWriteItemInput:
+      type: object
+      required:
+      - RequestItems
+      properties:
+        RequestItems:
+          type: object
+          description: A map of table names to write requests
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              properties:
+                PutRequest:
+                  type: object
+                  properties:
+                    Item:
+                      type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/AttributeValue'
+                DeleteRequest:
+                  type: object
+                  properties:
+                    Key:
+                      type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    BatchGetItemOutput:
+      type: object
+      properties:
+        Responses:
+          type: object
+          description: A map of table names to lists of items retrieved
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        UnprocessedKeys:
+          type: object
+          description: A map of unprocessed keys, to be retried
+          example: {}
+    BatchWriteItemOutput:
+      type: object
+      properties:
+        UnprocessedItems:
+          type: object
+          description: A map of tables and requests against those tables that were not processed
+          example: {}
+    BatchGetItemInput:
+      type: object
+      required:
+      - RequestItems
+      properties:
+        RequestItems:
+          type: object
+          description: A map of table names to keys and attributes to retrieve
+          additionalProperties:
+            type: object
+            properties:
+              Keys:
+                type: array
+                description: The primary keys for items to retrieve
+                items:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/AttributeValue'
+              ProjectionExpression:
+                type: string
+              ConsistentRead:
+                type: boolean
+              ExpressionAttributeNames:
+                type: object
+                additionalProperties:
+                  type: string
+          example: {}
   parameters:
     XAmzTarget:
       name: X-Amz-Target

@@ -114,66 +114,14 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
-      schema:
-        type: string
-        pattern: ^DynamoDB_20120810\.\w+$
   schemas:
-    TransactGetItemsInput:
-      type: object
-      required:
-      - TransactItems
-      properties:
-        TransactItems:
-          type: array
-          description: An ordered array of up to 100 TransactGetItem objects
-          items:
-            type: object
-            properties:
-              Get:
-                type: object
-                required:
-                - TableName
-                - Key
-                properties:
-                  TableName:
-                    type: string
-                  Key:
-                    type: object
-                    additionalProperties:
-                      $ref: '#/components/schemas/AttributeValue'
-                  ProjectionExpression:
-                    type: string
-                  ExpressionAttributeNames:
-                    type: object
-                    additionalProperties:
-                      type: string
-          maxItems: 100
-          example:
-          - Get:
-              TableName: example
-              Key: example
-              ProjectionExpression: example
-    TransactGetItemsOutput:
+    TransactWriteItemsOutput:
       type: object
       properties:
-        Responses:
-          type: array
-          description: An ordered array of up to 100 ItemResponse objects
-          items:
-            type: object
-            properties:
-              Item:
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/AttributeValue'
-          example:
-          - Item: {}
+        ItemCollectionMetrics:
+          type: object
+          description: A list of tables affected by the TransactWriteItems call
+          example: {}
     AttributeValue:
       type: object
       description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
@@ -234,13 +182,56 @@ components:
           type: boolean
           description: Boolean attribute value
           example: true
-    TransactWriteItemsOutput:
+    TransactGetItemsOutput:
       type: object
       properties:
-        ItemCollectionMetrics:
-          type: object
-          description: A list of tables affected by the TransactWriteItems call
-          example: {}
+        Responses:
+          type: array
+          description: An ordered array of up to 100 ItemResponse objects
+          items:
+            type: object
+            properties:
+              Item:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AttributeValue'
+          example:
+          - Item: {}
+    TransactGetItemsInput:
+      type: object
+      required:
+      - TransactItems
+      properties:
+        TransactItems:
+          type: array
+          description: An ordered array of up to 100 TransactGetItem objects
+          items:
+            type: object
+            properties:
+              Get:
+                type: object
+                required:
+                - TableName
+                - Key
+                properties:
+                  TableName:
+                    type: string
+                  Key:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/components/schemas/AttributeValue'
+                  ProjectionExpression:
+                    type: string
+                  ExpressionAttributeNames:
+                    type: object
+                    additionalProperties:
+                      type: string
+          maxItems: 100
+          example:
+          - Get:
+              TableName: example
+              Key: example
+              ProjectionExpression: example
     TransactWriteItemsInput:
       type: object
       required:
@@ -275,6 +266,15 @@ components:
           minLength: 1
           maxLength: 36
           example: example-string
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
   securitySchemes:
     sigv4Auth:
       type: http
