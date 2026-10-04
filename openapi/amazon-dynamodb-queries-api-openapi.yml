@@ -121,7 +121,42 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
+      schema:
+        type: string
+        pattern: ^DynamoDB_20120810\.\w+$
   schemas:
+    ScanOutput:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: An array of item attributes that match the scan criteria
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/AttributeValue'
+          example:
+          - {}
+        Count:
+          type: integer
+          description: The number of items in the response
+          example: 1
+        ScannedCount:
+          type: integer
+          description: The number of items evaluated before any filter is applied
+          example: 1
+        LastEvaluatedKey:
+          type: object
+          description: The primary key of the item where the operation stopped
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
     ScanInput:
       type: object
       required:
@@ -190,118 +225,6 @@ components:
           - COUNT
           - SPECIFIC_ATTRIBUTES
           example: ALL_ATTRIBUTES
-    QueryOutput:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: An array of item attributes that match the query criteria
-          items:
-            type: object
-            additionalProperties:
-              $ref: '#/components/schemas/AttributeValue'
-          example:
-          - {}
-        Count:
-          type: integer
-          description: The number of items in the response
-          example: 1
-        ScannedCount:
-          type: integer
-          description: The number of items evaluated before any filter is applied
-          example: 1
-        LastEvaluatedKey:
-          type: object
-          description: The primary key of the item where the operation stopped
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-    AttributeValue:
-      type: object
-      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
-      properties:
-        S:
-          type: string
-          description: String attribute value
-          example: example-string
-        N:
-          type: string
-          description: Number attribute value (sent as string)
-          example: example-string
-        B:
-          type: string
-          format: byte
-          description: Binary attribute value (Base64-encoded)
-          example: example-string
-        SS:
-          type: array
-          description: String set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        NS:
-          type: array
-          description: Number set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        BS:
-          type: array
-          description: Binary set attribute value
-          items:
-            type: string
-            format: byte
-          example:
-          - example-string
-        M:
-          type: object
-          description: Map attribute value
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        L:
-          type: array
-          description: List attribute value
-          items:
-            $ref: '#/components/schemas/AttributeValue'
-          example:
-          - example-string
-        'NULL':
-          type: boolean
-          description: Null attribute value
-          example: true
-        BOOL:
-          type: boolean
-          description: Boolean attribute value
-          example: true
-    ScanOutput:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: An array of item attributes that match the scan criteria
-          items:
-            type: object
-            additionalProperties:
-              $ref: '#/components/schemas/AttributeValue'
-          example:
-          - {}
-        Count:
-          type: integer
-          description: The number of items in the response
-          example: 1
-        ScannedCount:
-          type: integer
-          description: The number of items evaluated before any filter is applied
-          example: 1
-        LastEvaluatedKey:
-          type: object
-          description: The primary key of the item where the operation stopped
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
     QueryInput:
       type: object
       required:
@@ -368,15 +291,92 @@ components:
           - COUNT
           - SPECIFIC_ATTRIBUTES
           example: ALL_ATTRIBUTES
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      description: The target DynamoDB operation, in the format DynamoDB_20120810.OperationName
-      schema:
-        type: string
-        pattern: ^DynamoDB_20120810\.\w+$
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
+    QueryOutput:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: An array of item attributes that match the query criteria
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/AttributeValue'
+          example:
+          - {}
+        Count:
+          type: integer
+          description: The number of items in the response
+          example: 1
+        ScannedCount:
+          type: integer
+          description: The number of items evaluated before any filter is applied
+          example: 1
+        LastEvaluatedKey:
+          type: object
+          description: The primary key of the item where the operation stopped
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
   securitySchemes:
     sigv4Auth:
       type: http
