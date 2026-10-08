@@ -252,6 +252,8 @@ apis:
     url: >-
       https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html
 common:
+- type: FinOps
+  url: finops/amazon-dynamodb-finops.yml
 - type: Smithy
   url: smithy/dynamodb-2012-08-10.json
   name: Amazon DynamoDB Smithy 2.0 model (AWS first-party, 58 operations)
