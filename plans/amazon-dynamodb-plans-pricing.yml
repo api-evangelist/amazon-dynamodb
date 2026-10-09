@@ -327,3 +327,57 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
     url: https://apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  units:
+  - compute
+  - data
+  - request
+  plans:
+  - name: On-demand capacity mode (PayPerRequest)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - data
+    - request
+    periods:
+    - month
+  - name: On-demand, Standard-Infrequent Access table class
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods: []
+  - name: Provisioned capacity mode
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - compute
+    periods:
+    - hour
+  - name: Always-free allowance (provisioned mode and Streams)
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - data
+    - other
+    - request
+    periods:
+    - month
+  - name: Storage, backup, restore, export, import and Streams
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - data
+    - other
+    - request
+    periods: []

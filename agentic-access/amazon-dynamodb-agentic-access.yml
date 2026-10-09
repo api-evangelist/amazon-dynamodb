@@ -1,20 +1,24 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/amazon-dynamodb-openapi.yml
+source: openapi/amazon-dynamodb-batch-api-openapi.yml, openapi/amazon-dynamodb-items-api-openapi.yml,
+  openapi/amazon-dynamodb-queries-api-openapi.yml, openapi/amazon-dynamodb-tables-api-openapi.yml,
+  openapi/amazon-dynamodb-transactions-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 15
   by_action_class:
-    acting: 15
+    acting: 12
+    connected: 3
   by_consequence:
-    write: 15
+    write: 12
+    read: 3
   human_in_the_loop_required: 0
 operations:
-- path: /
+- path: /#BatchGetItem
   method: post
-  operationId: createTable
+  operationId: batchGetItem
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -28,57 +32,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /#DescribeTable
+- path: /#BatchWriteItem
   method: post
-  operationId: describeTable
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /#ListTables
-  method: post
-  operationId: listTables
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /#UpdateTable
-  method: post
-  operationId: updateTable
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /#DeleteTable
-  method: post
-  operationId: deleteTable
+  operationId: batchWriteItem
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -112,18 +68,12 @@ operations:
   method: post
   operationId: getItem
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /#UpdateItem
   method: post
   operationId: updateItem
@@ -160,18 +110,12 @@ operations:
   method: post
   operationId: query
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /#Scan
   method: post
   operationId: scan
@@ -188,9 +132,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /#BatchGetItem
+- path: /
   method: post
-  operationId: batchGetItem
+  operationId: createTable
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -204,9 +148,51 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /#BatchWriteItem
+- path: /#DescribeTable
   method: post
-  operationId: batchWriteItem
+  operationId: describeTable
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /#ListTables
+  method: post
+  operationId: listTables
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /#UpdateTable
+  method: post
+  operationId: updateTable
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /#DeleteTable
+  method: post
+  operationId: deleteTable
   x-agentic-access:
     action-class: acting
     consequence: write
