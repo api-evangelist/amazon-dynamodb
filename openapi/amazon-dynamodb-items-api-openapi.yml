@@ -212,15 +212,75 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    DeleteItemOutput:
+    UpdateItemOutput:
       type: object
       properties:
         Attributes:
           type: object
-          description: A map of attribute values as they appeared before the delete operation
+          description: A map of attribute values as they appear after the UpdateItem operation
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
+    AttributeValue:
+      type: object
+      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
+      properties:
+        S:
+          type: string
+          description: String attribute value
+          example: example-string
+        N:
+          type: string
+          description: Number attribute value (sent as string)
+          example: example-string
+        B:
+          type: string
+          format: byte
+          description: Binary attribute value (Base64-encoded)
+          example: example-string
+        SS:
+          type: array
+          description: String set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        NS:
+          type: array
+          description: Number set attribute value
+          items:
+            type: string
+          example:
+          - example-string
+        BS:
+          type: array
+          description: Binary set attribute value
+          items:
+            type: string
+            format: byte
+          example:
+          - example-string
+        M:
+          type: object
+          description: Map attribute value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+        L:
+          type: array
+          description: List attribute value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+          example:
+          - example-string
+        'NULL':
+          type: boolean
+          description: Null attribute value
+          example: true
+        BOOL:
+          type: boolean
+          description: Boolean attribute value
+          example: true
     UpdateItemInput:
       type: object
       required:
@@ -267,12 +327,21 @@ components:
           - UPDATED_NEW
           - ALL_NEW
           example: NONE
-    GetItemOutput:
+    PutItemOutput:
       type: object
       properties:
-        Item:
+        Attributes:
           type: object
-          description: A map of attribute names to AttributeValue objects
+          description: The attribute values as they appeared before the PutItem operation
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
+    DeleteItemOutput:
+      type: object
+      properties:
+        Attributes:
+          type: object
+          description: A map of attribute values as they appeared before the delete operation
           additionalProperties:
             $ref: '#/components/schemas/AttributeValue'
           example: {}
@@ -345,6 +414,15 @@ components:
           - NONE
           - ALL_OLD
           example: NONE
+    GetItemOutput:
+      type: object
+      properties:
+        Item:
+          type: object
+          description: A map of attribute names to AttributeValue objects
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+          example: {}
     DeleteItemInput:
       type: object
       required:
@@ -384,84 +462,6 @@ components:
           - NONE
           - ALL_OLD
           example: NONE
-    AttributeValue:
-      type: object
-      description: Represents the data for an attribute. Each attribute value is described as a name-value pair with the data type as the name.
-      properties:
-        S:
-          type: string
-          description: String attribute value
-          example: example-string
-        N:
-          type: string
-          description: Number attribute value (sent as string)
-          example: example-string
-        B:
-          type: string
-          format: byte
-          description: Binary attribute value (Base64-encoded)
-          example: example-string
-        SS:
-          type: array
-          description: String set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        NS:
-          type: array
-          description: Number set attribute value
-          items:
-            type: string
-          example:
-          - example-string
-        BS:
-          type: array
-          description: Binary set attribute value
-          items:
-            type: string
-            format: byte
-          example:
-          - example-string
-        M:
-          type: object
-          description: Map attribute value
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-        L:
-          type: array
-          description: List attribute value
-          items:
-            $ref: '#/components/schemas/AttributeValue'
-          example:
-          - example-string
-        'NULL':
-          type: boolean
-          description: Null attribute value
-          example: true
-        BOOL:
-          type: boolean
-          description: Boolean attribute value
-          example: true
-    PutItemOutput:
-      type: object
-      properties:
-        Attributes:
-          type: object
-          description: The attribute values as they appeared before the PutItem operation
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
-    UpdateItemOutput:
-      type: object
-      properties:
-        Attributes:
-          type: object
-          description: A map of attribute values as they appear after the UpdateItem operation
-          additionalProperties:
-            $ref: '#/components/schemas/AttributeValue'
-          example: {}
   parameters:
     XAmzTarget:
       name: X-Amz-Target
