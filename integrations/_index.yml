@@ -72,7 +72,7 @@
       type: source
       lapsed: false
       cloud: true
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: amazon-dynamodb-fivetran
   label: Fivetran
@@ -98,7 +98,7 @@
     - connectors/databases/dynamodb
     vendor_link: https://aws.amazon.com/dynamodb/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: amazon-dynamodb-meltano
   label: Meltano
@@ -141,5 +141,5 @@
     - silver
     - unknown
     builder: 'community (Meltano Hub variant maintainers: ahuynh3, airbyte, cosimon, fixdauto, henriblancke)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
