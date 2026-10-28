@@ -1,4 +1,4 @@
-# Amazon DynamoDB (amazon-dynamodb)
+# Amazon DynamoDB
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,89 +66,293 @@
 
 Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability, allowing you to store and retrieve any amount of data and serve any level of request traffic using key-value and document data models.
 
-**APIs.json:** [https://aws.amazon.com/dynamodb/](https://aws.amazon.com/dynamodb/)
+**Areas:** AWS · Database · Document Store · Key-Value Store · NoSQL · Serverless
 
-## Tags
+## Amazon DynamoDB on APIs.io
 
-- AWS
-- Database
-- Document Store
-- Key-Value
-- NoSQL
-- Serverless
+Everything profiled for Amazon DynamoDB is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/amazon-dynamodb/](https://apis.io/providers/amazon-dynamodb/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (15)
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-05-19
+- [Amazon DynamoDB Batch API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-batch-api/) — Operations for batch reading and writing multiple items
+- [Amazon DynamoDB Items API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-items-api/) — Operations for putting, getting, updating, and deleting individual items
+- [Amazon DynamoDB Queries API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-queries-api/) — Operations for querying and scanning table data
+- [Amazon DynamoDB Tables API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-tables-api/) — Operations for creating, describing, updating, listing, and deleting DynamoDB tables
+- [Amazon DynamoDB Transactions API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-transactions-api/) — Operations for transactional reads and writes across multiple items
+- [Amazon DynamoDB Streams API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-streams-api/) — API for capturing and processing change data from DynamoDB tables in near real-time, providing time-ordered sequences of item-level modifications.
+- [Amazon DynamoDB Dynamodb Backups API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-backups-api/) — The Dynamodb Backups API from Amazon DynamoDB — 8 operation(s) for dynamodb backups.
+- [Amazon DynamoDB Dynamodb Contributor Insights API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-contributor-insights-api/) — The Dynamodb Contributor Insights API from Amazon DynamoDB — 3 operation(s) for dynamodb contributor insights.
+- [Amazon DynamoDB Dynamodb Exports Imports API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-exports-imports-api/) — The Dynamodb Exports Imports API from Amazon DynamoDB — 6 operation(s) for dynamodb exports imports.
+- [Amazon DynamoDB Dynamodb Global Tables API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-global-tables-api/) — The Dynamodb Global Tables API from Amazon DynamoDB — 6 operation(s) for dynamodb global tables.
+- [Amazon DynamoDB Dynamodb Operations API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-operations-api/) — The Dynamodb Operations API from Amazon DynamoDB — 2 operation(s) for dynamodb operations.
+- [Amazon DynamoDB Dynamodb Resource Policies API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-resource-policies-api/) — The Dynamodb Resource Policies API from Amazon DynamoDB — 3 operation(s) for dynamodb resource policies.
+- [Amazon DynamoDB Dynamodb Streams Kinesis API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-streams-kinesis-api/) — The Dynamodb Streams Kinesis API from Amazon DynamoDB — 2 operation(s) for dynamodb streams kinesis.
+- [Amazon DynamoDB Dynamodb Tags API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-tags-api/) — The Dynamodb Tags API from Amazon DynamoDB — 2 operation(s) for dynamodb tags.
+- [Amazon DynamoDB Dynamodb Ttl API](https://apis.io/apis/amazon-dynamodb/amazon-dynamodb-ttl-api/) — The Dynamodb Ttl API from Amazon DynamoDB — 2 operation(s) for dynamodb ttl.
 
-## APIs
+### Published properties
 
-### Amazon DynamoDB API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Core API for managing Amazon DynamoDB tables, items, indexes, and performing data plane operations including single-item actions, queries, scans, batch operations, and transactions.
+#### Arazzo workflows (9)
 
-- **Human URL:** [https://aws.amazon.com/dynamodb/](https://aws.amazon.com/dynamodb/)
-- **Base URL:** `https://dynamodb.amazonaws.com`
+Multi-step workflows that chain operations into a business task.
 
-#### Tags
+- [Amazon DynamoDB Batch Write Then Batch Get](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-batch-write-then-batch-get-workflow/)
+- [Amazon DynamoDB Conditional Update of an Existing Item](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-conditional-update-item-workflow/)
+- [Amazon DynamoDB Add a Global Secondary Index and Wait](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-create-index-and-wait-workflow/)
+- [Amazon DynamoDB Drain and Delete a Table](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-drain-and-delete-table-workflow/)
+- [Amazon DynamoDB Provision Table and Seed First Item](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-provision-table-and-seed-workflow/)
+- [Amazon DynamoDB Provision a Table](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-provision-table-workflow/)
+- [Amazon DynamoDB Put Item Then Query](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-put-then-query-workflow/)
+- [Amazon DynamoDB Scan With Pagination](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-scan-paginate-workflow/)
+- [Amazon DynamoDB Transactional Write Then Transactional Read](https://apis.io/arazzos/amazon-dynamodb/amazon-dynamodb-transaction-write-then-read-workflow/)
 
-- AWS
-- Database
-- Document Store
-- Key-Value
-- NoSQL
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)
-- [OpenAPI](openapi/amazon-dynamodb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/amazon-dynamodb.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/amazon-dynamodb.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [OpenAPI](https://api.apis.guru/v2/specs/amazonaws.com/dynamodb/2012-08-10/openapi.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](json-schema/amazon-dynamodb-table-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/amazon-dynamodb-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Pricing](https://aws.amazon.com/dynamodb/pricing/)
-- [Getting Started](https://aws.amazon.com/dynamodb/getting-started/)
-- [F A Q](https://aws.amazon.com/dynamodb/faqs/)
-- [Terms of Service](https://aws.amazon.com/dynamodb/sla/)
-- [Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
-- [API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)
-- [Documentation](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/)
-- [Security](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/security.html)
-- [JSON Structure](json-structure/amazon-dynamodb-table-structure.json)
-- [Example](examples/amazon-dynamodb-table-example.json)
+- [amazon-dynamodb-mcp.yml](https://apis.io/servers/amazon-dynamodb/amazon-dynamodb-mcp-yml/)
 
-## Common Properties
+#### Agentic access (1)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Portal](https://aws.amazon.com/)
-- [Developer Portal](https://aws.amazon.com/dynamodb/)
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Amazon Dynamodb Agentic Access](https://apis.io/agentic-access/amazon-dynamodb/amazon-dynamodb-agentic-access/)
+
+#### JSON Schema (35)
+
+The data models the API reads and writes.
+
+- [Amazon DynamoDB Table](https://apis.io/schemas/amazon-dynamodb/amazon-dynamodb-table/)
+- [AttributeDefinition](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-attribute-definition/)
+- [AttributeValue](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-attribute-value/)
+- [BatchGetItemInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-batch-get-item-input/)
+- [BatchGetItemOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-batch-get-item-output/)
+- [BatchWriteItemInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-batch-write-item-input/)
+- [BatchWriteItemOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-batch-write-item-output/)
+- [CreateTableInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-create-table-input/)
+- [CreateTableOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-create-table-output/)
+- [DeleteItemInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-delete-item-input/)
+- [DeleteItemOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-delete-item-output/)
+- [DescribeTableOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-describe-table-output/)
+- [GetItemInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-get-item-input/)
+- [GetItemOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-get-item-output/)
+- [GlobalSecondaryIndex](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-global-secondary-index/)
+- [KeySchemaElement](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-key-schema-element/)
+- [LocalSecondaryIndex](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-local-secondary-index/)
+- [Projection](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-projection/)
+- [ProvisionedThroughput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-provisioned-throughput/)
+- [ProvisionedThroughputDescription](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-provisioned-throughput-description/)
+- [PutItemInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-put-item-input/)
+- [PutItemOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-put-item-output/)
+- [QueryInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-query-input/)
+- [QueryOutput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-query-output/)
+- [ScanInput](https://apis.io/schemas/amazon-dynamodb/dynamodb-openapi-scan-input/)
+- …and 10 more published on APIs.io
+
+#### JSON Structure (35)
+
+Data models expressed in JSON Structure.
+
+- [Amazon Dynamodb Table Structure](https://apis.io/json-structure/amazon-dynamodb/amazon-dynamodb-table-structure/)
+- [Dynamodb Openapi Attribute Definition Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-attribute-definition-structure/)
+- [Dynamodb Openapi Attribute Value Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-attribute-value-structure/)
+- [Dynamodb Openapi Batch Get Item Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-batch-get-item-input-structure/)
+- [Dynamodb Openapi Batch Get Item Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-batch-get-item-output-structure/)
+- [Dynamodb Openapi Batch Write Item Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-batch-write-item-input-structure/)
+- [Dynamodb Openapi Batch Write Item Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-batch-write-item-output-structure/)
+- [Dynamodb Openapi Create Table Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-create-table-input-structure/)
+- [Dynamodb Openapi Create Table Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-create-table-output-structure/)
+- [Dynamodb Openapi Delete Item Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-delete-item-input-structure/)
+- [Dynamodb Openapi Delete Item Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-delete-item-output-structure/)
+- [Dynamodb Openapi Describe Table Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-describe-table-output-structure/)
+- [Dynamodb Openapi Get Item Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-get-item-input-structure/)
+- [Dynamodb Openapi Get Item Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-get-item-output-structure/)
+- [Dynamodb Openapi Global Secondary Index Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-global-secondary-index-structure/)
+- [Dynamodb Openapi Key Schema Element Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-key-schema-element-structure/)
+- [Dynamodb Openapi Local Secondary Index Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-local-secondary-index-structure/)
+- [Dynamodb Openapi Projection Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-projection-structure/)
+- [Dynamodb Openapi Provisioned Throughput Description Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-provisioned-throughput-description-structure/)
+- [Dynamodb Openapi Provisioned Throughput Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-provisioned-throughput-structure/)
+- [Dynamodb Openapi Put Item Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-put-item-input-structure/)
+- [Dynamodb Openapi Put Item Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-put-item-output-structure/)
+- [Dynamodb Openapi Query Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-query-input-structure/)
+- [Dynamodb Openapi Query Output Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-query-output-structure/)
+- [Dynamodb Openapi Scan Input Structure](https://apis.io/json-structure/amazon-dynamodb/dynamodb-openapi-scan-input-structure/)
+- …and 10 more published on APIs.io
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Amazon Dynamodb Context](https://apis.io/jsonld/amazon-dynamodb/amazon-dynamodb-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Amazon Dynamodb Vocabulary](https://apis.io/vocabularies/amazon-dynamodb/amazon-dynamodb-vocabulary/)
+
+#### Examples (35)
+
+Example requests and responses.
+
+- [Amazon Dynamodb Table Example](https://apis.io/examples/amazon-dynamodb/amazon-dynamodb-table-example/)
+- [Dynamodb Openapi Attribute Definition Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-attribute-definition-example/)
+- [Dynamodb Openapi Attribute Value Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-attribute-value-example/)
+- [Dynamodb Openapi Batch Get Item Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-batch-get-item-input-example/)
+- [Dynamodb Openapi Batch Get Item Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-batch-get-item-output-example/)
+- [Dynamodb Openapi Batch Write Item Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-batch-write-item-input-example/)
+- [Dynamodb Openapi Batch Write Item Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-batch-write-item-output-example/)
+- [Dynamodb Openapi Create Table Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-create-table-input-example/)
+- [Dynamodb Openapi Create Table Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-create-table-output-example/)
+- [Dynamodb Openapi Delete Item Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-delete-item-input-example/)
+- [Dynamodb Openapi Delete Item Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-delete-item-output-example/)
+- [Dynamodb Openapi Describe Table Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-describe-table-output-example/)
+- [Dynamodb Openapi Get Item Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-get-item-input-example/)
+- [Dynamodb Openapi Get Item Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-get-item-output-example/)
+- [Dynamodb Openapi Global Secondary Index Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-global-secondary-index-example/)
+- [Dynamodb Openapi Key Schema Element Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-key-schema-element-example/)
+- [Dynamodb Openapi Local Secondary Index Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-local-secondary-index-example/)
+- [Dynamodb Openapi Projection Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-projection-example/)
+- [Dynamodb Openapi Provisioned Throughput Description Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-provisioned-throughput-description-example/)
+- [Dynamodb Openapi Provisioned Throughput Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-provisioned-throughput-example/)
+- [Dynamodb Openapi Put Item Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-put-item-input-example/)
+- [Dynamodb Openapi Put Item Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-put-item-output-example/)
+- [Dynamodb Openapi Query Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-query-input-example/)
+- [Dynamodb Openapi Query Output Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-query-output-example/)
+- [Dynamodb Openapi Scan Input Example](https://apis.io/examples/amazon-dynamodb/dynamodb-openapi-scan-input-example/)
+- …and 10 more published on APIs.io
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [Amazon DynamoDB API](https://apis.io/collections/amazon-dynamodb/open-amazon-dynamodb/)
+- [Amazon DynamoDB Batch API](https://apis.io/collections/amazon-dynamodb/open-amazon-dynamodb-batch-api/)
+- [Amazon DynamoDB Batch Items API](https://apis.io/collections/amazon-dynamodb/open-amazon-dynamodb-items-api/)
+- [Amazon DynamoDB Batch Queries API](https://apis.io/collections/amazon-dynamodb/open-amazon-dynamodb-queries-api/)
+- [Amazon DynamoDB Batch Tables API](https://apis.io/collections/amazon-dynamodb/open-amazon-dynamodb-tables-api/)
+- [Amazon DynamoDB Batch Transactions API](https://apis.io/collections/amazon-dynamodb/open-amazon-dynamodb-transactions-api/)
+- [Amazon DynamoDB API](https://apis.io/collections/amazon-dynamodb/postman-amazon-dynamodb/)
+
+#### Overlays (10)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Amazon Dynamodb Batch Api Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-batch-api-overlay/)
+- [Amazon Dynamodb Batch Api Phrasing Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-batch-api-phrasing-overlay/)
+- [Amazon Dynamodb Items Api Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-items-api-overlay/)
+- [Amazon Dynamodb Items Api Phrasing Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-items-api-phrasing-overlay/)
+- [Amazon Dynamodb Queries Api Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-queries-api-overlay/)
+- [Amazon Dynamodb Queries Api Phrasing Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-queries-api-phrasing-overlay/)
+- [Amazon Dynamodb Tables Api Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-tables-api-overlay/)
+- [Amazon Dynamodb Tables Api Phrasing Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-tables-api-phrasing-overlay/)
+- [Amazon Dynamodb Transactions Api Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-transactions-api-overlay/)
+- [Amazon Dynamodb Transactions Api Phrasing Overlay](https://apis.io/overlays/amazon-dynamodb/amazon-dynamodb-transactions-api-phrasing-overlay/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Amazon DynamoDB — jsonschema rules](https://apis.io/rules/amazon-dynamodb/amazon-dynamodb-jsonschema-spectral-rules/)
+- [Amazon DynamoDB API Rules](https://apis.io/rules/amazon-dynamodb/amazon-dynamodb-spectral-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Amazon Dynamodb Authentication](https://apis.io/security/amazon-dynamodb/amazon-dynamodb-authentication/)
+- [Amazon Dynamodb Domain Security](https://apis.io/security/amazon-dynamodb/amazon-dynamodb-domain-security/)
+- [Amazon Dynamodb Trust Center](https://apis.io/security/amazon-dynamodb/amazon-dynamodb-trust-center/)
+- [Amazon Dynamodb Vulnerability Disclosure](https://apis.io/security/amazon-dynamodb/amazon-dynamodb-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Amazon Dynamodb Plans Pricing](https://apis.io/plans/amazon-dynamodb/amazon-dynamodb-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Amazon Dynamodb Rate Limits](https://apis.io/rate-limits/amazon-dynamodb/amazon-dynamodb-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Amazon Dynamodb Finops](https://apis.io/finops/amazon-dynamodb/amazon-dynamodb-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aws.amazon.com/dynamodb/)
 - [Documentation](https://docs.aws.amazon.com/dynamodb/)
-- [Terms of Service](https://aws.amazon.com/service-terms/)
-- [Privacy Policy](https://aws.amazon.com/privacy/)
+- [Pricing](https://aws.amazon.com/dynamodb/pricing/)
 - [Support](https://aws.amazon.com/premiumsupport/)
 - [Blog](https://aws.amazon.com/blogs/database/)
-- [GitHub Organization](https://github.com/aws)
-- [Console](https://console.aws.amazon.com/dynamodbv2/)
-- [Sign Up](https://signin.aws.amazon.com/signup?request_type=register)
-- [Login](https://aws.amazon.com/console/)
-- [Status Page](https://health.aws.amazon.com/health/status)
-- [Knowledge Center](https://repost.aws/knowledge-center)
-- [YouTube](https://www.youtube.com/user/AmazonWebServices)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/amazon-dynamodb)
-- [Contact](https://aws.amazon.com/contact-us/)
 - [Security](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/security.html)
 - [Compliance](https://aws.amazon.com/compliance/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Spectral Rules](rules/amazon-dynamodb-spectral-rules.yml)
-- [Vocabulary](vocabulary/amazon-dynamodb-vocabulary.yaml)
-- [Integrations](https://aws.amazon.com/marketplace)
+- [Terms of service](https://aws.amazon.com/service-terms/)
+- [Privacy policy](https://aws.amazon.com/privacy/)
+- [GitHub](https://github.com/aws)
+- [Status](https://health.aws.amazon.com/health/status)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 78.8** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 81.7 |
+| Contract quality | 69.6 |
+| Contract governance | 45.5 |
+| Operational transparency | 84.2 |
+| Developer ergonomics | 81.5 |
+| Access clarity | 85.5 |
+
+**Agent readiness 37.7** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/amazon-dynamodb/](https://apis.io/providers/amazon-dynamodb/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Amazon DynamoDB: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/amazon-dynamodb/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
