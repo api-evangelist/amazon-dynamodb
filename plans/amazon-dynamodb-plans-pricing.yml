@@ -107,7 +107,7 @@ rate_limit_statements:
 - Reserved provisioned capacity is purchased in blocks of 100 WCUs or 100 RCUs
 - To transfer data exceeding 500 TB per month, contact us
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - hybrid
