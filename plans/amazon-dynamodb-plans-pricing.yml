@@ -1,0 +1,215 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://aws.amazon.com/dynamodb/pricing/
+sources:
+- https://aws.amazon.com/dynamodb/pricing/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: true
+note: 'Main rate tables are rendered via dynamic pricing tokens (not resolved in page text); numeric prices
+  captured here come from the page''s worked pricing examples for US East (N. Virginia). Savings options:
+  up to 54% (one-year) or up to 77% (three-year) reserved provisioned capacity; Database Savings Plans
+  up to 18%/12%.'
+plan_count: 12
+currency: USD
+plans:
+- name: On-demand write request units (US East N. Virginia, Standard, per pricing example)
+  price_text: $0.625 per million writes
+  price: 0.625
+  currency: USD
+  period: per-use
+  unit: million write request units
+  included_quota: 25 WCUs, 25 RCUs free tier (provisioned)
+- name: On-demand read request units (US East N. Virginia, Standard, per pricing example)
+  price_text: $0.125 per million reads
+  price: 0.125
+  currency: USD
+  period: per-use
+  unit: million read request units
+- name: Data storage, Standard table class (pricing example)
+  price_text: $0.25 per GB
+  price: 0.25
+  currency: USD
+  period: month
+  unit: GB-month
+  included_quota: first 25 GB of storage are included in the AWS Free Tier
+- name: Data storage, Standard-IA table class (pricing example)
+  price_text: $0.10 per GB
+  price: 0.1
+  currency: USD
+  period: month
+  unit: GB-month
+- name: Standard-IA on-demand writes (pricing example)
+  price_text: $0.780 per million writes
+  price: 0.78
+  currency: USD
+  period: per-use
+  unit: million write request units
+- name: Standard-IA on-demand reads (pricing example)
+  price_text: $0.155 per million reads
+  price: 0.155
+  currency: USD
+  period: per-use
+  unit: million read request units
+- name: Provisioned write capacity unit (pricing example)
+  price_text: $0.00065 per hour
+  price: 0.00065
+  currency: USD
+  period: per-use
+  unit: WCU-hour
+  included_quota: 25 WCUs free tier
+- name: Provisioned read capacity unit (pricing example)
+  price_text: $0.00013 per hour
+  price: 0.00013
+  currency: USD
+  period: per-use
+  unit: RCU-hour
+  included_quota: 25 RCUs free tier
+- name: Vector write request (pricing example)
+  price_text: $0.52 per GB
+  price: 0.52
+  currency: USD
+  period: per-use
+  unit: GB written
+- name: Vector search (pricing example)
+  price_text: $0.002 per GB
+  price: 0.002
+  currency: USD
+  period: per-use
+  unit: GB processed
+- name: DynamoDB Streams read request units (pricing example)
+  price_text: $0.02 per 100,000
+  price: 0.02
+  currency: USD
+  period: per-use
+  unit: 100,000 streams read request units
+  included_quota: first 2,500,000 read requests are included in the AWS Free Tier
+- name: Free tier
+  price_text: up to $200 USD in credits
+  price: 200
+  currency: USD
+  period: none
+  unit: credits
+  included_quota: 25 WCUs, 25 RCUs; 25 rWCUs; 25 GB of data storage; 2.5 million stream read requests;
+    1 GB of data transfer out
+rate_limit_statements:
+- You can purchase up to a combined one million reserved provisioned capacity units for write capacity
+  units (WCUs) and read capacity units (RCUs)
+- Reserved provisioned capacity is purchased in blocks of 100 WCUs or 100 RCUs
+- To transfer data exceeding 500 TB per month, contact us
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - compute
+  - credit
+  - data
+  - request
+  plans:
+  - name: On-demand write request units (US East N. Virginia, Standard, per pricing exampl
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: On-demand read request units (US East N. Virginia, Standard, per pricing example
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: Data storage, Standard table class (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - month
+  - name: Data storage, Standard-IA table class (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - month
+  - name: Standard-IA on-demand writes (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: Standard-IA on-demand reads (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: Provisioned write capacity unit (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Provisioned read capacity unit (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Vector write request (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: Vector search (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: DynamoDB Streams read request units (pricing example)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: Free tier
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - none
