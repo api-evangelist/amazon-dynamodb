@@ -5,6 +5,9 @@ artifacts:
   agentic-access/amazon-dynamodb-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  ai-preferences/amazon-dynamodb-ai-preferences.yml:
+    method: harvested
+    evidence: declared in the artifact
   arazzo/amazon-dynamodb-batch-write-then-batch-get-workflow.yml:
     method: derived
     evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
@@ -36,6 +39,9 @@ artifacts:
     method: derived
     evidence: declared in the artifact
   capabilities/amazon-dynamodb-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
     method: unknown
     evidence: no authorship recorded
   changelog/amazon-dynamodb-changelog.yml:
@@ -80,14 +86,23 @@ artifacts:
   collections/amazon-dynamodb.postman_collection.json:
     method: derived
     evidence: openapi/amazon-dynamodb
+  compliance/amazon-dynamodb-compliance.yml:
+    method: harvested
+    evidence: declared in the artifact
   conformance/amazon-dynamodb-conformance.yml:
     method: searched
     evidence: declared in the artifact
   conventions/amazon-dynamodb-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  data-license/amazon-dynamodb-data-license.yml:
+    method: harvested
+    evidence: declared in the artifact
   data-model/amazon-dynamodb-data-model.yml:
     method: derived
+    evidence: declared in the artifact
+  eligibility/amazon-dynamodb-eligibility.yml:
+    method: harvested
     evidence: declared in the artifact
   errors/amazon-dynamodb-problem-types.yml:
     method: derived
@@ -203,16 +218,235 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/amazon-dynamodb-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
   integrations/amazon-dynamodb-integration-edges.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: searched
+    evidence: declared in the artifact
   json-ld/amazon-dynamodb-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-dynamodb-cancel-bulk-operation-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-cancel-bulk-operation-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-create-backup-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-create-cluster-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-create-global-table-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-create-parameter-group-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-create-subnet-group-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-delete-parameter-group-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-delete-parameter-group-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-delete-resource-policy-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-delete-resource-policy-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-delete-subnet-group-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-delete-subnet-group-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-bulk-operation-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-bulk-operation-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-clusters-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-contributor-insights-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-contributor-insights-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-global-table-settings-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-kinesis-streaming-destination-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-kinesis-streaming-destination-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-parameter-groups-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-parameter-groups-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-subnet-groups-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-subnet-groups-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-time-to-live-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-describe-time-to-live-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-export-table-to-point-in-time-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-get-resource-policy-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-get-resource-policy-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-get-shard-iterator-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-import-table-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-kinesis-streaming-destination-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-kinesis-streaming-destination-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-backups-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-backups-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-bulk-operations-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-bulk-operations-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-contributor-insights-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-contributor-insights-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-exports-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-exports-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-global-tables-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-imports-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-imports-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-tags-of-resource-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-tags-of-resource-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-tags-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-list-tags-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-put-resource-policy-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-put-resource-policy-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-query-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-query-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-restore-table-from-backup-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-restore-table-to-point-in-time-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-scan-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-scan-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-search-vectors-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-dynamodb-table-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-tag-resource-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-cluster-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-continuous-backups-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-contributor-insights-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-contributor-insights-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-global-table-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-global-table-settings-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-global-table-settings-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-kinesis-streaming-destination-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-kinesis-streaming-destination-output-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-parameter-group-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-subnet-group-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-time-to-live-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-dynamodb-update-time-to-live-output-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/dynamodb-openapi-attribute-definition-schema.json:
@@ -425,7 +659,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -494,9 +728,15 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/amazon-dynamodb-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/amazon-dynamodb-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/amazon-dynamodb-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
@@ -512,14 +752,16 @@ artifacts:
   mcp/amazon-dynamodb-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
-  openapi/_original/amazon-dynamodb-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
   openapi/amazon-dynamodb-backups-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-dynamodb-batch-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/amazon-dynamodb-bulk-operation-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/amazon-dynamodb-cluster-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-dynamodb-contributor-insights-api-openapi.yml:
@@ -532,9 +774,12 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-dynamodb-items-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-dynamodb-operations-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/amazon-dynamodb-parameter-group-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-dynamodb-queries-api-openapi.yml:
@@ -546,6 +791,9 @@ artifacts:
   openapi/amazon-dynamodb-streams-kinesis-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
+  openapi/amazon-dynamodb-subnet-group-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-dynamodb-tables-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -553,8 +801,8 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-dynamodb-transactions-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-dynamodb-ttl-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -591,6 +839,9 @@ artifacts:
   packages/amazon-dynamodb-packages.yml:
     method: searched
     evidence: declared in the artifact
+  patterns/amazon-dynamodb-patterns.yml:
+    method: derived
+    evidence: declared in the artifact
   plans/amazon-dynamodb-plans-pricing.yml:
     method: searched
     evidence: declared in the artifact
@@ -601,6 +852,9 @@ artifacts:
     method: searched
     evidence: declared in the artifact
   rules/amazon-dynamodb-jsonschema-spectral-rules.yml:
+    method: generated
+    evidence: declared in the artifact
+  rules/amazon-dynamodb-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/amazon-dynamodb-spectral-rules.yml:
@@ -636,15 +890,30 @@ artifacts:
   sla/amazon-dynamodb-sla.yml:
     method: generated
     evidence: declared in the artifact
+  smithy/dax-2017-04-19.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/dax/service/2017-04-19/dax-2017-04-19.json
+      (sha256 1d51e87a2c32, fetched 2026-11-11T21:08:41+00:00)
   smithy/dynamodb-2012-08-10.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/dynamodb/service/2012-08-10/dynamodb-2012-08-10.json
+      (sha256 a6e190a30830, fetched 2026-11-11T21:08:39+00:00)
   smithy/dynamodb-streams-2012-08-10.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/dynamodb-streams/service/2012-08-10/dynamodb-streams-2012-08-10.json
+      (sha256 a5723166fba3, fetched 2026-11-11T21:08:40+00:00)
+  terms/amazon-dynamodb-terms-of-service.yml:
+    method: harvested
+    evidence: declared in the artifact
+  vendors/amazon-dynamodb-vendors.yml:
     method: unknown
     evidence: no authorship recorded
   vocabulary/amazon-dynamodb-vocabulary.yaml:
     method: unknown
     evidence: no authorship recorded
+  vocabulary/amazon-dynamodb-vocabulary.yml:
+    method: derived
+    evidence: declared in the artifact
   well-known/amazon-dynamodb-security.txt:
     method: unknown
     evidence: no authorship recorded
